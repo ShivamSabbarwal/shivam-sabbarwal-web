@@ -25,7 +25,7 @@ import {
 import { useSounds } from "../../lib/audio/sounds";
 
 const TechStack = () => {
-  const { playHover, playClick } = useSounds();
+  const { playHover } = useSounds();
 
   const techCategories = [
     {
