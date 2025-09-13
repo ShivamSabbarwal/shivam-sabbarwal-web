@@ -1,6 +1,7 @@
 import Navigation from "@/components/layout/Navigation";
 import Hero from "@/components/sections/Hero";
 import Timeline from "@/components/sections/Timeline";
+import TechStack from "@/components/sections/TechStack";
 import CreativeProjects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
@@ -24,6 +25,7 @@ const AppContent = () => {
       {!isLoading && <Navigation />}
       <Hero />
       <Timeline />
+      <TechStack />
       <CreativeProjects />
       <Contact />
       <Footer />

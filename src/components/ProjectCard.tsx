@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { ExternalLink, Github } from "lucide-react";
 import { useSounds } from "../lib/audio/sounds";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ProjectCardProps {
   project: {
@@ -37,13 +39,15 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
             transition={{ duration: 0.1, ease: "easeOut" }}
             className="relative group"
           >
-            <div className="aspect-video angular-card overflow-hidden cartoon-shadow-lg">
-              <div className="w-full h-full bg-primary/10 flex items-center justify-center">
-                <span className="text-2xl font-black text-primary">
-                  {project.title}
-                </span>
-              </div>
-            </div>
+            <Card className="aspect-video overflow-hidden cartoon-shadow-lg">
+              <CardContent className="p-0 h-full">
+                <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-2xl font-black text-primary">
+                    {project.title}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
             
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
@@ -87,12 +91,13 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <span
+              <Badge
                 key={tag}
-                className="angular-chip text-sm font-bold"
+                variant="default"
+                className="text-sm font-bold"
               >
                 {tag}
-              </span>
+              </Badge>
             ))}
           </div>
 
@@ -140,57 +145,60 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
       onHoverStart={playHover}
       className="group"
     >
-      <div className="angular-card p-6 hover:animate-bounce-slow transition-all duration-150">
-        <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 diagonal-cut mb-4 flex items-center justify-center">
-          <span className="text-lg font-bold text-muted-foreground">
-            {project.title}
-          </span>
-        </div>
-        
-        <h4 className="text-xl font-bold mb-2 gradient-text">
-          {project.title}
-        </h4>
-        
-        <p className="text-muted-foreground mb-4 text-sm">
-          {project.description}
-        </p>
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="angular-chip text-xs font-medium"
-            >
-              {tag}
+      <Card className="p-6 hover:animate-bounce-slow transition-all duration-150">
+        <CardContent className="p-0">
+          <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 diagonal-cut mb-4 flex items-center justify-center">
+            <span className="text-lg font-bold text-muted-foreground">
+              {project.title}
             </span>
-          ))}
-        </div>
-        
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <motion.a
-              whileHover={{ scale: 1.2, rotate: 10 }}
-              transition={{ duration: 0.1, ease: "easeOut" }}
-              onHoverStart={playHover}
-              onTapStart={playClick}
-              href={project.liveUrl}
-              className="p-2 angular-card hover:animate-bounce-slow transition-all duration-300"
-            >
-              <ExternalLink className="w-4 h-4" />
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.2, rotate: 10 }}
-              transition={{ duration: 0.1, ease: "easeOut" }}
-              onHoverStart={playHover}
-              onTapStart={playClick}
-              href={project.githubUrl}
-              className="p-2 angular-card hover:animate-bounce-slow transition-all duration-300"
-            >
-              <Github className="w-4 h-4" />
-            </motion.a>
           </div>
-        </div>
-      </div>
+          
+          <h4 className="text-xl font-bold mb-2 gradient-text">
+            {project.title}
+          </h4>
+          
+          <p className="text-muted-foreground mb-4 text-sm">
+            {project.description}
+          </p>
+          
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="default"
+                className="text-xs font-medium"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <motion.a
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                transition={{ duration: 0.1, ease: "easeOut" }}
+                onHoverStart={playHover}
+                onTapStart={playClick}
+                href={project.liveUrl}
+                className="p-2 angular-card hover:animate-bounce-slow transition-all duration-300"
+              >
+                <ExternalLink className="w-4 h-4" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                transition={{ duration: 0.1, ease: "easeOut" }}
+                onHoverStart={playHover}
+                onTapStart={playClick}
+                href={project.githubUrl}
+                className="p-2 angular-card hover:animate-bounce-slow transition-all duration-300"
+              >
+                <Github className="w-4 h-4" />
+              </motion.a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </motion.div>
   );
 };

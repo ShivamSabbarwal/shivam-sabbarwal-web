@@ -1,33 +1,55 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { Mail, Github, Linkedin, Twitter, Send, MapPin, Phone } from "lucide-react";
+import { Mail, Github, Linkedin, Send, MapPin, Phone } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+// Form validation schema
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
     
     // Simulate form submission
+    console.log("Form submitted with data:", data);
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     setIsSubmitting(false);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    form.reset();
   };
 
   const socialLinks = [
@@ -97,9 +119,9 @@ const Contact = () => {
                 transition={{ duration: 0.1, ease: "easeOut" }}
                 className="flex items-center space-x-4"
               >
-                <div className="p-3 angular-card hover:animate-glow">
+                <Badge variant="outline" className="p-3 hover:animate-glow">
                   <Mail className="w-5 h-5 text-primary" />
-                </div>
+                </Badge>
                 <div>
                   <p className="font-semibold">Email</p>
                   <p className="text-muted-foreground">shivam.sabb@gmail.com</p>
@@ -111,9 +133,9 @@ const Contact = () => {
                 transition={{ duration: 0.1, ease: "easeOut" }}
                 className="flex items-center space-x-4"
               >
-                <div className="p-3 angular-card hover:animate-glow">
+                <Badge variant="outline" className="p-3 hover:animate-glow">
                   <Phone className="w-5 h-5 text-primary" />
-                </div>
+                </Badge>
                 <div>
                   <p className="font-semibold">Phone</p>
                   <p className="text-muted-foreground">+1 (506) 609-0423</p>
@@ -125,9 +147,9 @@ const Contact = () => {
                 transition={{ duration: 0.1, ease: "easeOut" }}
                 className="flex items-center space-x-4"
               >
-                <div className="p-3 angular-card hover:animate-glow">
+                <Badge variant="outline" className="p-3 hover:animate-glow">
                   <MapPin className="w-5 h-5 text-primary" />
-                </div>
+                </Badge>
                 <div>
                   <p className="font-semibold">Location</p>
                   <p className="text-muted-foreground">New Westminster, BC</p>
@@ -166,100 +188,104 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="angular-card p-8"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 angular-input focus:outline-none transition-all duration-300 rounded-lg"
-                    placeholder="Your name"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 angular-input focus:outline-none transition-all duration-300 rounded-lg"
-                    placeholder="your@email.com"
-                  />
-                </div>
-              </div>
+            <Card className="p-8">
+              <CardContent className="p-0">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Your name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="your@email.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 angular-input focus:outline-none transition-all duration-300 rounded-lg"
-                  placeholder="What's this about?"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 angular-input focus:outline-none transition-all duration-300 resize-none rounded-lg"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95, y: 1 }}
-                transition={{ duration: 0.1, ease: "easeOut" }}
-                className="w-full px-8 py-4 angular-button font-black text-lg uppercase tracking-wide transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:animate-glow"
-              >
-                {isSubmitting ? (
-                  <>
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    <FormField
+                      control={form.control}
+                      name="subject"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Subject</FormLabel>
+                          <FormControl>
+                            <Input placeholder="What's this about?" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </motion.button>
-            </form>
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Message</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              rows={6}
+                              placeholder="Tell me about your project..." 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <motion.div
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95, y: 1 }}
+                      transition={{ duration: 0.1, ease: "easeOut" }}
+                    >
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full text-lg uppercase tracking-wide hover:animate-glow"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                            />
+                            <span>Sending...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-5 h-5" />
+                            <span>Send Message</span>
+                          </>
+                        )}
+                      </Button>
+                    </motion.div>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
           </motion.div>
         </div>
       </div>

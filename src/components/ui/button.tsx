@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground border-3 border-foreground rounded-xl shadow-lg hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 hover:transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 font-bold",
         outline:
-          "border-3 border-foreground bg-background rounded-xl shadow-lg hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 hover:transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 font-bold",
+          "angular-button-outline",
         secondary:
           "bg-secondary text-secondary-foreground border-3 border-foreground rounded-xl shadow-lg hover:bg-secondary/80 hover:transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 font-bold",
         ghost:

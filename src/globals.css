@@ -360,6 +360,22 @@
     text-transform: uppercase;
   }
 
+  /* TikTok-style 3D Outline Buttons */
+  .angular-button-outline {
+    background: var(--background);
+    color: var(--foreground);
+    border: 3px solid var(--foreground);
+    border-radius: 12px;
+    box-shadow: 
+      3px 3px 0 var(--accent),
+      6px 6px 0 var(--cartoon-highlight);
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
   .angular-button::before {
     content: '';
     position: absolute;
@@ -392,6 +408,31 @@
   }
 
   .angular-button:focus {
+    outline: none;
+    box-shadow: 
+      3px 3px 0 var(--accent),
+      6px 6px 0 var(--cartoon-highlight),
+      0 0 0 3px rgba(var(--primary-rgb, 96, 125, 139), 0.3);
+  }
+
+  .angular-button-outline:hover {
+    transform: translateY(-3px) translateX(-3px) scale(1.05);
+    box-shadow: 
+      4px 4px 0 var(--accent),
+      8px 8px 0 var(--cartoon-highlight);
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  .angular-button-outline:active {
+    transform: translateY(-1px) translateX(-1px) scale(1.02);
+    box-shadow: 
+      1px 1px 0 var(--accent),
+      2px 2px 0 var(--cartoon-highlight);
+    transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .angular-button-outline:focus {
     outline: none;
     box-shadow: 
       3px 3px 0 var(--accent),

@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -74,9 +75,9 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
             <div className="space-y-3">
               <p className="text-muted-foreground">
-                hello@shivam-sabbarwal.com
+                shivam.sabbarwal@gmail.com
               </p>
-              <p className="text-muted-foreground">San Francisco, CA</p>
+              <p className="text-muted-foreground">New Westminster, BC</p>
             </div>
           </motion.div>
         </div>
@@ -93,15 +94,20 @@ const Footer = () => {
             © {currentYear} Shivam Sabbarwal. All rights reserved.
           </p>
 
-          <motion.button
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={scrollToTop}
-            className="mt-4 md:mt-0 p-3 angular-card hover:animate-bounce-slow transition-all duration-300"
-            aria-label="Scroll to top"
           >
-            <ArrowUp className="w-5 h-5" />
-          </motion.button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={scrollToTop}
+              className="mt-4 md:mt-0 p-3 hover:animate-bounce-slow transition-all duration-300"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-5 h-5" />
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </footer>

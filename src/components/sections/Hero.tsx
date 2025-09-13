@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowDown, Sparkles, Code, Palette } from "lucide-react";
 import { useSounds } from "../../lib/audio/sounds";
+import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   const { playClick, playHover, playBounce } = useSounds();
@@ -142,28 +143,35 @@ const Hero = () => {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            <motion.button
+            <motion.div
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95, y: 1 }}
               transition={{ duration: 0.1, ease: "easeOut" }}
               onHoverStart={playHover}
               onTapStart={playClick}
-              onClick={scrollToNext}
-              className="angular-button px-8 py-4 font-black text-lg hover:animate-glow"
             >
-              View My Work
-            </motion.button>
+              <Button
+                onClick={scrollToNext}
+                className="px-8 py-4 font-black text-lg hover:animate-glow"
+              >
+                View My Work
+              </Button>
+            </motion.div>
             
-            <motion.button
+            <motion.div
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95, y: 1 }}
               transition={{ duration: 0.1, ease: "easeOut" }}
               onHoverStart={playHover}
               onTapStart={playClick}
-              className="px-8 py-4 angular-card font-black text-lg hover:animate-pulse-color transition-all duration-150"
             >
-              Get In Touch
-            </motion.button>
+              <Button
+                variant="outline"
+                className="px-8 py-4 font-black text-lg hover:animate-pulse-color transition-all duration-150"
+              >
+                Get In Touch
+              </Button>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
@@ -175,16 +183,21 @@ const Hero = () => {
         transition={{ delay: 1.2, duration: 0.8 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <motion.button
+        <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           onHoverStart={playHover}
           onTapStart={playBounce}
-          onClick={scrollToNext}
-          className="p-4 angular-card hover:animate-bounce-slow transition-all duration-300"
         >
-          <ArrowDown className="w-6 h-6 text-primary" />
-        </motion.button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={scrollToNext}
+            className="p-4 hover:animate-bounce-slow transition-all duration-300"
+          >
+            <ArrowDown className="w-6 h-6 text-primary" />
+          </Button>
+        </motion.div>
       </motion.div>
     </section>
   );

@@ -1,5 +1,7 @@
 import { motion } from "motion/react";
 import { Calendar, MapPin, Building2, Award, GraduationCap } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Timeline = () => {
   const timelineHistory = [
@@ -134,7 +136,7 @@ const Timeline = () => {
       title: "Bachelor of Science (BSc)",
       company: "University of New Brunswick",
       location: "Fredericton, NB",
-      period: "2014 – 2020",
+      period: "September 2014 – April 2020",
       description: "Comprehensive software engineering education with focus on modern development practices, system design, and practical application of computer science principles.",
       achievements: [
         "Co-op Certification Program",
@@ -146,6 +148,25 @@ const Timeline = () => {
       category: "education"
     }
   ];
+
+  // Extract month and year from period strings for timeline dots
+  const getMonthYear = (period: string) => {
+    // Extract month and year from the start of the period (always show start date)
+    const monthYearMatch = period.match(/([A-Za-z]+)\s+(\d{4})/);
+    if (monthYearMatch) {
+      const month = monthYearMatch[1];
+      const year = monthYearMatch[2];
+      return `${month} ${year}`;
+    }
+    
+    // Fallback for year ranges like "2014 – 2020"
+    const yearMatch = period.match(/(\d{4})/);
+    if (yearMatch) {
+      return yearMatch[1];
+    }
+    
+    return null;
+  };
 
   return (
     <section id="timeline" className="py-24 relative">
@@ -170,8 +191,13 @@ const Timeline = () => {
         <div className="relative">
           {/* Timeline Line */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-3 transform md:-translate-x-1/2">
-            {/* Main timeline line with enhanced styling */}
-            <div className="w-full h-full timeline-line rounded-full"></div>
+            {/* Main timeline line with faded ends */}
+            <div className="w-full h-full timeline-line rounded-full relative">
+              {/* Fade effect at top */}
+              <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-transparent to-timeline-line"></div>
+              {/* Fade effect at bottom */}
+              <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-transparent to-timeline-line"></div>
+            </div>
             
             {/* Animated glow effect */}
             <div className="absolute inset-0 w-full h-full timeline-line rounded-full opacity-30 animate-pulse"></div>
@@ -182,29 +208,6 @@ const Timeline = () => {
               initial={{ height: "0%" }}
               whileInView={{ height: "100%" }}
               transition={{ duration: 2.5, ease: "easeInOut" }}
-              viewport={{ once: true }}
-            />
-            
-            {/* Decorative dots along the line */}
-            <motion.div 
-              className="absolute top-1/4 left-1/2 w-3 h-3 bg-accent rounded-full transform -translate-x-1/2 shadow-lg border border-background"
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              viewport={{ once: true }}
-            />
-            <motion.div 
-              className="absolute top-1/2 left-1/2 w-3 h-3 bg-cartoon-highlight rounded-full transform -translate-x-1/2 shadow-lg border border-background"
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              viewport={{ once: true }}
-            />
-            <motion.div 
-              className="absolute top-3/4 left-1/2 w-3 h-3 bg-accent rounded-full transform -translate-x-1/2 shadow-lg border border-background"
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.6 }}
               viewport={{ once: true }}
             />
           </div>
@@ -248,6 +251,13 @@ const Timeline = () => {
                     )}
                   </div>
                   
+                  {/* Month/Year label */}
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+                    <span className="text-xs font-bold text-primary bg-background px-2 py-1 rounded-full border border-primary/20 shadow-sm">
+                      {getMonthYear(item.period)}
+                    </span>
+                  </div>
+                  
                   {/* Status indicator - only for current work */}
                   {item.type === 'current' && item.category === 'work' && (
                     <motion.div 
@@ -274,8 +284,9 @@ const Timeline = () => {
                   <motion.div
                     whileHover={{ scale: 1.05, y: -8, rotate: 1 }}
                     transition={{ duration: 0.1, ease: "easeOut" }}
-                    className="angular-card p-6 hover:cartoon-shadow-lg transition-all duration-150 hover:animate-float"
                   >
+                    <Card className="p-6 hover:cartoon-shadow-lg transition-all duration-150 hover:animate-float">
+                      <CardContent className="p-0">
                     {/* Item Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div>
@@ -303,15 +314,22 @@ const Timeline = () => {
                       </div>
                       
                       {/* Status Badge */}
-                      <div className={`px-4 py-2 text-xs font-bold uppercase tracking-wide rounded-full ${
-                        item.type === 'current' 
-                          ? 'angular-button text-primary-foreground' 
-                          : item.type === 'completed'
-                          ? 'angular-chip text-green-600 dark:text-green-400'
-                          : 'angular-chip text-muted-foreground'
-                      }`}>
+                      <Badge 
+                        variant={
+                          item.type === 'current' 
+                            ? 'default' 
+                            : item.type === 'completed'
+                            ? 'secondary'
+                            : 'outline'
+                        }
+                        className={`text-xs font-bold uppercase tracking-wide ${
+                          item.type === 'completed' 
+                            ? 'text-green-600 dark:text-green-400' 
+                            : ''
+                        }`}
+                      >
                         {item.type === 'current' ? 'Current' : item.type === 'completed' ? 'Completed' : 'Previous'}
-                      </div>
+                      </Badge>
                     </div>
 
                     {/* Description */}
@@ -334,6 +352,8 @@ const Timeline = () => {
                         ))}
                       </ul>
                     </div>
+                      </CardContent>
+                    </Card>
                   </motion.div>
                 </div>
               </motion.div>
