@@ -1,43 +1,64 @@
-# Shivam Sabbarwal - Personal Website
+# Shivam Sabbarwal - Software Engineer & CTO
 
-A modern, web3-inspired personal website built with React, TypeScript, and Tailwind CSS. Features smooth animations, glassmorphism effects, and a clean, professional design.
+A modern, interactive portfolio website showcasing my journey as a Software Engineer and CTO with over 7 years of experience in full-stack development, fintech solutions, and technical leadership. Built with React, TypeScript, and Tailwind CSS featuring smooth animations and a professional design.
 
 ## 🚀 Features
 
-- **Modern Web3 Design**: Dark theme with purple/blue gradients and glassmorphism effects
-- **Smooth Animations**: Powered by Framer Motion for fluid, engaging interactions
+- **Professional Portfolio**: Comprehensive timeline showcasing 7+ years of software engineering experience
+- **Current Roles**: Software Engineer at 3vGeomatics & CTO at Remittor (Fintech Platform)
+- **Interactive Timeline**: Chronological career journey from education to current leadership roles
+- **Project Showcase**: Featured projects including fintech solutions, microservices architecture, and full-stack applications
+- **Modern Design**: Dark theme with smooth animations and professional aesthetics
 - **Responsive Layout**: Optimized for all device sizes
-- **Interactive Elements**: Custom cursor, scroll progress, and particle background
 - **Performance Optimized**: Built with Vite for fast development and production builds
 
 ## 🛠️ Tech Stack
 
+### Frontend
 - **Framework**: React 19 with TypeScript
-- **Styling**: Tailwind CSS 4 with custom web3 color scheme
+- **Styling**: Tailwind CSS 4 with custom design system
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Build Tool**: Vite
 - **Package Manager**: Bun
+
+### Professional Experience
+- **Languages**: JavaScript, TypeScript, Python, C#, SQL
+- **Frontend**: React.js, Redux, TailwindCSS, Radix UI, D3.js, Recharts
+- **Backend**: Node.js, Express.js, Python, Django, Flask
+- **Database**: PostgreSQL, MongoDB, SQL Server
+- **Cloud & Infrastructure**: AWS, WebSockets, WebRTC, Docker
+- **Architecture**: Microservices, ETL Pipelines, RESTful APIs
 
 ## 📁 Project Structure
 
 ```
 src/
 ├── components/
-│   ├── ui/                 # Reusable UI components
-│   ├── Navigation.tsx      # Main navigation with smooth scrolling
-│   ├── Hero.tsx           # Hero section with animated elements
-│   ├── Work.tsx           # Portfolio showcase
-│   ├── Experiments.tsx    # Creative experiments section
-│   ├── Contact.tsx        # Contact form and information
-│   ├── Footer.tsx         # Footer with social links
-│   ├── ScrollProgress.tsx # Scroll progress indicator
-│   ├── Cursor.tsx         # Custom cursor component
-│   ├── LoadingScreen.tsx  # Animated loading screen
-│   └── ParticleBackground.tsx # Animated particle background
-├── lib/
-│   └── utils.ts           # Utility functions
-├── globals.css            # Global styles and web3 theme
+│   ├── ui/                 # Reusable UI components (shadcn/ui)
+│   ├── layout/             # Layout components
+│   │   ├── Navigation.tsx  # Main navigation with smooth scrolling
+│   │   ├── Footer.tsx      # Footer with social links
+│   │   └── LoadingScreen.tsx # Animated loading screen
+│   ├── sections/           # Main page sections
+│   │   ├── Hero.tsx        # Hero section with professional introduction
+│   │   ├── Timeline.tsx    # Career timeline (work + education)
+│   │   ├── Projects.tsx    # Featured projects showcase
+│   │   └── Contact.tsx     # Contact form and information
+│   ├── interactive/        # Interactive components
+│   │   ├── ScrollProgress.tsx # Scroll progress indicator
+│   │   ├── Cursor.tsx      # Custom cursor component
+│   │   └── FloatingBubbles.tsx # Animated particle background
+│   └── Logo.tsx           # Logo component
+├── contexts/              # React contexts
+│   ├── ThemeContext.tsx   # Theme management
+│   ├── LoadingContext.tsx # Loading state management
+│   └── BackgroundMusicContext.tsx # Audio management
+├── lib/                   # Utility libraries
+│   ├── utils.ts           # Utility functions
+│   └── audio/             # Audio management
+├── hooks/                 # Custom React hooks
+├── globals.css            # Global styles and theme
 └── App.tsx               # Main application component
 ```
 
@@ -102,28 +123,31 @@ bun run preview
 ## 🎯 Sections
 
 ### Hero Section
-- Animated introduction with gradient text
-- Feature highlights with icons
-- Call-to-action buttons
-- Floating background elements
+- Professional introduction as Software Engineer & CTO
+- 7+ years of experience highlight
+- Current dual roles at 3vGeomatics and Remittor
+- Call-to-action buttons for portfolio and contact
 
-### Work Section
-- Featured projects with detailed descriptions
-- Project grid with hover effects
-- Technology tags and links
-- Case study previews
+### Timeline Section
+- Comprehensive career journey from 2014-2025
+- Current roles: Software Engineer (3vGeomatics) & CTO (Remittor)
+- Previous experience: Unleashd Technologies, Four Eyes Financial, CGI, Irving Oil
+- Education: University of New Brunswick (Software Engineering)
+- Visual distinction between work and education entries
 
-### Experiments Section
-- Creative coding projects
-- Category filtering
-- Interactive project cards
-- Technology showcases
+### Projects Section
+- **Remittor Fintech Platform**: Cross-border payments and regulatory compliance
+- **Drive AI Microservices**: Architecture transformation and cost optimization
+- **File Mapper Tool**: Data processing and client acquisition
+- **Smart Customer Segments**: Marketing analytics and segmentation
+- **Design System**: Frontend modernization with TailwindCSS and Radix UI
+- **Financial CRM**: MERN stack platform with WebRTC integration
 
 ### Contact Section
 - Contact form with validation
-- Social media links
-- Contact information
-- Animated form interactions
+- Professional contact information
+- Social media links (GitHub, LinkedIn, Email)
+- Location: New Westminster, BC
 
 ## 🎨 Customization
 
@@ -143,9 +167,9 @@ All animations are built with Framer Motion and can be customized in individual 
 
 ### Content
 Update the content in each component file:
-- `Hero.tsx`: Personal introduction and tagline
-- `Work.tsx`: Portfolio projects and descriptions
-- `Experiments.tsx`: Creative projects and experiments
+- `Hero.tsx`: Professional introduction and current roles
+- `Timeline.tsx`: Career timeline and work experience
+- `Projects.tsx`: Featured projects and achievements
 - `Contact.tsx`: Contact information and social links
 
 ## 📱 Responsive Design
@@ -186,6 +210,17 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📞 Contact
 
-Shivam Sabbarwal - [@your-twitter](https://twitter.com/your-twitter) - hello@shivam-sabbarwal.com
+**Shivam Sabbarwal** - Software Engineer & CTO
 
-Project Link: [https://github.com/your-username/shivam-sabbarwal-web](https://github.com/your-username/shivam-sabbarwal-web)
+- **Email**: [shivam.sabb@gmail.com](mailto:shivam.sabb@gmail.com)
+- **Phone**: +1 (506) 609-0423
+- **Location**: New Westminster, BC, Canada
+- **LinkedIn**: [linkedin.ca/in/shivamsabbarwal](https://linkedin.ca/in/shivamsabbarwal)
+- **GitHub**: [github.com/ShivamSabbarwal](https://github.com/ShivamSabbarwal)
+
+### Current Roles
+- **Software Engineer** at 3vGeomatics (Vancouver, BC)
+- **Chief Technology Officer (CTO)** at Remittor (Surrey, BC)
+
+### Project Link
+[https://github.com/ShivamSabbarwal/shivam-sabbarwal-web](https://github.com/ShivamSabbarwal/shivam-sabbarwal-web)

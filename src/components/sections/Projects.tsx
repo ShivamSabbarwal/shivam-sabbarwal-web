@@ -5,49 +5,49 @@ const CreativeProjects = () => {
   const projects = [
     {
       id: 1,
-      title: "Particle System",
-      description: "Interactive particle system with physics simulation and real-time manipulation.",
-      tags: ["Animation", "WebGL", "Physics"],
+      title: "Remittor - Fintech Platform",
+      description: "Leading technology strategy for a financial technology platform designed to streamline property sales and international money transfers for Non-Resident Indians (NRIs) globally. Built with security, transparency, and efficiency as core principles.",
+      tags: ["Fintech", "Cross-border Payments", "Regulatory Compliance", "Property Sales"],
       liveUrl: "#",
       githubUrl: "#",
     },
     {
       id: 2,
-      title: "3D WebGL Scene",
-      description: "Immersive 3D environment built with Three.js and custom shaders.",
-      tags: ["3D", "Three.js", "Shaders"],
+      title: "Drive AI - Microservices Architecture",
+      description: "Led the transition from monolithic to microservices architecture, reducing technical debt and cutting data acquisition costs by 65%. Built scalable systems using React.js, Node.js, AWS, and PostgreSQL.",
+      tags: ["React.js", "Node.js", "AWS", "PostgreSQL", "Microservices"],
       liveUrl: "#",
       githubUrl: "#",
     },
     {
       id: 3,
-      title: "Audio Visualizer",
-      description: "Real-time audio visualization with Web Audio API and Canvas.",
-      tags: ["Audio", "Canvas", "Web Audio"],
+      title: "File Mapper Tool",
+      description: "Developed internal tool allowing data teams to import unstructured CSV files, contributing to doubling client acquisition. Built with React, Redux, and Python backend services.",
+      tags: ["React.js", "Redux", "Python", "Data Processing"],
       liveUrl: "#",
       githubUrl: "#",
     },
     {
       id: 4,
-      title: "Neural Network Playground",
-      description: "Interactive neural network visualization and training simulation.",
-      tags: ["AI/ML", "Visualization", "D3.js"],
+      title: "Smart Customer Segments",
+      description: "Powerful filtration system for targeted marketing campaigns. Integrated with the primary Drive AI product, enabling advanced customer segmentation and analytics.",
+      tags: ["React.js", "Analytics", "Marketing", "Data Visualization"],
       liveUrl: "#",
       githubUrl: "#",
     },
     {
       id: 5,
-      title: "WebGL Shader Editor",
-      description: "Live shader editor with real-time preview and sharing capabilities.",
-      tags: ["Shader", "WebGL", "Editor"],
+      title: "Design System & Frontend Modernization",
+      description: "Spearheaded frontend modernization by migrating from CSS to TailwindCSS and replacing Ant Design with scalable in-house design system built on Radix UI Primitives.",
+      tags: ["TailwindCSS", "Radix UI", "Design System", "Component Library"],
       liveUrl: "#",
       githubUrl: "#",
     },
     {
       id: 6,
-      title: "Blockchain Simulator",
-      description: "Interactive blockchain visualization with transaction flow animation.",
-      tags: ["Web3", "Blockchain", "Animation"],
+      title: "Financial CRM Platform",
+      description: "Full-featured web-based CRM platform using MERN stack, automating financial workflows and enhancing business operations with integrated video conferencing capabilities.",
+      tags: ["MERN Stack", "WebRTC", "AWS Chime", "CRM"],
       liveUrl: "#",
       githubUrl: "#",
     },
@@ -66,11 +66,11 @@ const CreativeProjects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-black mb-6">
-            <span className="cartoon-text">Creative</span> <span className="cartoon-accent">Projects</span>
+            <span className="cartoon-text">Featured</span> <span className="cartoon-accent">Projects</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-medium">
-            Exploring the boundaries of web technology through interactive projects 
-            and creative coding experiments.
+            Key projects showcasing my expertise in full-stack development, 
+            architectural design, and innovative solutions for complex business challenges.
           </p>
         </motion.div>
 

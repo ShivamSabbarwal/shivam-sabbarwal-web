@@ -80,9 +80,9 @@ const Hero = () => {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="text-6xl md:text-8xl font-black leading-tight"
             >
-              <span className="cartoon-text-large">Creative</span>
+              <span className="cartoon-text-large">Software Engineer</span>
               <br />
-              <span className="cartoon-accent-large">Developer</span>
+              <span className="cartoon-accent-large">CTO @ Remittor</span>
             </motion.h1>
             
             <motion.p
@@ -91,9 +91,9 @@ const Hero = () => {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium"
             >
-              Crafting immersive digital experiences at the intersection of 
-              <span className="cartoon-text"> creativity</span> and 
-              <span className="cartoon-highlight"> technology</span>
+              Software Engineer and CTO with over 7 years of experience helping businesses 
+              <span className="cartoon-text"> turn ideas into real, effective products</span> through 
+              <span className="cartoon-highlight"> technical leadership and scalable solutions</span>
             </motion.p>
           </div>
 

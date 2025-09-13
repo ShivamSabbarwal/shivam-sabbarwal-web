@@ -34,25 +34,19 @@ const Contact = () => {
     {
       name: "GitHub",
       icon: <Github className="w-6 h-6" />,
-      url: "https://github.com/shivam-sabbarwal",
+      url: "https://github.com/ShivamSabbarwal",
       color: "hover:text-gray-400",
     },
     {
       name: "LinkedIn",
       icon: <Linkedin className="w-6 h-6" />,
-      url: "https://linkedin.com/in/shivam-sabbarwal",
-      color: "hover:text-blue-400",
-    },
-    {
-      name: "Twitter",
-      icon: <Twitter className="w-6 h-6" />,
-      url: "https://twitter.com/shivam-sabbarwal",
+      url: "https://linkedin.ca/in/shivamsabbarwal",
       color: "hover:text-blue-400",
     },
     {
       name: "Email",
       icon: <Mail className="w-6 h-6" />,
-      url: "mailto:hello@shivam-sabbarwal.com",
+      url: "mailto:shivam.sabb@gmail.com",
       color: "hover:text-red-400",
     },
   ];
@@ -108,7 +102,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-semibold">Email</p>
-                  <p className="text-muted-foreground">hello@shivam-sabbarwal.com</p>
+                  <p className="text-muted-foreground">shivam.sabb@gmail.com</p>
                 </div>
               </motion.div>
 
@@ -122,7 +116,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-semibold">Phone</p>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                  <p className="text-muted-foreground">+1 (506) 609-0423</p>
                 </div>
               </motion.div>
 
@@ -136,7 +130,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-semibold">Location</p>
-                  <p className="text-muted-foreground">San Francisco, CA</p>
+                  <p className="text-muted-foreground">New Westminster, BC</p>
                 </div>
               </motion.div>
             </div>

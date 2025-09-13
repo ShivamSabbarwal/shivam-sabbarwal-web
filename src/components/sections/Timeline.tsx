@@ -69,6 +69,68 @@ const Timeline = () => {
     },
     {
       id: 5,
+      title: "Full-Stack Developer",
+      company: "New Brunswick Innovation Foundation",
+      location: "Fredericton, NB",
+      period: "May 2019 – August 2019",
+      description: "Designed and developed a web-based CRM platform using the MERN technology stack to automate and streamline client and business financial processes.",
+      achievements: [
+        "Designed and developed web-based CRM platform using MERN stack",
+        "Analyzed business and client requirements to prioritize feature development",
+        "Integrated 3rd party APIs to implement technically challenging features efficiently and reliably"
+      ],
+      type: "previous",
+      category: "work"
+    },
+    {
+      id: 6,
+      title: ".NET Developer",
+      company: "CGI",
+      location: "Fredericton, NB",
+      period: "January 2018 – August 2018",
+      description: "Enhanced existing product functionality and developed new application modules using ASP.NET, C#, JavaScript, HTML, and CSS.",
+      achievements: [
+        "Enhanced existing product functionality by thoroughly preparing and performing unit/system testing",
+        "Developed new application modules to replace outdated UI in ASP.NET using C#, JavaScript, HTML and CSS",
+        "Created and updated SQL queries and stored procedures using SQL Server 2016",
+        "Coordinated with project owners to organize and prioritize feature development timeline and project scope"
+      ],
+      type: "previous",
+      category: "work"
+    },
+    {
+      id: 7,
+      title: "Assistant Project Manager (Co-op)",
+      company: "Irving Oil",
+      location: "Saint John, NB",
+      period: "January 2017 – May 2017",
+      description: "Developed positive rapport with management and employees to facilitate effective communication and collaboration while coordinating day-to-day business operations.",
+      achievements: [
+        "Developed positive rapport with both management personnel and employees to facilitate effective communication and collaboration",
+        "Coordinated day-to-day business operations, communicating effectively with both management and technical staff",
+        "Adapted quickly to changing and competing project demands",
+        "Continually advanced product knowledge and communicated updates to employees"
+      ],
+      type: "previous",
+      category: "work"
+    },
+    {
+      id: 8,
+      title: "QA/BI Analyst (Co-op)",
+      company: "Irving Oil",
+      location: "Saint John, NB",
+      period: "May 2016 – August 2016",
+      description: "Developed corrective action plans and prevention strategies to improve product reliability while designing and updating test cases for software system testing.",
+      achievements: [
+        "Developed corrective action plans and prevention strategies to improve product reliability",
+        "Reviewed project requirements to resolve product and business vulnerabilities",
+        "Designed and updated test cases to maximize the success of software system testing"
+      ],
+      type: "previous",
+      category: "work"
+    },
+    {
+      id: 9,
       title: "Bachelor of Science (BSc)",
       company: "University of New Brunswick",
       location: "Fredericton, NB",

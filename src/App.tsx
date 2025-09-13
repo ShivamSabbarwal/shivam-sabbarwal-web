@@ -1,6 +1,6 @@
 import Navigation from "@/components/layout/Navigation";
 import Hero from "@/components/sections/Hero";
-import WorkTimeline from "@/components/sections/WorkTimeline";
+import Timeline from "@/components/sections/Timeline";
 import CreativeProjects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
@@ -23,7 +23,7 @@ const AppContent = () => {
       <FloatingBubbles count={15} />
       {!isLoading && <Navigation />}
       <Hero />
-      <WorkTimeline />
+      <Timeline />
       <CreativeProjects />
       <Contact />
       <Footer />
