@@ -31,27 +31,27 @@ const CreativeProjects = () => {
 
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="projects" className="py-16 sm:py-20 md:py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6">
             <span className="cartoon-text">Featured</span> <span className="cartoon-accent">Projects</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-medium">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto font-medium px-2">
             Key projects showcasing my expertise in full-stack development, 
             architectural design, and innovative solutions for complex business challenges.
           </p>
         </motion.div>
 
         {/* Projects Grid with Staggered Layout */}
-        <div className="space-y-24">
+        <div className="space-y-16 sm:space-y-20 md:space-y-24">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}

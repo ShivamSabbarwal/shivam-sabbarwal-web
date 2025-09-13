@@ -29,7 +29,7 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: index * 0.2 }}
         viewport={{ once: true }}
-        className={`flex flex-col ${isAlternating ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12`}
+        className={`flex flex-col ${isAlternating ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-8 sm:gap-12`}
       >
         {/* Project Image */}
         <div className="flex-1">
@@ -78,12 +78,12 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
         </div>
 
         {/* Project Content */}
-        <div className="flex-1 space-y-6">
+        <div className="flex-1 space-y-4 sm:space-y-6">
           <div>
-            <h3 className="text-3xl md:text-4xl font-black mb-4 cartoon-text">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 sm:mb-4 cartoon-text">
               {project.title}
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed font-medium">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-medium">
               {project.description}
             </p>
           </div>
@@ -94,7 +94,7 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
               <Badge
                 key={tag}
                 variant="default"
-                className="text-sm font-bold"
+                className="text-xs sm:text-sm font-bold"
               >
                 {tag}
               </Badge>
@@ -102,7 +102,7 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
           </div>
 
           {/* Links */}
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <motion.a
               whileHover={{ scale: 1.1, x: 5 }}
               whileTap={{ scale: 0.9, x: -2 }}
@@ -110,7 +110,7 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
               onHoverStart={playHover}
               onTapStart={playClick}
               href={project.liveUrl}
-              className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors duration-150 font-bold"
+              className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors duration-150 font-bold text-sm sm:text-base"
             >
               <span>View Project</span>
               <ExternalLink className="w-4 h-4" />
@@ -122,7 +122,7 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
               onHoverStart={playHover}
               onTapStart={playClick}
               href={project.githubUrl}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors duration-150 font-bold"
+              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors duration-150 font-bold text-sm sm:text-base"
             >
               <Github className="w-4 h-4" />
               <span>Code</span>
@@ -145,23 +145,23 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
       onHoverStart={playHover}
       className="group"
     >
-      <Card className="p-6 hover:animate-bounce-slow transition-all duration-150">
+      <Card className="p-4 sm:p-6 hover:animate-bounce-slow transition-all duration-150">
         <CardContent className="p-0">
-          <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 diagonal-cut mb-4 flex items-center justify-center">
-            <span className="text-lg font-bold text-muted-foreground">
+          <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 diagonal-cut mb-3 sm:mb-4 flex items-center justify-center">
+            <span className="text-sm sm:text-lg font-bold text-muted-foreground px-2 text-center">
               {project.title}
             </span>
           </div>
           
-          <h4 className="text-xl font-bold mb-2 gradient-text">
+          <h4 className="text-lg sm:text-xl font-bold mb-2 gradient-text">
             {project.title}
           </h4>
           
-          <p className="text-muted-foreground mb-4 text-sm">
+          <p className="text-muted-foreground mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed">
             {project.description}
           </p>
           
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
             {project.tags.map((tag) => (
               <Badge
                 key={tag}
@@ -173,8 +173,8 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
             ))}
           </div>
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-center sm:justify-start">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <motion.a
                 whileHover={{ scale: 1.2, rotate: 10 }}
                 transition={{ duration: 0.1, ease: "easeOut" }}

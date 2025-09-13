@@ -5,8 +5,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { useSounds } from "../../lib/audio/sounds";
 import { useBackgroundMusicContext } from "@/contexts/BackgroundMusicContext";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Badge } from "@/components/ui/badge";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 
 const Navigation = () => {
@@ -69,14 +68,14 @@ const Navigation = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       layout
-      className="fixed z-50 top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-2xl floating-dock"
+      className="fixed z-50 top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
       style={{
         transition: "none" // Disable CSS transitions in favor of Framer Motion
       }}
     >
       <motion.div 
         layout
-        className="mx-auto px-6 py-3"
+        className="mx-auto px-3 sm:px-6 py-2 sm:py-3"
         transition={{
           layout: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
           padding: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
@@ -84,17 +83,17 @@ const Navigation = () => {
       >
         <motion.div 
           layout
-          className="flex items-center space-x-4"
+          className="flex items-center space-x-2 sm:space-x-4"
           transition={{
             layout: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
             gap: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
           }}
         >
 
-          {/* Navigation Items */}
+          {/* Navigation Items - Hidden on mobile, shown on larger screens */}
           <motion.div 
             layout
-            className="flex items-center space-x-2"
+            className="hidden md:flex items-center space-x-1 sm:space-x-2"
             transition={{
               layout: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
               gap: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
@@ -129,7 +128,7 @@ const Navigation = () => {
                   variant={activeSection === item.href.slice(1) ? "default" : "ghost"}
                   size="sm"
                   onClick={() => scrollToSection(item.href)}
-                  className={`relative text-xs font-bold ${
+                  className={`relative text-xs font-bold px-2 sm:px-3 ${
                     activeSection === item.href.slice(1)
                       ? "text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -144,7 +143,7 @@ const Navigation = () => {
           {/* Theme Toggle, Music Toggle & Mobile Menu */}
           <motion.div 
             layout
-            className="flex items-center space-x-1"
+            className="flex items-center space-x-1 sm:space-x-2"
             transition={{
               layout: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
               gap: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
@@ -172,7 +171,7 @@ const Navigation = () => {
                 variant="outline"
                 size="icon"
                 onClick={toggleMusic}
-                className="relative hover:animate-glow"
+                className="relative hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
                 aria-label={isPlaying ? "Turn off music" : "Turn on music"}
                 title={`Music: ${isPlaying ? 'ON' : 'OFF'}`}
               >
@@ -187,9 +186,9 @@ const Navigation = () => {
                   }}
                 >
                   {isPlaying ? (
-                    <Music className="w-5 h-5" />
+                    <Music className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : (
-                    <VolumeX className="w-5 h-5" />
+                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
                   )}
                 </motion.div>
               </Button>
@@ -217,7 +216,7 @@ const Navigation = () => {
                 variant="outline"
                 size="icon"
                 onClick={toggleTheme}
-                className="hover:animate-glow"
+                className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
                 aria-label="Toggle theme"
               >
                 <motion.div
@@ -229,9 +228,9 @@ const Navigation = () => {
                   }}
                 >
                   {theme === 'light' ? (
-                    <Moon className="w-5 h-5" />
+                    <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : (
-                    <Sun className="w-5 h-5" />
+                    <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
                   )}
                 </motion.div>
               </Button>
@@ -260,7 +259,7 @@ const Navigation = () => {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="md:hidden hover:animate-glow"
+                    className="md:hidden hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
                   >
                     <motion.div
                       animate={{
@@ -270,18 +269,12 @@ const Navigation = () => {
                         scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
                       }}
                     >
-                      <Menu className="w-6 h-6" />
+                      <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
                     </motion.div>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                  <SheetHeader>
-                    <SheetTitle className="text-left">
-                      <span className="cartoon-text">Navigation</span>
-                    </SheetTitle>
-                  </SheetHeader>
-                  
-                  <div className="mt-8 space-y-6">
+                <SheetContent side="right" className="w-[280px] sm:w-[350px] md:w-[400px]">
+                  <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
                     {/* Navigation Links */}
                     <div className="space-y-2">
                       {navItems.map((item, index) => (
@@ -292,16 +285,11 @@ const Navigation = () => {
                           transition={{ delay: index * 0.1 }}
                         >
                           <Button
-                            variant={activeSection === item.href.slice(1) ? "default" : "ghost"}
-                            className="w-full justify-start text-left"
+                            variant="ghost"
+                            className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4"
                             onClick={() => scrollToSection(item.href)}
                           >
                             {item.name}
-                            {activeSection === item.href.slice(1) && (
-                              <Badge variant="secondary" className="ml-auto">
-                                Active
-                              </Badge>
-                            )}
                           </Button>
                         </motion.div>
                       ))}
@@ -310,15 +298,14 @@ const Navigation = () => {
                     <Separator />
 
                     {/* Theme & Music Controls */}
-                    <div className="space-y-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground">Settings</h4>
+                    <div className="space-y-3 sm:space-y-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Theme</span>
+                        <span className="text-sm sm:text-base">Theme</span>
                         <Button
                           variant="outline"
                           size="icon"
                           onClick={toggleTheme}
-                          className="hover:animate-glow"
+                          className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
                         >
                           {theme === 'light' ? (
                             <Moon className="w-4 h-4" />
@@ -328,12 +315,12 @@ const Navigation = () => {
                         </Button>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Music</span>
+                        <span className="text-sm sm:text-base">Music</span>
                         <Button
                           variant="outline"
                           size="icon"
                           onClick={toggleMusic}
-                          className="hover:animate-glow"
+                          className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
                         >
                           {isPlaying ? (
                             <Music className="w-4 h-4" />
@@ -342,16 +329,6 @@ const Navigation = () => {
                           )}
                         </Button>
                       </div>
-                    </div>
-
-                    <Separator />
-
-                    {/* Current Section Indicator */}
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-semibold text-muted-foreground">Current Section</h4>
-                      <Badge variant="outline" className="w-full justify-center">
-                        {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
-                      </Badge>
                     </div>
                   </div>
                 </SheetContent>
