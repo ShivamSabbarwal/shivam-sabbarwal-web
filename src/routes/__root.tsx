@@ -1,5 +1,7 @@
 import { createRootRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import ScrollProgress from "@/components/interactive/ScrollProgress";
@@ -36,6 +38,8 @@ export const Route = createRootRoute({
       <LoadingProvider>
         <AppContent />
         <TanStackRouterDevtools />
+        <SpeedInsights />
+        <Analytics />
       </LoadingProvider>
     </ThemeProvider>
   ),
