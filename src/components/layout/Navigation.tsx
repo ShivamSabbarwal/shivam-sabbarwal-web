@@ -4,8 +4,7 @@ import { Sun, Moon, Menu, FileText } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSounds } from "../../lib/audio/sounds";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { NAV_ITEMS } from "@/constants";
 
 const Navigation = () => {
@@ -65,7 +64,7 @@ const Navigation = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       layout
-      className="fixed z-50 top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
+      className="fixed z-40 top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
       style={{
         transition: "none" // Disable CSS transitions in favor of Framer Motion
       }}
@@ -264,72 +263,93 @@ const Navigation = () => {
                     </motion.div>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[280px] sm:w-[350px] md:w-[400px]">
-                  <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
+                  <SheetContent 
+                    side="right" 
+                    className="w-[320px] sm:w-[380px] md:w-[420px] backdrop-blur-xl border-l-4 border-primary/20 z-[60]"
+                  >
+                    {/* Accessibility Title and Description */}
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                    <SheetDescription className="sr-only">
+                      Navigate through different sections of the portfolio
+                    </SheetDescription>
+
+                    {/* Cool Background Effects */}
+                    <div className="absolute inset-0 -z-10">
+                      <motion.div
+                        animate={{ 
+                          rotate: [0, 360],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          duration: 20, 
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-xl"
+                      />
+                      <motion.div
+                        animate={{ 
+                          rotate: [360, 0],
+                          scale: [1, 1.2, 1]
+                        }}
+                        transition={{ 
+                          duration: 25, 
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute -bottom-20 -left-20 w-32 h-32 bg-accent/10 rounded-full blur-xl"
+                      />
+                    </div>
+
+                    <div className="relative z-10 mt-8 mx-4 space-y-6">
+                      {/* Header */}
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-center pb-6 border-b border-border/50"
+                      >
+                        <h2 className="text-2xl font-black cartoon-text">Navigation</h2>
+                        <p className="text-sm text-muted-foreground mt-2">Explore my portfolio</p>
+                      </motion.div>
+
                     {/* Navigation Links */}
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {navItems.map((item, index) => (
                         <motion.div
                           key={item.name}
-                          initial={{ opacity: 0, x: 20 }}
+                          initial={{ opacity: 0, x: 30 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
+                          transition={{ delay: index * 0.1 + 0.2 }}
                         >
                           <Button
                             onClick={() => handleNavClick(item.href)}
                             variant={activeSection === item.href.substring(1) ? "default" : "outline"}
-                            className={`w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 ${
+                            className={`w-full justify-start text-left text-base py-4 px-6 angular-card hover:cartoon-shadow-lg transition-all duration-300 ${
                               activeSection === item.href.substring(1)
-                                ? "hover:animate-glow"
-                                : "hover:animate-pulse-color"
+                                ? "hover:animate-glow transform scale-105"
+                                : "hover:animate-pulse-color hover:scale-105 hover:-translate-y-1"
                             }`}
                           >
-                            {item.name}
+                            <motion.div
+                              whileHover={{ rotate: 5 }}
+                              transition={{ duration: 0.2 }}
+                              className="flex items-center w-full"
+                            >
+                              <span className="font-bold">{item.name}</span>
+                              {activeSection === item.href.substring(1) && (
+                                <motion.div
+                                  className="ml-auto w-2 h-2 bg-primary-foreground rounded-full"
+                                  animate={{ scale: [1, 1.2, 1] }}
+                                  transition={{ duration: 1, repeat: Infinity }}
+                                />
+                              )}
+                            </motion.div>
                           </Button>
                         </motion.div>
                       ))}
                     </div>
 
-                    <Separator />
-
-                    {/* Resume Button */}
-                    <div className="space-y-3 sm:space-y-4">
-                      <Button
-                        onClick={openResume}
-                        variant="outline"
-                        className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 hover:animate-pulse-color"
-                      >
-                        <motion.div
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.5 }}
-                          className="mr-2"
-                        >
-                          <FileText className="w-4 h-4" />
-                        </motion.div>
-                        Resume
-                      </Button>
-                    </div>
-
-                    <Separator />
-
-                    {/* Theme Controls */}
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm sm:text-base">Theme</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={toggleTheme}
-                          className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-                        >
-                          {theme === 'light' ? (
-                            <Moon className="w-4 h-4" />
-                          ) : (
-                            <Sun className="w-4 h-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
                   </div>
                 </SheetContent>
               </Sheet>

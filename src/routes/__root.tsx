@@ -34,8 +34,8 @@ export const Route = createRootRoute({
         <LoadingProvider>
           <AppContent />
           <TanStackRouterDevtools />
-          <SpeedInsights />
-          <Analytics />
+          <SpeedInsights debug={false} />
+          <Analytics debug={false} />
         </LoadingProvider>
       </ThemeProvider>
     </ErrorBoundary>

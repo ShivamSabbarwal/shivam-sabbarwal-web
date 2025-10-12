@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import ScrollProgress from "@/components/interactive/ScrollProgress";
 import Cursor from "@/components/interactive/Cursor";
 import FloatingBubbles from "@/components/interactive/FloatingBubbles";
 import LoadingScreen from "@/components/layout/LoadingScreen";
@@ -15,7 +14,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
       <LoadingScreen />
-      <ScrollProgress />
       <FloatingBubbles count={PERFORMANCE.FLOATING_BUBBLES_COUNT} />
       <Navigation />
       <Cursor />

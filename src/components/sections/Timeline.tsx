@@ -301,7 +301,7 @@ const Timeline = () => {
                           )}
                           <span className="font-semibold text-sm sm:text-base">{item.company}</span>
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0 text-xs sm:text-sm text-muted-foreground">
+                        <div className="flex flex-col space-y-1 text-xs sm:text-sm text-muted-foreground">
                           <div className="flex items-center space-x-1">
                             <Calendar className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                             <span>{item.period}</span>

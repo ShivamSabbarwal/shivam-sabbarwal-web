@@ -160,27 +160,25 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
-                className="text-center mb-6"
+                className="text-center"
               >
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black cartoon-text-large leading-tight mb-2">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black cartoon-text-large leading-tight mb-1">
                   Shivam
                 </h2>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black cartoon-text-large leading-tight">
                   Sabbarwal
                 </h2>
-              </motion.div>
-              
+              </motion.div>    
             </motion.div>
 
-            {/* Text Content - Right side on desktop */}
             <div className="w-full lg:w-[60%] text-center lg:text-left lg:order-2 lg:pt-8">
               {/* Main Heading */}
-              <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-4 sm:space-y-8">
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight cartoon-accent-large"
+                  className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight cartoon-accent-large"
                 >
                   Software Engineer
                 </motion.h1>
@@ -202,36 +200,36 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 py-6 sm:py-8"
+                className="flex flex-row justify-center items-center gap-4 sm:gap-6 py-6 sm:py-8"
               >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 8, y: -5 }}
-                  transition={{ duration: 0.1, ease: "easeOut" }}
-                  onHoverStart={playHover}
-                  className="flex items-center space-x-2 angular-card px-4 sm:px-6 py-3 hover:animate-float"
+                <motion.div 
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center space-x-2 px-3 py-1 rounded-full border-2 border-primary bg-primary/5 shadow-sm"
+                  style={{ boxShadow: '2px 2px 0 var(--cartoon-shadow)' }}
                 >
-                  <Code className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                  <span className="text-xs sm:text-sm font-bold">Development</span>
+                  <Code className="w-3 h-3 text-primary" />
+                  <span className="text-xs font-bold cartoon-text">Development</span>
                 </motion.div>
                 
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: -8, y: -5 }}
-                  transition={{ duration: 0.1, ease: "easeOut" }}
-                  onHoverStart={playHover}
-                  className="flex items-center space-x-2 angular-card px-4 sm:px-6 py-3 hover:animate-float"
+                <motion.div 
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center space-x-2 px-3 py-1 rounded-full border-2 border-accent bg-accent/5 shadow-sm"
+                  style={{ boxShadow: '2px 2px 0 var(--cartoon-shadow-accent)' }}
                 >
-                  <Palette className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
-                  <span className="text-xs sm:text-sm font-bold">Design</span>
+                  <Palette className="w-3 h-3 text-accent" />
+                  <span className="text-xs font-bold cartoon-accent">Design</span>
                 </motion.div>
                 
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 8, y: -5 }}
-                  transition={{ duration: 0.1, ease: "easeOut" }}
-                  onHoverStart={playHover}
-                  className="flex items-center space-x-2 angular-card px-4 sm:px-6 py-3 hover:animate-float"
+                <motion.div 
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center space-x-2 px-3 py-1 rounded-full border-2 border-amber-600 bg-amber-600/5 shadow-sm"
+                  style={{ boxShadow: '2px 2px 0 var(--cartoon-shadow-highlight)' }}
                 >
-                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-cartoon-highlight" />
-                  <span className="text-xs sm:text-sm font-bold">Innovation</span>
+                  <Sparkles className="w-3 h-3 text-amber-600" />
+                  <span className="text-xs font-bold cartoon-highlight">Innovation</span>
                 </motion.div>
               </motion.div>
               
@@ -248,11 +246,11 @@ const Hero = () => {
                   transition={{ duration: 0.1, ease: "easeOut" }}
                   onHoverStart={playHover}
                   onTapStart={playClick}
-                  className="w-full sm:w-auto"
+                  className="sm:w-auto"
                 >
                   <Button
                     onClick={scrollToNext}
-                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:animate-glow normal-case"
+                    className="sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:animate-glow normal-case"
                   >
                     View My Timeline
                   </Button>
@@ -264,12 +262,12 @@ const Hero = () => {
                   transition={{ duration: 0.1, ease: "easeOut" }}
                   onHoverStart={playHover}
                   onTapStart={playClick}
-                  className="w-full sm:w-auto"
+                  className="sm:w-auto"
                 >
                   <Button
                     variant="outline"
                     onClick={scrollToContact}
-                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:animate-pulse-color transition-all duration-150 normal-case"
+                    className="sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:animate-pulse-color transition-all duration-150 normal-case"
                   >
                     Get In Touch
                   </Button>
