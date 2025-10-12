@@ -113,16 +113,35 @@ const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) =>
         else if (size < 96) pattern = pixelPatterns.large;
         else pattern = pixelPatterns.xlarge;
 
+        // Create more scattered distribution
+        const margin = Math.max(50, size * 0.5); // Ensure bubbles don't spawn too close to edges
+        const availableWidth = width - (margin * 2);
+        const availableHeight = height - (margin * 2);
+        
+        // Use a more scattered approach with some clustering avoidance
+        let x: number, y: number;
+        let attempts = 0;
+        const maxAttempts = 50;
+        
+        do {
+          x = margin + Math.random() * availableWidth;
+          y = margin + Math.random() * availableHeight;
+          attempts++;
+        } while (attempts < maxAttempts && newBubbles.some(bubble => {
+          const distance = Math.sqrt(Math.pow(x - bubble.x, 2) + Math.pow(y - bubble.y, 2));
+          return distance < (size + bubble.size) * 0.8; // Minimum separation
+        }));
+
         newBubbles.push({
           id: i,
-          x: Math.random() * (width - size),
-          y: Math.random() * (height - size),
+          x,
+          y,
           size,
           color: bubbleColors[Math.floor(Math.random() * bubbleColors.length)],
-          speedX: (Math.random() - 0.5) * 0.8,
-          speedY: (Math.random() - 0.5) * 0.8,
+          speedX: (Math.random() - 0.5) * 1.2, // Increased speed for more movement
+          speedY: (Math.random() - 0.5) * 1.2,
           rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 2,
+          rotationSpeed: (Math.random() - 0.5) * 5, // Increased rotation speed from 3 to 5
           pixelSize,
           pattern,
           radius: size / 2
@@ -200,7 +219,7 @@ const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) =>
         const containerRect = container.getBoundingClientRect();
         const width = containerRect.width || window.innerWidth;
         const height = containerRect.height || window.innerHeight;
-        const mouseInfluenceRadius = 200;
+        const mouseInfluenceRadius = 80; // Much smaller radius - cursor can get very close
 
         return prevBubbles.map((bubble, index) => {
           let newX = bubble.x + bubble.speedX;
@@ -213,14 +232,23 @@ const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) =>
           );
 
           if (distanceToMouse < mouseInfluenceRadius) {
-            const avoidanceForce = (mouseInfluenceRadius - distanceToMouse) / mouseInfluenceRadius;
+            // Smoother force calculation with easing
+            const normalizedDistance = (mouseInfluenceRadius - distanceToMouse) / mouseInfluenceRadius;
+            const avoidanceForce = Math.pow(normalizedDistance, 1.5); // Less aggressive than squared, more than linear
             const angle = Math.atan2(
               newY + bubble.radius - mousePosition.y,
               newX + bubble.radius - mousePosition.x
             );
             
-            newX += Math.cos(angle) * avoidanceForce * 2;
-            newY += Math.sin(angle) * avoidanceForce * 2;
+            // Smoother push effect with gradual strength
+            const pushStrength = avoidanceForce * 6; // Reduced from 8 for smoother effect
+            newX += Math.cos(angle) * pushStrength;
+            newY += Math.sin(angle) * pushStrength;
+            
+            // Smoother speed adjustment with gradual momentum
+            const speedAdjustment = avoidanceForce * 0.3; // Reduced from 0.5 for smoother acceleration
+            bubble.speedX += Math.cos(angle) * speedAdjustment;
+            bubble.speedY += Math.sin(angle) * speedAdjustment;
           }
 
           // Simplified collision detection - only check every few frames
@@ -297,21 +325,25 @@ const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) =>
             newY = Math.max(0, Math.min(height - bubble.size, newY));
           }
 
-          // Add some random drift (reduced frequency for performance)
-          if (Math.random() < 0.1) { // Only 10% chance per frame
-            bubble.speedX += (Math.random() - 0.5) * 0.02;
-            bubble.speedY += (Math.random() - 0.5) * 0.02;
+          // Add some random drift (increased for more scattered movement)
+          if (Math.random() < 0.15) { // Increased to 15% chance per frame
+            bubble.speedX += (Math.random() - 0.5) * 0.05; // Increased drift strength
+            bubble.speedY += (Math.random() - 0.5) * 0.05;
           }
           
-          // Limit speed
-          bubble.speedX = Math.max(-1.2, Math.min(1.2, bubble.speedX));
-          bubble.speedY = Math.max(-1.2, Math.min(1.2, bubble.speedY));
+          // Apply smooth damping to prevent jittery movement
+          bubble.speedX *= 0.98; // Gentle damping
+          bubble.speedY *= 0.98;
+          
+          // Limit speed (increased for more scattered movement)
+          bubble.speedX = Math.max(-2.0, Math.min(2.0, bubble.speedX));
+          bubble.speedY = Math.max(-2.0, Math.min(2.0, bubble.speedY));
 
           return {
             ...bubble,
             x: newX,
             y: newY,
-            rotation: bubble.rotation + bubble.rotationSpeed
+            rotation: bubble.rotation + bubble.rotationSpeed // Constant rotation regardless of cursor interaction
           };
         });
       });
