@@ -15,8 +15,9 @@ A modern, interactive portfolio website showcasing my journey as a Software Engi
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Framework**: React 19 with TypeScript
-- **Styling**: Tailwind CSS 4 with custom design system
+- **Framework**: React with TypeScript
+- **Routing**: TanStack Router
+- **Styling**: Tailwind CSS with custom cartoon design system
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Build Tool**: Vite
@@ -35,51 +36,39 @@ A modern, interactive portfolio website showcasing my journey as a Software Engi
 ```
 src/
 ├── components/
-│   ├── ui/                 # Reusable UI components (shadcn/ui)
-│   ├── layout/             # Layout components
-│   │   ├── Navigation.tsx  # Main navigation with smooth scrolling
-│   │   ├── Footer.tsx      # Footer with social links
-│   │   └── LoadingScreen.tsx # Animated loading screen
-│   ├── sections/           # Main page sections
-│   │   ├── Hero.tsx        # Hero section with professional introduction
-│   │   ├── Timeline.tsx    # Career timeline (work + education)
-│   │   ├── Projects.tsx    # Featured projects showcase
-│   │   └── Contact.tsx     # Contact form and information
-│   ├── interactive/        # Interactive components
-│   │   ├── ScrollProgress.tsx # Scroll progress indicator
-│   │   ├── Cursor.tsx      # Custom cursor component
-│   │   └── FloatingBubbles.tsx # Animated particle background
-│   └── Logo.tsx           # Logo component
-├── contexts/              # React contexts
-│   ├── ThemeContext.tsx   # Theme management
-│   └── LoadingContext.tsx # Loading state management
-├── lib/                   # Utility libraries
-│   ├── utils.ts           # Utility functions
-│   └── audio/             # Interactive sound effects
-├── hooks/                 # Custom React hooks
-├── globals.css            # Global styles and theme
-└── App.tsx               # Main application component
+│   ├── layout/             # Navigation, Footer, Loading
+│   ├── sections/           # Hero, Timeline, TechStack, Projects, Contact
+│   ├── interactive/        # Cursor, FloatingBubbles
+│   ├── resume/            # Resume page components
+│   └── ui/                # Reusable UI components
+├── routes/                # TanStack Router (Home, Resume)
+├── contexts/              # Theme & Loading state
+├── lib/                   # Utils & audio effects
+└── globals.css            # Cartoon theme styles
 ```
 
 ## 🎨 Design Features
 
-### Web3 Aesthetics
+### Cartoon/3D Aesthetics
 - Dark background with subtle gradients
-- Purple/blue color scheme with glowing effects
-- Glassmorphism cards with backdrop blur
-- Animated gradient text effects
+- Angular card design with 3D shadows
+- Cartoon-style borders and effects
+- TikTok-inspired 3D button styling
+- Custom color scheme with cartoon highlights
 
 ### Animations
 - Smooth scroll animations with intersection observer
 - Floating elements and particle systems
 - Hover effects and micro-interactions
 - Loading screen with progress animation
+- Cartoon-style hover animations
 
 ### Interactive Elements
 - Custom cursor that responds to hover states
-- Scroll progress bar at the top
+- Mobile navigation sheet
 - Animated navigation with active section highlighting
 - Particle background for visual depth
+- Sound effects on interactions
 
 ## 🚀 Getting Started
 
@@ -121,83 +110,59 @@ bun run preview
 
 ## 🎯 Sections
 
-### Hero Section
-- Professional introduction as Software Engineer & CTO
-- 7+ years of experience highlight
-- Current dual roles at 3vGeomatics and Remittor
-- Call-to-action buttons for portfolio and contact
-
-### Timeline Section
-- Comprehensive career journey from 2014-2025
-- Current roles: Software Engineer (3vGeomatics) & CTO (Remittor)
-- Previous experience: Unleashd Technologies, Four Eyes Financial, CGI, Irving Oil
-- Education: University of New Brunswick (Software Engineering)
-- Visual distinction between work and education entries
-
-### Projects Section
-- **Remittor Fintech Platform**: Cross-border payments and regulatory compliance
-- **Drive AI Microservices**: Architecture transformation and cost optimization
-- **File Mapper Tool**: Data processing and client acquisition
-- **Smart Customer Segments**: Marketing analytics and segmentation
-- **Design System**: Frontend modernization with TailwindCSS and Radix UI
-- **Financial CRM**: MERN stack platform with WebRTC integration
-
-### Contact Section
-- Contact form with validation
-- Professional contact information
-- Social media links (GitHub, LinkedIn, Email)
-- Location: New Westminster, BC
+- **Hero**: Professional introduction with skill badges
+- **Timeline**: Career journey from 2014-2025 with current roles
+- **Tech Stack**: Technology showcase with interactive cards
+- **Projects**: Featured projects including Remittor Fintech Platform
+- **Contact**: Contact form and social links
 
 ## 🎨 Customization
 
 ### Colors
-The website uses a custom web3 color scheme defined in `globals.css`:
-- Primary: Purple/blue gradient
-- Secondary: Complementary colors
-- Background: Dark with subtle variations
-- Accent: Bright highlights for interactive elements
+Custom cartoon color scheme in `globals.css`:
+- **Primary**: Purple (#8b5cf6)
+- **Accent**: Cyan (#06b6d4) 
+- **Cartoon Highlight**: Amber (#f59e0b)
+- **Background**: Dark blue (#0f0f23)
 
 ### Animations
-All animations are built with Framer Motion and can be customized in individual components. Key animation types:
-- Page transitions
-- Scroll-triggered animations
-- Hover effects
-- Loading animations
+- Scroll animations with Intersection Observer
+- Cartoon-style hover effects
+- Loading screen with progress
+- Floating particle background
 
 ### Content
-Update the content in each component file:
-- `Hero.tsx`: Professional introduction and current roles
-- `Timeline.tsx`: Career timeline and work experience
-- `Projects.tsx`: Featured projects and achievements
-- `Contact.tsx`: Contact information and social links
+Update content in component files:
+- `Hero.tsx`: Introduction and current roles
+- `Timeline.tsx`: Career timeline and experience
+- `Projects.tsx`: Featured projects
+- `Contact.tsx`: Contact information
 
 ## 📱 Responsive Design
 
-The website is fully responsive with breakpoints:
-- Mobile: < 768px
-- Tablet: 768px - 1024px
-- Desktop: > 1024px
+Fully responsive with mobile-first approach:
+- **Mobile**: Touch navigation, optimized typography
+- **Tablet**: Balanced layout and interactions  
+- **Desktop**: Full feature set with animations
 
 ## 🚀 Performance
 
 - Optimized bundle size with Vite
-- Lazy loading for images and components
-- Efficient animations with Framer Motion
-- Minimal dependencies for fast loading
+- Lazy loading for components
+- Efficient Framer Motion animations
+- Minimal dependencies
 
 ## 🔧 Development
 
 ### Adding New Sections
-1. Create a new component in `src/components/`
-2. Import and add to `App.tsx`
+1. Create component in `src/components/sections/`
+2. Add to route in `src/routes/`
 3. Update navigation in `Navigation.tsx`
-4. Add smooth scroll functionality
 
 ### Styling Guidelines
-- Use Tailwind CSS classes for styling
-- Follow the established color scheme
-- Maintain consistent spacing and typography
-- Use glassmorphism effects for cards and overlays
+- Use Tailwind CSS classes
+- Follow cartoon color scheme
+- Maintain consistent spacing
 
 ## 📄 License
 

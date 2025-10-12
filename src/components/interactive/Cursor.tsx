@@ -1,11 +1,16 @@
 import { motion, useMotionValue, useSpring } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Cursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [cursorType, setCursorType] = useState<'default' | 'button' | 'link' | 'text' | 'card' | 'input'>('default');
   const [isVisible, setIsVisible] = useState(false);
+  const [lastHoveredElement, setLastHoveredElement] = useState<HTMLElement | null>(null);
+  
+  // Refs to hold latest values for event handlers
+  const isHoveringRef = useRef(isHovering);
+  const lastHoveredElementRef = useRef(lastHoveredElement);
   
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -14,6 +19,15 @@ const Cursor = () => {
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
+  // Update refs when state changes
+  useEffect(() => {
+    isHoveringRef.current = isHovering;
+  }, [isHovering]);
+
+  useEffect(() => {
+    lastHoveredElementRef.current = lastHoveredElement;
+  }, [lastHoveredElement]);
+
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -21,55 +35,83 @@ const Cursor = () => {
       setIsVisible(true);
     };
 
-    const handleMouseLeave = () => {
+    const handleWindowMouseLeave = () => {
       setIsVisible(false);
     };
 
-    const handleMouseEnter = (e: Event) => {
+    const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      setIsHovering(true);
       
-      // Determine cursor type based on element
-      if (target.tagName === 'A' || target.closest('a')) {
+      // Prevent flickering by checking if we're already hovering over the same element
+      if (isHoveringRef.current && target === lastHoveredElementRef.current) {
+        return;
+      }
+      
+      setIsHovering(true);
+      setLastHoveredElement(target);
+      
+      // Determine cursor type based on element, checking for closest matching element
+      const linkElement = target.closest('a');
+      const buttonElement = target.closest('button, [role="button"], .angular-button');
+      const inputElement = target.closest('input, textarea, [contenteditable="true"], .angular-input');
+      const cardElement = target.closest('.angular-card');
+      const textElement = target.closest('p, span, h1, h2, h3, h4, h5, h6');
+      
+      if (linkElement) {
         setCursorType('link');
-      } else if (target.tagName === 'BUTTON' || target.closest('button') || target.getAttribute('role') === 'button' || target.classList.contains('angular-button')) {
+      } else if (buttonElement) {
         setCursorType('button');
-      } else if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.contentEditable === 'true' || target.classList.contains('angular-input')) {
+      } else if (inputElement) {
         setCursorType('input');
-      } else if (target.classList.contains('angular-card')) {
+      } else if (cardElement) {
         setCursorType('card');
-      } else if (['P', 'SPAN', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(target.tagName)) {
+      } else if (textElement) {
         setCursorType('text');
       } else {
         setCursorType('default');
       }
     };
 
-    const handleElementMouseLeave = () => {
-      setIsHovering(false);
-      setCursorType('default');
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const relatedTarget = e.relatedTarget as HTMLElement;
+      
+      // Guard against null relatedTarget
+      if (!relatedTarget) {
+        setIsHovering(false);
+        setCursorType('default');
+        setLastHoveredElement(null);
+        return;
+      }
+      
+      // Only reset if we're actually leaving the element (not moving to a child)
+      if (!target.contains(relatedTarget)) {
+        setIsHovering(false);
+        setCursorType('default');
+        setLastHoveredElement(null);
+      }
     };
 
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
     window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mouseleave", handleWindowMouseLeave);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
-    // Simplified hover detection using event delegation
-    document.addEventListener("mouseover", handleMouseEnter);
-    document.addEventListener("mouseout", handleElementMouseLeave);
+    // Use mouseover/mouseout for proper hover detection with bubbling
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mouseleave", handleWindowMouseLeave);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       
-      document.removeEventListener("mouseover", handleMouseEnter);
-      document.removeEventListener("mouseout", handleElementMouseLeave);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, [cursorX, cursorY]);
 

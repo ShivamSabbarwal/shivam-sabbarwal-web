@@ -3,7 +3,6 @@ import {
   Code, 
   Database, 
   Cloud, 
-  Smartphone, 
   Globe, 
   Cpu,
   GitBranch,
@@ -17,7 +16,6 @@ import {
   Monitor,
   Smartphone as Mobile,
   GitCommit,
-  Eye,
   Code2,
   TestTube,
   Wrench
@@ -35,12 +33,13 @@ const TechStack = () => {
       bgColor: "bg-primary/10",
       borderColor: "border-primary",
       technologies: [
-        { name: "React", icon: Code2, description: "Advanced component architecture" },
+        { name: "React", icon: Code2, description: "Component architecture" },
         { name: "TypeScript", icon: FileText, description: "Type-safe development" },
-        { name: "Next.js", icon: Layers, description: "Full-stack React framework" },
+        { name: "Next.js", icon: Layers, description: "Full-stack framework" },
         { name: "Tailwind CSS", icon: Palette, description: "Utility-first styling" },
-        { name: "Framer Motion", icon: Zap, description: "Advanced animations" },
-        { name: "Vue.js", icon: Code, description: "Progressive framework" }
+        { name: "Framer Motion", icon: Zap, description: "Animations" },
+        { name: "Vite", icon: Terminal, description: "Build tool" },
+        { name: "React Native", icon: Mobile, description: "Cross-platform mobile" }
       ]
     },
     {
@@ -52,10 +51,11 @@ const TechStack = () => {
       technologies: [
         { name: "Node.js", icon: Terminal, description: "JavaScript runtime" },
         { name: "Python", icon: Code2, description: "Django & FastAPI" },
+        { name: "Go", icon: Code, description: "Cloud-native development" },
         { name: "PostgreSQL", icon: Database, description: "Relational database" },
         { name: "MongoDB", icon: Database, description: "NoSQL database" },
-        { name: "Redis", icon: Zap, description: "In-memory caching" },
-        { name: "GraphQL", icon: GitBranch, description: "API query language" }
+        { name: "Redis", icon: Zap, description: "Caching" },
+        { name: "Serverless", icon: Cloud, description: "Serverless Framework" }
       ]
     },
     {
@@ -66,26 +66,28 @@ const TechStack = () => {
       borderColor: "border-cartoon-highlight",
       technologies: [
         { name: "AWS", icon: Cloud, description: "Cloud infrastructure" },
+        { name: "Vercel", icon: Cloud, description: "Frontend deployment" },
+        { name: "Cloudflare", icon: Cloud, description: "CDN & security" },
         { name: "Docker", icon: Server, description: "Containerization" },
-        { name: "Kubernetes", icon: Layers, description: "Container orchestration" },
+        { name: "CI/CD", icon: GitBranch, description: "GitLab & Bitbucket" },
         { name: "Terraform", icon: Wrench, description: "Infrastructure as code" },
-        { name: "CI/CD", icon: GitBranch, description: "Automated deployment" },
-        { name: "Monitoring", icon: Eye, description: "System observability" }
+        { name: "Kubernetes", icon: Layers, description: "Container orchestration" }
       ]
     },
     {
-      title: "Mobile & Tools",
-      icon: Smartphone,
-      color: "text-secondary-foreground",
-      bgColor: "bg-secondary/20",
-      borderColor: "border-secondary-foreground",
+      title: "AI & Dev Tools",
+      icon: Cpu,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+      borderColor: "border-purple-500",
       technologies: [
-        { name: "React Native", icon: Mobile, description: "Cross-platform mobile" },
-        { name: "Flutter", icon: Smartphone, description: "Google's UI toolkit" },
+        { name: "OpenAI API", icon: Zap, description: "GPT integration" },
+        { name: "LangChain", icon: GitBranch, description: "LLM framework" },
+        { name: "Testing", icon: TestTube, description: "Vitest, Jest, Cypress" },
+        { name: "Playwright", icon: TestTube, description: "Cross-browser testing" },
         { name: "Git", icon: GitCommit, description: "Version control" },
         { name: "Figma", icon: Palette, description: "Design & prototyping" },
-        { name: "VS Code", icon: Monitor, description: "Development environment" },
-        { name: "Testing", icon: TestTube, description: "Jest, Cypress, Playwright" }
+        { name: "VS Code", icon: Monitor, description: "Development environment" }
       ]
     }
   ];
@@ -97,7 +99,7 @@ const TechStack = () => {
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.05, y: -2 }}
       onHoverStart={playHover}
-      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors duration-200"
+      className="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary/50 transition-colors duration-200"
     >
       <motion.div
         whileHover={{ rotate: 360 }}
@@ -107,7 +109,7 @@ const TechStack = () => {
         <Icon className="w-4 h-4 text-primary" />
       </motion.div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-sm text-foreground">{name}</h4>
+        <h4 className="font-semibold text-sm text-foreground truncate">{name}</h4>
         <p className="text-xs text-muted-foreground truncate">{description}</p>
       </div>
     </motion.div>
@@ -205,7 +207,7 @@ const TechStack = () => {
               transition={{ delay: categoryIndex * 0.2, duration: 0.8 }}
               whileHover={{ scale: 1.02, y: -5 }}
               onHoverStart={playHover}
-              className="angular-card p-8 space-y-6"
+              className="angular-card p-6 space-y-4 min-h-[400px]"
             >
               {/* Category Header */}
               <div className="flex items-center space-x-4">
@@ -253,9 +255,9 @@ const TechStack = () => {
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { icon: Code, label: "Languages", value: "12+" },
+            { icon: Code, label: "Languages", value: "4+" },
             { icon: Layers, label: "Frameworks", value: "15+" },
-            { icon: Cloud, label: "Cloud Services", value: "20+" },
+            { icon: Cloud, label: "Cloud Services", value: "10+" },
             { icon: Shield, label: "Years Experience", value: "7+" }
           ].map((stat, index) => (
             <motion.div
