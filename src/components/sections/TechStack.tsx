@@ -75,7 +75,7 @@ const TechStack = () => {
       ]
     },
     {
-      title: "AI & Tools",
+      title: "AI & Dev Tools",
       icon: Cpu,
       color: "text-purple-500",
       bgColor: "bg-purple-500/10",
@@ -109,8 +109,8 @@ const TechStack = () => {
         <Icon className="w-4 h-4 text-primary" />
       </motion.div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-sm text-foreground whitespace-nowrap">{name}</h4>
-        <p className="text-xs text-muted-foreground whitespace-nowrap">{description}</p>
+        <h4 className="font-semibold text-sm text-foreground truncate">{name}</h4>
+        <p className="text-xs text-muted-foreground truncate">{description}</p>
       </div>
     </motion.div>
   );

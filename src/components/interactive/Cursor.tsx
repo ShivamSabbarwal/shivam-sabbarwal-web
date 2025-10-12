@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Cursor = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -8,12 +8,25 @@ const Cursor = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lastHoveredElement, setLastHoveredElement] = useState<HTMLElement | null>(null);
   
+  // Refs to hold latest values for event handlers
+  const isHoveringRef = useRef(isHovering);
+  const lastHoveredElementRef = useRef(lastHoveredElement);
+  
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
   const springConfig = { damping: 25, stiffness: 300 }; // Reduced for better performance
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
+
+  // Update refs when state changes
+  useEffect(() => {
+    isHoveringRef.current = isHovering;
+  }, [isHovering]);
+
+  useEffect(() => {
+    lastHoveredElementRef.current = lastHoveredElement;
+  }, [lastHoveredElement]);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -26,11 +39,11 @@ const Cursor = () => {
       setIsVisible(false);
     };
 
-    const handleMouseEnter = (e: MouseEvent) => {
+    const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
       // Prevent flickering by checking if we're already hovering over the same element
-      if (isHovering && target === lastHoveredElement) {
+      if (isHoveringRef.current && target === lastHoveredElementRef.current) {
         return;
       }
       
@@ -59,9 +72,17 @@ const Cursor = () => {
       }
     };
 
-    const handleMouseLeave = (e: MouseEvent) => {
+    const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const relatedTarget = e.relatedTarget as HTMLElement;
+      
+      // Guard against null relatedTarget
+      if (!relatedTarget) {
+        setIsHovering(false);
+        setCursorType('default');
+        setLastHoveredElement(null);
+        return;
+      }
       
       // Only reset if we're actually leaving the element (not moving to a child)
       if (!target.contains(relatedTarget)) {
@@ -79,9 +100,9 @@ const Cursor = () => {
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
-    // Use mouseenter/mouseleave for proper hover detection without bubbling
-    document.addEventListener("mouseenter", handleMouseEnter, true);
-    document.addEventListener("mouseleave", handleMouseLeave, true);
+    // Use mouseover/mouseout for proper hover detection with bubbling
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
@@ -89,8 +110,8 @@ const Cursor = () => {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       
-      document.removeEventListener("mouseenter", handleMouseEnter, true);
-      document.removeEventListener("mouseleave", handleMouseLeave, true);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, [cursorX, cursorY]);
 
