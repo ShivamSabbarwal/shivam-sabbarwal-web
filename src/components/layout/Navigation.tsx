@@ -1,66 +1,62 @@
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
-import { Sun, Moon, Music, VolumeX, Menu } from "lucide-react";
+import { Sun, Moon, Menu, FileText } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSounds } from "../../lib/audio/sounds";
-import { useBackgroundMusicContext } from "@/contexts/BackgroundMusicContext";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { NAV_ITEMS } from "@/constants";
 
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const { theme, toggleTheme } = useTheme();
   const { playClick, playHover } = useSounds();
-  const { toggleBackgroundMusic, isPlaying } = useBackgroundMusicContext();
+
+  const navItems = NAV_ITEMS;
+
+  // Scroll spy functionality to detect active section
   useEffect(() => {
     const handleScroll = () => {
-      // Update active section based on scroll position
-      const sections = ["home", "timeline", "tech-stack", "projects", "contact"];
-      const scrollPosition = window.scrollY + 100;
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
+      const sections = navItems.map(item => item.href.substring(1));
+      const scrollPosition = window.scrollY + 100; // Offset for better UX
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
         }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Set initial active section
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [navItems]);
 
-  const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Timeline", href: "#timeline" },
-    { name: "Tech Stack", href: "#tech-stack" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  const scrollToSection = (href: string) => {
+  const handleNavClick = (href: string) => {
     playClick();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith('#')) {
+      // Handle hash navigation for sections on the home page
+      const hash = href.substring(1);
+      setActiveSection(hash); // Update active section immediately
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     // Close mobile menu if open
     setIsMobileMenuOpen(false);
   };
 
-  const toggleMusic = async () => {
-    try {
-      await toggleBackgroundMusic();
-    } catch (e) {
-      console.warn('Failed to toggle music:', e);
-    }
+  const openResume = () => {
+    playClick();
+    window.open('/resume', '_blank');
   };
+
 
   return (
     <motion.nav
@@ -68,7 +64,7 @@ const Navigation = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       layout
-      className="fixed z-50 top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
+      className="fixed z-40 top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
       style={{
         transition: "none" // Disable CSS transitions in favor of Framer Motion
       }}
@@ -125,13 +121,13 @@ const Navigation = () => {
                 }}
               >
                 <Button
-                  variant={activeSection === item.href.slice(1) ? "default" : "ghost"}
+                  onClick={() => handleNavClick(item.href)}
+                  variant={activeSection === item.href.substring(1) ? "default" : "outline"}
                   size="sm"
-                  onClick={() => scrollToSection(item.href)}
-                  className={`relative text-xs font-bold px-2 sm:px-3 ${
-                    activeSection === item.href.slice(1)
-                      ? "text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                  className={`text-xs font-bold px-2 sm:px-3 py-2 ${
+                    activeSection === item.href.substring(1)
+                      ? "hover:animate-glow"
+                      : "hover:animate-pulse-color"
                   }`}
                 >
                   {item.name}
@@ -140,7 +136,45 @@ const Navigation = () => {
             ))}
           </motion.div>
 
-          {/* Theme Toggle, Music Toggle & Mobile Menu */}
+          {/* Resume Button */}
+          <motion.div
+            layout
+            animate={{
+              scale: 0.9
+            }}
+            transition={{
+              layout: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+              scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+            }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.9, rotate: -5 }}
+            onHoverStart={playHover}
+            onTapStart={playClick}
+            style={{
+              transition: "none" // Disable CSS transitions
+            }}
+          >
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={openResume}
+              className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
+              aria-label="Open Resume"
+            >
+              <motion.div
+                animate={{
+                  scale: 0.8
+                }}
+                transition={{
+                  scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+                }}
+              >
+                <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+              </motion.div>
+            </Button>
+          </motion.div>
+
+          {/* Theme Toggle & Mobile Menu */}
           <motion.div 
             layout
             className="flex items-center space-x-1 sm:space-x-2"
@@ -149,51 +183,6 @@ const Navigation = () => {
               gap: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
             }}
           >
-            {/* Music Toggle */}
-            <motion.div
-              layout
-              animate={{
-                scale: 0.9
-              }}
-              transition={{
-                layout: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
-                scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
-              }}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9, rotate: -5 }}
-              onHoverStart={playHover}
-              onTapStart={playClick}
-              style={{
-                transition: "none" // Disable CSS transitions
-              }}
-            >
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={toggleMusic}
-                className="relative hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-                aria-label={isPlaying ? "Turn off music" : "Turn on music"}
-                title={`Music: ${isPlaying ? 'ON' : 'OFF'}`}
-              >
-                {/* Icon */}
-                <motion.div 
-                  className="relative z-10"
-                  animate={{
-                    scale: 0.8
-                  }}
-                  transition={{
-                    scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
-                  }}
-                >
-                  {isPlaying ? (
-                    <Music className="w-4 h-4 sm:w-5 sm:h-5" />
-                  ) : (
-                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
-                  )}
-                </motion.div>
-              </Button>
-            </motion.div>
-
             {/* Theme Toggle */}
             <motion.div
               layout
@@ -216,7 +205,7 @@ const Navigation = () => {
                 variant="outline"
                 size="icon"
                 onClick={toggleTheme}
-                className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
+                className="hover:animate-pulse-color w-8 h-8 sm:w-10 sm:h-10"
                 aria-label="Toggle theme"
               >
                 <motion.div
@@ -226,6 +215,7 @@ const Navigation = () => {
                   transition={{
                     scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
                   }}
+                  whileHover={{ rotate: 360 }}
                 >
                   {theme === 'light' ? (
                     <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -273,63 +263,93 @@ const Navigation = () => {
                     </motion.div>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[280px] sm:w-[350px] md:w-[400px]">
-                  <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
+                  <SheetContent 
+                    side="right" 
+                    className="w-[320px] sm:w-[380px] md:w-[420px] backdrop-blur-xl border-l-4 border-primary/20 z-[60]"
+                  >
+                    {/* Accessibility Title and Description */}
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                    <SheetDescription className="sr-only">
+                      Navigate through different sections of the portfolio
+                    </SheetDescription>
+
+                    {/* Cool Background Effects */}
+                    <div className="absolute inset-0 -z-10">
+                      <motion.div
+                        animate={{ 
+                          rotate: [0, 360],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          duration: 20, 
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-xl"
+                      />
+                      <motion.div
+                        animate={{ 
+                          rotate: [360, 0],
+                          scale: [1, 1.2, 1]
+                        }}
+                        transition={{ 
+                          duration: 25, 
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute -bottom-20 -left-20 w-32 h-32 bg-accent/10 rounded-full blur-xl"
+                      />
+                    </div>
+
+                    <div className="relative z-10 mt-8 mx-4 space-y-6">
+                      {/* Header */}
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-center pb-6 border-b border-border/50"
+                      >
+                        <h2 className="text-2xl font-black cartoon-text">Navigation</h2>
+                        <p className="text-sm text-muted-foreground mt-2">Explore my portfolio</p>
+                      </motion.div>
+
                     {/* Navigation Links */}
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {navItems.map((item, index) => (
                         <motion.div
                           key={item.name}
-                          initial={{ opacity: 0, x: 20 }}
+                          initial={{ opacity: 0, x: 30 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
+                          transition={{ delay: index * 0.1 + 0.2 }}
                         >
                           <Button
-                            variant="ghost"
-                            className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4"
-                            onClick={() => scrollToSection(item.href)}
+                            onClick={() => handleNavClick(item.href)}
+                            variant={activeSection === item.href.substring(1) ? "default" : "outline"}
+                            className={`w-full justify-start text-left text-base py-4 px-6 angular-card hover:cartoon-shadow-lg transition-all duration-300 ${
+                              activeSection === item.href.substring(1)
+                                ? "hover:animate-glow transform scale-105"
+                                : "hover:animate-pulse-color hover:scale-105 hover:-translate-y-1"
+                            }`}
                           >
-                            {item.name}
+                            <motion.div
+                              whileHover={{ rotate: 5 }}
+                              transition={{ duration: 0.2 }}
+                              className="flex items-center w-full"
+                            >
+                              <span className="font-bold">{item.name}</span>
+                              {activeSection === item.href.substring(1) && (
+                                <motion.div
+                                  className="ml-auto w-2 h-2 bg-primary-foreground rounded-full"
+                                  animate={{ scale: [1, 1.2, 1] }}
+                                  transition={{ duration: 1, repeat: Infinity }}
+                                />
+                              )}
+                            </motion.div>
                           </Button>
                         </motion.div>
                       ))}
                     </div>
 
-                    <Separator />
-
-                    {/* Theme & Music Controls */}
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm sm:text-base">Theme</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={toggleTheme}
-                          className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-                        >
-                          {theme === 'light' ? (
-                            <Moon className="w-4 h-4" />
-                          ) : (
-                            <Sun className="w-4 h-4" />
-                          )}
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm sm:text-base">Music</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={toggleMusic}
-                          className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-                        >
-                          {isPlaying ? (
-                            <Music className="w-4 h-4" />
-                          ) : (
-                            <VolumeX className="w-4 h-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
                   </div>
                 </SheetContent>
               </Sheet>

@@ -10,7 +10,7 @@ const Cursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
-  const springConfig = { damping: 30, stiffness: 500 };
+  const springConfig = { damping: 25, stiffness: 300 }; // Reduced for better performance
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -58,12 +58,9 @@ const Cursor = () => {
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
-    // Add hover listeners for all interactive elements
-    const interactiveElements = document.querySelectorAll("a, button, [role='button'], input, textarea, [contenteditable], .angular-button, .angular-card, .angular-input, p, span, h1, h2, h3, h4, h5, h6");
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mouseleave", handleElementMouseLeave);
-    });
+    // Simplified hover detection using event delegation
+    document.addEventListener("mouseover", handleMouseEnter);
+    document.addEventListener("mouseout", handleElementMouseLeave);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
@@ -71,10 +68,8 @@ const Cursor = () => {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       
-      interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter);
-        el.removeEventListener("mouseleave", handleElementMouseLeave);
-      });
+      document.removeEventListener("mouseover", handleMouseEnter);
+      document.removeEventListener("mouseout", handleElementMouseLeave);
     };
   }, [cursorX, cursorY]);
 
@@ -144,15 +139,13 @@ const Cursor = () => {
       <motion.div
         className={`w-full h-full border-2 ${colors.bg} ${colors.border} ${colors.glow1} ${colors.glow2} ${colors.glow3} ${colors.innerGlow} rounded-full backdrop-blur-sm`}
         animate={{
-          scale: isClicking ? 0.8 : isHovering ? 1.3 : 1,
+          scale: isClicking ? 0.8 : isHovering ? 1.2 : 1,
           opacity: isClicking ? 0.7 : isHovering ? 0.9 : 0.8,
-          rotateY: isHovering ? 5 : 0,
-          rotateX: isHovering ? -5 : 0,
         }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 20,
+          stiffness: 200,
+          damping: 15,
         }}
         style={{
           transformStyle: 'preserve-3d',
@@ -179,7 +172,7 @@ const Cursor = () => {
     <>
       {/* Main cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-4 h-4 pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-4 h-4 pointer-events-none z-[9999] cursor-element"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,

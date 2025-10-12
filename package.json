@@ -38,6 +38,10 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tailwindcss/vite": "^4.1.13",
+    "@tanstack/react-router-devtools": "^1.132.51",
+    "@tanstack/router": "^0.0.1-beta.53",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -61,6 +65,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@tanstack/router-plugin": "^1.132.51",
     "@types/node": "^24.3.3",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",

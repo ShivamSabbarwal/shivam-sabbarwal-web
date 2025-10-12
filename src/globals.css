@@ -154,16 +154,15 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: none; /* Hide default cursor globally */
   }
 
   html {
     scroll-behavior: smooth;
   }
 
-  /* Smooth theme transitions for all elements */
+  /* Optimized theme transitions - only for essential properties */
   * {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
 
   /* Disable transitions for motion elements to avoid conflicts */
@@ -171,8 +170,19 @@
     transition: none !important;
   }
 
-  /* Ensure cursor is hidden on all elements */
-  *, *::before, *::after {
+  /* Performance optimizations */
+  .angular-card,
+  .angular-button,
+  .floating-bubble,
+  .cursor-element {
+    will-change: transform, box-shadow;
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+
+  /* Hide cursor only on non-resume pages */
+  body:not(.resume-page) *,
+  body:not(.resume-page) *::before, 
+  body:not(.resume-page) *::after {
     cursor: none !important;
   }
 }
@@ -181,7 +191,7 @@
   .cartoon-card {
     background: var(--cartoon-card);
     border: 3px solid var(--foreground);
-    box-shadow: 8px 8px 0 var(--cartoon-shadow), 12px 12px 0 var(--cartoon-shadow-accent);
+    box-shadow: 4px 4px 0 var(--cartoon-shadow);
     clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   }
 
@@ -320,27 +330,21 @@
     background: var(--cartoon-card);
     border: 4px solid var(--foreground);
     border-radius: 12px;
-    box-shadow: 
-      4px 4px 0 var(--primary),
-      8px 8px 0 var(--accent);
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 4px 4px 0 var(--primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
     overflow: hidden;
   }
 
   .angular-card:hover {
-    transform: translateY(-4px) translateX(-4px) scale(1.02);
-    box-shadow: 
-      6px 6px 0 var(--primary),
-      12px 12px 0 var(--accent);
+    transform: translateY(-2px) translateX(-2px);
+    box-shadow: 6px 6px 0 var(--primary);
   }
 
   .angular-card:active {
-    transform: translateY(-2px) translateX(-2px) scale(1.01);
-    box-shadow: 
-      2px 2px 0 var(--primary),
-      4px 4px 0 var(--accent);
-    transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(-1px) translateX(-1px);
+    box-shadow: 2px 2px 0 var(--primary);
+    transition: all 0.1s ease;
   }
 
   /* TikTok-style 3D Buttons */
@@ -878,6 +882,22 @@
   50% { 
     opacity: 1;
     transform: scale(1.2);
+  }
+}
+
+/* Print styles for resume page */
+@media print {
+  /* Hide all fixed positioned elements when printing */
+  .fixed,
+  [style*="position: fixed"],
+  [style*="position:fixed"] {
+    display: none !important;
+  }
+  
+  /* Hide any floating elements */
+  .floating-dock,
+  .cursor-element {
+    display: none !important;
   }
 }
 

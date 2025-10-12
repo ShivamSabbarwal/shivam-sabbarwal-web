@@ -21,7 +21,7 @@ interface FloatingBubblesProps {
   className?: string;
 }
 
-const FloatingBubbles = ({ count = 12, className = "" }: FloatingBubblesProps) => {
+const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -183,7 +183,7 @@ const FloatingBubbles = ({ count = 12, className = "" }: FloatingBubblesProps) =
   // Animation loop with performance optimization
   useEffect(() => {
     let lastTime = 0;
-    const targetFPS = 30; // Reduce from 60fps to 30fps
+    const targetFPS = 20; // Further reduce to 20fps for better performance
     const frameInterval = 1000 / targetFPS;
     
     const animate = (currentTime: number) => {
@@ -223,37 +223,37 @@ const FloatingBubbles = ({ count = 12, className = "" }: FloatingBubblesProps) =
             newY += Math.sin(angle) * avoidanceForce * 2;
           }
 
-          // Optimized collision detection - only check nearby bubbles
-          const maxCollisionDistance = 100; // Only check bubbles within this distance
-          for (let i = 0; i < prevBubbles.length; i++) {
-            if (i !== index) {
-              const otherBubble = prevBubbles[i];
-              
-              // Quick distance check before expensive collision calculation
-              const quickDx = Math.abs((newX + bubble.radius) - (otherBubble.x + otherBubble.radius));
-              const quickDy = Math.abs((newY + bubble.radius) - (otherBubble.y + otherBubble.radius));
-              
-              if (quickDx < maxCollisionDistance && quickDy < maxCollisionDistance) {
-                const tempBubble = { ...bubble, x: newX, y: newY };
+          // Simplified collision detection - only check every few frames
+          if (Math.random() < 0.3) { // Only check 30% of the time
+            const maxCollisionDistance = 80;
+            for (let i = 0; i < prevBubbles.length; i++) {
+              if (i !== index) {
+                const otherBubble = prevBubbles[i];
                 
-                if (checkBubbleCollision(tempBubble, otherBubble)) {
-                  // Calculate collision response
-                  const dx = (newX + bubble.radius) - (otherBubble.x + otherBubble.radius);
-                  const dy = (newY + bubble.radius) - (otherBubble.y + otherBubble.radius);
-                  const distance = Math.sqrt(dx * dx + dy * dy);
+                // Quick distance check
+                const quickDx = Math.abs((newX + bubble.radius) - (otherBubble.x + otherBubble.radius));
+                const quickDy = Math.abs((newY + bubble.radius) - (otherBubble.y + otherBubble.radius));
+                
+                if (quickDx < maxCollisionDistance && quickDy < maxCollisionDistance) {
+                  const tempBubble = { ...bubble, x: newX, y: newY };
                   
-                  if (distance > 0) {
-                    const overlap = (bubble.radius + otherBubble.radius) - distance;
-                    const separationX = (dx / distance) * overlap * 0.5;
-                    const separationY = (dy / distance) * overlap * 0.5;
+                  if (checkBubbleCollision(tempBubble, otherBubble)) {
+                    // Simple bounce away
+                    const dx = (newX + bubble.radius) - (otherBubble.x + otherBubble.radius);
+                    const dy = (newY + bubble.radius) - (otherBubble.y + otherBubble.radius);
+                    const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    newX += separationX;
-                    newY += separationY;
-                    
-                    // Bounce effect
-                    const bounceForce = 0.8;
-                    bubble.speedX += separationX * bounceForce;
-                    bubble.speedY += separationY * bounceForce;
+                    if (distance > 0) {
+                      const separationX = (dx / distance) * 2;
+                      const separationY = (dy / distance) * 2;
+                      
+                      newX += separationX;
+                      newY += separationY;
+                      
+                      // Simple bounce
+                      bubble.speedX *= -0.5;
+                      bubble.speedY *= -0.5;
+                    }
                   }
                 }
               }
@@ -359,7 +359,7 @@ const FloatingBubbles = ({ count = 12, className = "" }: FloatingBubblesProps) =
     
     return (
       <div
-        className="absolute bubble-glow"
+        className="absolute bubble-glow floating-bubble"
         style={{
           left: bubble.x,
           top: bubble.y,

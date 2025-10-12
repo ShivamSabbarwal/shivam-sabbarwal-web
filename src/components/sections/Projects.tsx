@@ -13,18 +13,10 @@ const CreativeProjects = () => {
     },
     {
       id: 2,
-      title: "My Resume",
-      description: "A professional resume website built with React, TypeScript, and Vite. Showcases my professional experience, skills, and achievements with a clean, modern design.",
-      tags: ["React", "TypeScript", "Vite", "Resume", "Portfolio"],
-      liveUrl: "#",
-      githubUrl: "https://github.com/ShivamSabbarwal/resume",
-    },
-    {
-      id: 3,
-      title: "Personal Website",
+      title: "Personal Portfolio",
       description: "My personal portfolio website featuring interactive animations, modern UI components, and comprehensive information about my professional journey. Built with React, TypeScript, Framer Motion, and TailwindCSS.",
       tags: ["React", "TypeScript", "Framer Motion", "TailwindCSS", "Portfolio"],
-      liveUrl: "#",
+      liveUrl: "https://shivamsabbarwal.dev",
       githubUrl: "https://github.com/ShivamSabbarwal/shivam-sabbarwal-web",
     },
   ];
@@ -58,7 +50,6 @@ const CreativeProjects = () => {
               project={project}
               index={index}
               isAlternating={index % 2 === 1}
-              isLarge={true}
             />
           ))}
         </div>

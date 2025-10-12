@@ -1,8 +1,8 @@
+import { memo } from "react";
 import { motion } from "motion/react";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Sparkles, Zap } from "lucide-react";
 import { useSounds } from "../lib/audio/sounds";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface ProjectCardProps {
   project: {
@@ -15,13 +15,12 @@ interface ProjectCardProps {
   };
   index: number;
   isAlternating?: boolean;
-  isLarge?: boolean;
 }
 
-const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }: ProjectCardProps) => {
-  const { playClick, playHover } = useSounds();
+const ProjectCard = memo(
+  ({ project, index, isAlternating = false }: ProjectCardProps) => {
+    const { playClick, playHover } = useSounds();
 
-  if (isLarge) {
     return (
       <motion.div
         key={project.id}
@@ -29,178 +28,156 @@ const ProjectCard = ({ project, index, isAlternating = false, isLarge = false }:
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: index * 0.2 }}
         viewport={{ once: true }}
-        className={`flex flex-col ${isAlternating ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-8 sm:gap-12`}
+        className={`flex flex-col ${isAlternating ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-8 sm:gap-12 lg:gap-16`}
       >
-        {/* Project Image */}
-        <div className="flex-1">
+        {/* Fun Project Visual */}
+        <div className="flex-1 relative">
           <motion.div
-            whileHover={{ scale: 1.05, y: -5 }}
+            whileHover={{ scale: 1.05, rotate: 2 }}
             onHoverStart={playHover}
-            transition={{ duration: 0.1, ease: "easeOut" }}
-            className="relative group"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="relative"
           >
-            <Card className="aspect-video overflow-hidden cartoon-shadow-lg">
-              <CardContent className="p-0 h-full">
-                <div className="w-full h-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-2xl font-black text-primary">
+            {/* Project Visual Card */}
+            <div className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-primary/20 via-accent/20 to-cartoon-highlight/20 rounded-3xl relative overflow-hidden">
+              {/* Background Elements */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                className="absolute -top-10 -right-10 w-32 h-32 bg-primary/30 rounded-full"
+              />
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute -bottom-6 -left-6 w-16 h-16 bg-accent/30 rounded-full"
+              />
+
+              {/* Content */}
+              <div className="relative z-10 h-full p-12 flex flex-col items-center justify-center ">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-center"
+                >
+                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black cartoon-text-large mb-2">
                     {project.title}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-              <motion.a
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                whileTap={{ scale: 0.8, rotate: -5 }}
-                transition={{ duration: 0.1, ease: "easeOut" }}
-                onHoverStart={playHover}
-                onTapStart={playClick}
-                href={project.liveUrl}
-                className="p-3 angular-card hover:animate-bounce-slow transition-all duration-150"
-              >
-                <ExternalLink className="w-6 h-6 text-primary" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                whileTap={{ scale: 0.8, rotate: -5 }}
-                transition={{ duration: 0.1, ease: "easeOut" }}
-                onHoverStart={playHover}
-                onTapStart={playClick}
-                href={project.githubUrl}
-                className="p-3 angular-card hover:animate-bounce-slow transition-all duration-150"
-              >
-                <Github className="w-6 h-6 text-primary" />
-              </motion.a>
+                  </h3>
+
+                  {/* Decorative Elements */}
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className="flex justify-center space-x-2"
+                  >
+                    <Sparkles className="w-6 h-6 text-primary" />
+                    <Zap className="w-6 h-6 text-accent" />
+                    <Sparkles className="w-6 h-6 text-cartoon-highlight" />
+                  </motion.div>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Project Content */}
-        <div className="flex-1 space-y-4 sm:space-y-6">
-          <div>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 sm:mb-4 cartoon-text">
-              {project.title}
-            </h3>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-medium">
+        {/* Fun Project Content */}
+        <div className="flex-1 space-y-6 sm:space-y-8">
+          {/* Project Description with Fun Styling */}
+          <motion.div
+            initial={{ opacity: 0, x: isAlternating ? 30 : -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed font-medium">
               {project.description}
             </p>
-          </div>
+          </motion.div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Badge
+          {/* Fun Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap gap-3"
+          >
+            {project.tags.map((tag, tagIndex) => (
+              <motion.div
                 key={tag}
-                variant="default"
-                className="text-xs sm:text-sm font-bold"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 + tagIndex * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                onHoverStart={playHover}
               >
-                {tag}
-              </Badge>
+                <Badge
+                  variant="default"
+                  className="text-sm sm:text-base font-bold px-4 py-2 hover:animate-bounce-slow transition-all duration-300"
+                >
+                  {tag}
+                </Badge>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Links */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+          {/* Fun Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6"
+          >
             <motion.a
-              whileHover={{ scale: 1.1, x: 5 }}
-              whileTap={{ scale: 0.9, x: -2 }}
-              transition={{ duration: 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.1, x: 10, rotate: 2 }}
+              whileTap={{ scale: 0.95, rotate: -2 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               onHoverStart={playHover}
               onTapStart={playClick}
               href={project.liveUrl}
-              className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors duration-150 font-bold text-sm sm:text-base"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center space-x-3 text-primary hover:text-primary/80 transition-all duration-300 font-bold text-lg sm:text-xl"
             >
-              <span>View Project</span>
-              <ExternalLink className="w-4 h-4" />
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+                className="p-3 angular-card group-hover:animate-bounce-slow"
+              >
+                <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6" />
+              </motion.div>
+              <span className="cartoon-text">View Live Project</span>
             </motion.a>
+
             <motion.a
-              whileHover={{ scale: 1.1, x: 5 }}
-              whileTap={{ scale: 0.9, x: -2 }}
-              transition={{ duration: 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.1, x: 10, rotate: -2 }}
+              whileTap={{ scale: 0.95, rotate: 2 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               onHoverStart={playHover}
               onTapStart={playClick}
               href={project.githubUrl}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors duration-150 font-bold text-sm sm:text-base"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-all duration-300 font-bold text-lg sm:text-xl"
             >
-              <Github className="w-4 h-4" />
-              <span>Code</span>
+              <motion.div
+                whileHover={{ rotate: -360 }}
+                transition={{ duration: 0.5 }}
+                className="p-3 angular-card group-hover:animate-bounce-slow"
+              >
+                <Github className="w-5 h-5 sm:w-6 sm:h-6" />
+              </motion.div>
+              <span className="cartoon-highlight">Explore Code</span>
             </motion.a>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     );
   }
+);
 
-  // Small card version
-  return (
-    <motion.div
-      key={project.id}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      onHoverStart={playHover}
-      className="group"
-    >
-      <Card className="p-4 sm:p-6 hover:animate-bounce-slow transition-all duration-150">
-        <CardContent className="p-0">
-          <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 diagonal-cut mb-3 sm:mb-4 flex items-center justify-center">
-            <span className="text-sm sm:text-lg font-bold text-muted-foreground px-2 text-center">
-              {project.title}
-            </span>
-          </div>
-          
-          <h4 className="text-lg sm:text-xl font-bold mb-2 gradient-text">
-            {project.title}
-          </h4>
-          
-          <p className="text-muted-foreground mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed">
-            {project.description}
-          </p>
-          
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-            {project.tags.map((tag) => (
-              <Badge
-                key={tag}
-                variant="default"
-                className="text-xs font-medium"
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-          
-          <div className="flex items-center justify-center sm:justify-start">
-            <div className="flex items-center space-x-3 sm:space-x-4">
-              <motion.a
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                transition={{ duration: 0.1, ease: "easeOut" }}
-                onHoverStart={playHover}
-                onTapStart={playClick}
-                href={project.liveUrl}
-                className="p-2 angular-card hover:animate-bounce-slow transition-all duration-300"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                transition={{ duration: 0.1, ease: "easeOut" }}
-                onHoverStart={playHover}
-                onTapStart={playClick}
-                href={project.githubUrl}
-                className="p-2 angular-card hover:animate-bounce-slow transition-all duration-300"
-              >
-                <Github className="w-4 h-4" />
-              </motion.a>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-};
+ProjectCard.displayName = "ProjectCard";
 
 export default ProjectCard;
