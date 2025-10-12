@@ -173,9 +173,9 @@ const Timeline = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16"
         >
@@ -199,15 +199,15 @@ const Timeline = () => {
               <div className="absolute bottom-0 left-0 w-full h-6 sm:h-8 bg-gradient-to-t from-transparent to-timeline-line"></div>
             </div>
             
-            {/* Animated glow effect */}
-            <div className="absolute inset-0 w-full h-full timeline-line rounded-full opacity-30 animate-pulse"></div>
+            {/* Subtle glow effect */}
+            <div className="absolute inset-0 w-full h-full timeline-line rounded-full opacity-20"></div>
             
             {/* Progress line animation */}
             <motion.div 
               className="absolute top-0 left-0 w-full timeline-progress rounded-full"
               initial={{ height: "0%" }}
               whileInView={{ height: "100%" }}
-              transition={{ duration: 2.5, ease: "easeInOut" }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
               viewport={{ once: true }}
             />
           </div>
@@ -217,9 +217,9 @@ const Timeline = () => {
             {timelineHistory.map((item, index) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                 viewport={{ once: true }}
                 className={`relative flex items-center ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
@@ -230,7 +230,7 @@ const Timeline = () => {
                   className="absolute left-6 sm:left-8 md:left-1/2 w-6 sm:w-8 h-6 sm:h-8 transform md:-translate-x-1/2 z-10 flex items-center justify-center"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 + 0.5 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 + 0.2, ease: "easeOut" }}
                   viewport={{ once: true }}
                 >
                   {/* Outer ring with enhanced styling */}
@@ -262,8 +262,8 @@ const Timeline = () => {
                   {item.type === 'current' && item.category === 'work' && (
                     <motion.div 
                       className="absolute -top-0.5 sm:-top-1 -right-0.5 sm:-right-1 w-3 sm:w-4 h-3 sm:h-4 rounded-full border-2 border-background bg-green-500 dark:bg-green-400"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
                     ></motion.div>
                   )}
                   
@@ -271,8 +271,8 @@ const Timeline = () => {
                   {item.type === 'current' && item.category === 'work' && (
                     <motion.div 
                       className="absolute inset-0 w-6 sm:w-8 h-6 sm:h-8 border-2 border-green-500 dark:border-green-400 rounded-full"
-                      animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0, 0.8] }}
-                      transition={{ duration: 2, repeat: Infinity }}
+                      animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
                     />
                   )}
                 </motion.div>
@@ -282,8 +282,8 @@ const Timeline = () => {
                   index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
                 }`}>
                   <motion.div
-                    whileHover={{ scale: 1.05, y: -8, rotate: 1 }}
-                    transition={{ duration: 0.1, ease: "easeOut" }}
+                    whileHover={{ scale: 1.02, y: -4, rotate: 0.5 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
                   >
                     <Card className="p-4 sm:p-6 hover:cartoon-shadow-lg transition-all duration-150 hover:animate-float">
                       <CardContent className="p-0">

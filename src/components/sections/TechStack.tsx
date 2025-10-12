@@ -114,7 +114,7 @@ const TechStack = () => {
   );
 
   return (
-    <section id="tech-stack" className="py-20 bg-background relative overflow-hidden">
+    <section id="tech-stack" className="py-16 sm:py-20 md:py-24 bg-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 geometric-bg opacity-5" />
@@ -166,7 +166,7 @@ const TechStack = () => {
         </motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -178,7 +178,7 @@ const TechStack = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl md:text-6xl font-black mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6"
           >
             <span className="cartoon-text-large">Tech Stack</span>
           </motion.h2>
@@ -187,7 +187,7 @@ const TechStack = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-2"
           >
             A comprehensive toolkit of modern technologies and frameworks that power 
             <span className="cartoon-text"> innovative solutions</span> and 

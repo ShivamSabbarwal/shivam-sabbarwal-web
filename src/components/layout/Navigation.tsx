@@ -1,66 +1,46 @@
 import { motion } from "motion/react";
-import { useState, useEffect } from "react";
-import { Sun, Moon, Music, VolumeX, Menu } from "lucide-react";
+import { useState } from "react";
+import { Sun, Moon, Menu, FileText } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSounds } from "../../lib/audio/sounds";
-import { useBackgroundMusicContext } from "@/contexts/BackgroundMusicContext";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+import { Link, useLocation } from "@tanstack/react-router";
 
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { playClick, playHover } = useSounds();
-  const { toggleBackgroundMusic, isPlaying } = useBackgroundMusicContext();
-  useEffect(() => {
-    const handleScroll = () => {
-      // Update active section based on scroll position
-      const sections = ["home", "timeline", "tech-stack", "projects", "contact"];
-      const scrollPosition = window.scrollY + 100;
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const location = useLocation();
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Timeline", href: "#timeline" },
-    { name: "Tech Stack", href: "#tech-stack" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "Timeline", href: "/#timeline" },
+    { name: "Tech Stack", href: "/#tech-stack" },
+    { name: "Projects", href: "/#projects" },
+    { name: "Contact", href: "/#contact" },
   ];
 
-  const scrollToSection = (href: string) => {
+  const handleNavClick = (href: string) => {
     playClick();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith('/#')) {
+      // Handle hash navigation for sections on the home page
+      const hash = href.split('#')[1];
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     // Close mobile menu if open
     setIsMobileMenuOpen(false);
   };
 
-  const toggleMusic = async () => {
-    try {
-      await toggleBackgroundMusic();
-    } catch (e) {
-      console.warn('Failed to toggle music:', e);
-    }
+  const openResume = () => {
+    playClick();
+    window.open('/resume', '_blank');
   };
+
 
   return (
     <motion.nav
@@ -124,23 +104,60 @@ const Navigation = () => {
                   transition: "none" // Disable CSS transitions
                 }}
               >
-                <Button
-                  variant={activeSection === item.href.slice(1) ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => scrollToSection(item.href)}
-                  className={`relative text-xs font-bold px-2 sm:px-3 ${
-                    activeSection === item.href.slice(1)
-                      ? "text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                <Link
+                  to={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  className={`relative text-xs font-bold px-2 sm:px-3 py-2 rounded-md transition-colors ${
+                    location.pathname === item.href || (item.href === "/" && location.pathname === "/")
+                      ? "text-primary-foreground bg-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   }`}
                 >
                   {item.name}
-                </Button>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Theme Toggle, Music Toggle & Mobile Menu */}
+          {/* Resume Button */}
+          <motion.div
+            layout
+            animate={{
+              scale: 0.9
+            }}
+            transition={{
+              layout: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+              scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+            }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.9, rotate: -5 }}
+            onHoverStart={playHover}
+            onTapStart={playClick}
+            style={{
+              transition: "none" // Disable CSS transitions
+            }}
+          >
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={openResume}
+              className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
+              aria-label="Open Resume"
+            >
+              <motion.div
+                animate={{
+                  scale: 0.8
+                }}
+                transition={{
+                  scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+                }}
+              >
+                <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+              </motion.div>
+            </Button>
+          </motion.div>
+
+          {/* Theme Toggle & Mobile Menu */}
           <motion.div 
             layout
             className="flex items-center space-x-1 sm:space-x-2"
@@ -149,51 +166,6 @@ const Navigation = () => {
               gap: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
             }}
           >
-            {/* Music Toggle */}
-            <motion.div
-              layout
-              animate={{
-                scale: 0.9
-              }}
-              transition={{
-                layout: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
-                scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
-              }}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9, rotate: -5 }}
-              onHoverStart={playHover}
-              onTapStart={playClick}
-              style={{
-                transition: "none" // Disable CSS transitions
-              }}
-            >
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={toggleMusic}
-                className="relative hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-                aria-label={isPlaying ? "Turn off music" : "Turn on music"}
-                title={`Music: ${isPlaying ? 'ON' : 'OFF'}`}
-              >
-                {/* Icon */}
-                <motion.div 
-                  className="relative z-10"
-                  animate={{
-                    scale: 0.8
-                  }}
-                  transition={{
-                    scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
-                  }}
-                >
-                  {isPlaying ? (
-                    <Music className="w-4 h-4 sm:w-5 sm:h-5" />
-                  ) : (
-                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
-                  )}
-                </motion.div>
-              </Button>
-            </motion.div>
-
             {/* Theme Toggle */}
             <motion.div
               layout
@@ -284,20 +256,35 @@ const Navigation = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4"
-                            onClick={() => scrollToSection(item.href)}
+                          <Link
+                            to={item.href}
+                            onClick={() => handleNavClick(item.href)}
+                            className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 rounded-md hover:bg-accent transition-colors"
                           >
                             {item.name}
-                          </Button>
+                          </Link>
                         </motion.div>
                       ))}
                     </div>
 
                     <Separator />
 
-                    {/* Theme & Music Controls */}
+                    {/* Resume Button */}
+                    <div className="space-y-3 sm:space-y-4">
+                      <Link
+                        to="/resume"
+                        target="_blank"
+                        onClick={openResume}
+                        className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 rounded-md border border-input hover:bg-accent transition-colors flex items-center"
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        Resume
+                      </Link>
+                    </div>
+
+                    <Separator />
+
+                    {/* Theme Controls */}
                     <div className="space-y-3 sm:space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm sm:text-base">Theme</span>
@@ -311,21 +298,6 @@ const Navigation = () => {
                             <Moon className="w-4 h-4" />
                           ) : (
                             <Sun className="w-4 h-4" />
-                          )}
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm sm:text-base">Music</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={toggleMusic}
-                          className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-                        >
-                          {isPlaying ? (
-                            <Music className="w-4 h-4" />
-                          ) : (
-                            <VolumeX className="w-4 h-4" />
                           )}
                         </Button>
                       </div>

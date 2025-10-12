@@ -1,0 +1,174 @@
+/* Resume-specific styles - scoped to .resume-container */
+.resume-container {
+  /* Resume Theme Colors */
+  --resume-primary: oklch(0.32 0.02 255); /* #1A202C - Main text color */
+  --resume-secondary: oklch(0.4 0.01 250); /* #2B2D2E - Secondary text color */
+  --resume-accent: oklch(0.65 0.12 200); /* #469FBE - Accent color */
+  --resume-border: oklch(0.93 0.02 255); /* #E2E8F0 - Border color */
+  --resume-tag-bg: oklch(0.97 0.005 200); /* Very light, grey version of accent color */
+  --resume-tag-hover: oklch(0.95 0.008 200); /* Slightly darker grey version for hover */
+  
+  margin: 0;
+  padding: 0;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Override Tailwind colors within resume container */
+.resume-container .text-primary {
+  color: var(--resume-primary) !important;
+}
+
+.resume-container .text-secondary {
+  color: var(--resume-secondary) !important;
+}
+
+.resume-container .text-accent {
+  color: var(--resume-accent) !important;
+}
+
+/* Override tag styling within resume container */
+.resume-container .tag {
+  background-color: var(--resume-tag-bg) !important;
+  color: var(--resume-secondary) !important;
+}
+
+.resume-container .tag:hover {
+  background-color: var(--resume-tag-hover) !important;
+}
+
+/* Modern Typography - scoped to resume */
+.resume-container h1,
+.resume-container h2,
+.resume-container h3,
+.resume-container h4,
+.resume-container h5,
+.resume-container h6 {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.025em;
+}
+
+/* Page Styles */
+.resume-container .page {
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.5in;
+  background: white;
+}
+
+/* Section Headers */
+.resume-container .section-header {
+  position: relative;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--resume-primary);
+}
+
+.resume-container .section-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--resume-border);
+  opacity: 0.8;
+}
+
+/* Category Headers */
+.resume-container .category-header {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+  color: var(--resume-primary);
+}
+
+.resume-container .category-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--resume-border);
+  opacity: 0.15;
+}
+
+/* Tag Styles */
+.resume-container .tag {
+  border-radius: 4px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: all 0.2s ease;
+}
+
+/* Print Styles - scoped to resume */
+@media print {
+  @page {
+    size: letter;
+  }
+  .resume-container {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: 0;
+    padding: 0;
+  }
+  .resume-container .print\:hidden {
+    display: none;
+  }
+  
+  /* Hide back button and devtools in print */
+  .resume-container .fixed,
+  .fixed {
+    display: none !important;
+  }
+  
+  
+  /* Hide any elements with fixed positioning */
+  *[style*="position: fixed"],
+  *[style*="position:fixed"] {
+    display: none !important;
+  }
+
+  /* Ensure text remains readable */
+  .resume-container p,
+  .resume-container span,
+  .resume-container li {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+  /* Allow natural page breaks */
+  .resume-container section {
+    break-inside: auto;
+  }
+
+  .resume-container h2,
+  .resume-container h3 {
+    break-after: auto;
+    page-break-after: auto;
+    break-before: auto;
+  }
+
+  /* Keep job header info together */
+  .resume-container .job-header {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure headers don't break from their content */
+  .resume-container h2 + * {
+    break-before: avoid;
+  }
+}

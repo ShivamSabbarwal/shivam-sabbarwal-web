@@ -1,21 +1,12 @@
-// Tactile sound system for UI interactions
-export class SoundManager {
-  private static instance: SoundManager;
+// Simple tactile sound system for UI interactions
+class SoundManager {
   private audioContext: AudioContext | null = null;
   private isEnabled = true;
 
-  private constructor() {
-    // Initialize audio context on first user interaction
+  constructor() {
     if (typeof window !== 'undefined') {
       this.initAudioContext();
     }
-  }
-
-  public static getInstance(): SoundManager {
-    if (!SoundManager.instance) {
-      SoundManager.instance = new SoundManager();
-    }
-    return SoundManager.instance;
   }
 
   private initAudioContext() {
@@ -26,83 +17,56 @@ export class SoundManager {
     }
   }
 
-  public enable() {
-    this.isEnabled = true;
+  private async ensureReady() {
+    if (!this.audioContext) return false;
+    
+    if (this.audioContext.state === 'suspended') {
+      try {
+        await this.audioContext.resume();
+      } catch (e) {
+        return false;
+      }
+    }
+    return true;
   }
 
-  public disable() {
-    this.isEnabled = false;
-  }
-
-  public playSound(frequency: number, duration: number = 0.1, type: OscillatorType = 'sine', volume: number = 0.1) {
-    if (!this.isEnabled || !this.audioContext) return;
+  private async playSound(frequency: number, duration: number = 0.1, type: OscillatorType = 'sine', volume: number = 0.1) {
+    if (!this.isEnabled || !(await this.ensureReady())) return;
 
     try {
-      const oscillator = this.audioContext.createOscillator();
-      const gainNode = this.audioContext.createGain();
+      const oscillator = this.audioContext!.createOscillator();
+      const gainNode = this.audioContext!.createGain();
 
       oscillator.connect(gainNode);
-      gainNode.connect(this.audioContext.destination);
+      gainNode.connect(this.audioContext!.destination);
 
-      oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(frequency, this.audioContext!.currentTime);
       oscillator.type = type;
 
-      gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
-      gainNode.gain.linearRampToValueAtTime(volume, this.audioContext.currentTime + 0.01);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + duration);
+      gainNode.gain.setValueAtTime(0, this.audioContext!.currentTime);
+      gainNode.gain.linearRampToValueAtTime(volume, this.audioContext!.currentTime + 0.01);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext!.currentTime + duration);
 
-      oscillator.start(this.audioContext.currentTime);
-      oscillator.stop(this.audioContext.currentTime + duration);
+      oscillator.start(this.audioContext!.currentTime);
+      oscillator.stop(this.audioContext!.currentTime + duration);
     } catch (e) {
-      console.warn('Error playing sound:', e);
+      // Silently fail - sounds are optional
     }
   }
 
-  // Predefined sound effects
-  public playClick() {
-    this.playSound(800, 0.1, 'square', 0.15);
-  }
-
-  public playHover() {
-    this.playSound(600, 0.05, 'sine', 0.08);
-  }
-
-  public playSuccess() {
-    this.playSound(1000, 0.2, 'sine', 0.12);
-    setTimeout(() => this.playSound(1200, 0.2, 'sine', 0.12), 100);
-  }
-
-  public playError() {
-    this.playSound(300, 0.3, 'sawtooth', 0.15);
-  }
-
-  public playBounce() {
-    this.playSound(400, 0.15, 'triangle', 0.1);
-  }
-
-  public playPop() {
-    this.playSound(500, 0.08, 'square', 0.12);
-  }
-
-  public playSwoosh() {
-    this.playSound(200, 0.2, 'sine', 0.08);
-  }
+  // Sound effects
+  playClick = () => this.playSound(800, 0.1, 'square', 0.15);
+  playHover = () => this.playSound(600, 0.05, 'sine', 0.08);
+  playSuccess = () => this.playSound(1000, 0.2, 'sine', 0.12);
+  playError = () => this.playSound(300, 0.3, 'sawtooth', 0.15);
+  playBounce = () => this.playSound(400, 0.15, 'triangle', 0.1);
+  playPop = () => this.playSound(500, 0.08, 'square', 0.12);
+  playSwoosh = () => this.playSound(200, 0.2, 'sine', 0.08);
 }
 
 // Export singleton instance
-export const soundManager = SoundManager.getInstance();
+export const soundManager = new SoundManager();
 
 // React hook for easy sound integration
-export const useSounds = () => {
-  return {
-    playClick: () => soundManager.playClick(),
-    playHover: () => soundManager.playHover(),
-    playSuccess: () => soundManager.playSuccess(),
-    playError: () => soundManager.playError(),
-    playBounce: () => soundManager.playBounce(),
-    playPop: () => soundManager.playPop(),
-    playSwoosh: () => soundManager.playSwoosh(),
-    enable: () => soundManager.enable(),
-    disable: () => soundManager.disable(),
-  };
-};
+export const useSounds = () => soundManager;
+

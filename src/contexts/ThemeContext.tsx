@@ -23,16 +23,22 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check localStorage for saved theme, default to 'light'
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('shivam-sabbarwal-theme') as Theme;
-      return savedTheme || 'light';
+  const [theme, setTheme] = useState<Theme>('light');
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Handle hydration
+  useEffect(() => {
+    setIsHydrated(true);
+    // Check localStorage for saved theme after hydration
+    const savedTheme = localStorage.getItem('shivam-sabbarwal-theme') as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
     }
-    return 'light';
-  });
+  }, []);
 
   useEffect(() => {
+    if (!isHydrated) return;
+    
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
@@ -41,10 +47,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     }
     
     // Save theme to localStorage
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('shivam-sabbarwal-theme', theme);
-    }
-  }, [theme]);
+    localStorage.setItem('shivam-sabbarwal-theme', theme);
+  }, [theme, isHydrated]);
 
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');

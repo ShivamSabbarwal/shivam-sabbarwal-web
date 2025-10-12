@@ -52,11 +52,10 @@ src/
 │   └── Logo.tsx           # Logo component
 ├── contexts/              # React contexts
 │   ├── ThemeContext.tsx   # Theme management
-│   ├── LoadingContext.tsx # Loading state management
-│   └── BackgroundMusicContext.tsx # Audio management
+│   └── LoadingContext.tsx # Loading state management
 ├── lib/                   # Utility libraries
 │   ├── utils.ts           # Utility functions
-│   └── audio/             # Audio management
+│   └── audio/             # Interactive sound effects
 ├── hooks/                 # Custom React hooks
 ├── globals.css            # Global styles and theme
 └── App.tsx               # Main application component

@@ -11,7 +11,6 @@ import FloatingBubbles from "@/components/interactive/FloatingBubbles";
 import LoadingScreen from "@/components/layout/LoadingScreen";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LoadingProvider, useLoading } from "@/contexts/LoadingContext";
-import { BackgroundMusicProvider } from "@/contexts/BackgroundMusicContext";
 
 const AppContent = () => {
   const { isLoading } = useLoading();
@@ -21,7 +20,7 @@ const AppContent = () => {
       <LoadingScreen />
       <ScrollProgress />
       <Cursor />
-      <FloatingBubbles count={15} />
+      <FloatingBubbles count={6} />
       {!isLoading && <Navigation />}
       <Hero />
       <Timeline />
@@ -37,9 +36,7 @@ function App() {
   return (
     <ThemeProvider>
       <LoadingProvider>
-        <BackgroundMusicProvider>
-          <AppContent />
-        </BackgroundMusicProvider>
+        <AppContent />
       </LoadingProvider>
     </ThemeProvider>
   );
