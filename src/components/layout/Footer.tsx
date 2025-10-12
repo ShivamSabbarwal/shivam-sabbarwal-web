@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowUp, Github, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NAV_ITEMS, SOCIAL_LINKS } from "@/constants";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -9,13 +10,7 @@ const Footer = () => {
 
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Timeline", href: "#timeline" },
-    { name: "Tech Stack", href: "#tech-stack" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
+  const quickLinks = NAV_ITEMS;
 
   const handleFooterNavClick = (href: string) => {
     if (href.startsWith('#')) {
@@ -29,22 +24,16 @@ const Footer = () => {
 
   const socialLinks = [
     {
-      name: "GitHub",
+      ...SOCIAL_LINKS[0],
       icon: <Github className="w-5 h-5" />,
-      url: "https://github.com/ShivamSabbarwal",
-      color: "hover:text-gray-400",
     },
     {
-      name: "LinkedIn",
+      ...SOCIAL_LINKS[1],
       icon: <Linkedin className="w-5 h-5" />,
-      url: "https://linkedin.ca/in/shivamsabbarwal",
-      color: "hover:text-blue-400",
     },
     {
-      name: "Instagram",
+      ...SOCIAL_LINKS[2],
       icon: <Instagram className="w-5 h-5" />,
-      url: "https://instagram.com/shiv.sabb",
-      color: "hover:text-pink-400",
     },
   ];
 

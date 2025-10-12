@@ -99,8 +99,11 @@ const Hero = () => {
                   >
                     <img 
                       src="/assets/profile-pic.jpg" 
-                      alt="Shivam Sabbarwal" 
+                      alt="Shivam Sabbarwal - Senior Software Engineer" 
                       className="w-full h-full object-cover scale-125 hover:scale-110 transition-transform duration-500" 
+                      loading="eager"
+                      width="320"
+                      height="320"
                     />
                     
                     {/* Fun Overlay Effects */}

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "motion/react";
 import { ExternalLink, Github, Sparkles, Zap } from "lucide-react";
 import { useSounds } from "../lib/audio/sounds";
@@ -16,7 +17,7 @@ interface ProjectCardProps {
   isAlternating?: boolean;
 }
 
-const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps) => {
+const ProjectCard = memo(({ project, index, isAlternating = false }: ProjectCardProps) => {
   const { playClick, playHover } = useSounds();
 
   return (
@@ -166,6 +167,8 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
       </div>
     </motion.div>
   );
-};
+});
+
+ProjectCard.displayName = 'ProjectCard';
 
 export default ProjectCard;

@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LoadingProvider } from "@/contexts/LoadingContext";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import ScrollProgress from "@/components/interactive/ScrollProgress";
 import Cursor from "@/components/interactive/Cursor";
 import FloatingBubbles from "@/components/interactive/FloatingBubbles";
@@ -34,13 +35,15 @@ const AppContent = () => {
 
 export const Route = createRootRoute({
   component: () => (
-    <ThemeProvider>
-      <LoadingProvider>
-        <AppContent />
-        <TanStackRouterDevtools />
-        <SpeedInsights />
-        <Analytics />
-      </LoadingProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <LoadingProvider>
+          <AppContent />
+          <TanStackRouterDevtools />
+          <SpeedInsights />
+          <Analytics />
+        </LoadingProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   ),
 });

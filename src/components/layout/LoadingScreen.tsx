@@ -1,5 +1,5 @@
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect } from "react";
 import { Code, Palette } from "lucide-react";
 import { useLoading } from "@/contexts/LoadingContext";
 
@@ -7,16 +7,19 @@ const LoadingScreen = () => {
   const { isLoading, setIsLoading } = useLoading();
   const [progress, setProgress] = useState(0);
 
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false);
+    document.body.style.overflow = 'unset';
+  }, [setIsLoading]);
+
+  const progressIncrement = useMemo(() => Math.random() * 8 + 2, []);
+
   useEffect(() => {
     // Disable scroll when loading
     document.body.style.overflow = 'hidden';
     
     // Reduce loading time from 6s to 2s for better UX
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      // Re-enable scroll when loading is done
-      document.body.style.overflow = 'unset';
-    }, 2000);
+    const timer = setTimeout(handleLoadingComplete, 2000);
 
     // Simulate progress with faster, more realistic progression
     const progressInterval = setInterval(() => {
@@ -26,7 +29,7 @@ const LoadingScreen = () => {
           return 100;
         }
         // More realistic progress increments
-        return prev + Math.random() * 8 + 2;
+        return prev + progressIncrement;
       });
     }, 50); // Update every 50ms for smoother progress
 
@@ -36,7 +39,7 @@ const LoadingScreen = () => {
       // Ensure scroll is re-enabled on cleanup
       document.body.style.overflow = 'unset';
     };
-  }, [setIsLoading]);
+  }, [handleLoadingComplete, progressIncrement]);
 
   return (
     <AnimatePresence mode="wait">

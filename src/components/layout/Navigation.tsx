@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { useLocation } from "@tanstack/react-router";
+import { NAV_ITEMS } from "@/constants";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,13 +15,7 @@ const Navigation = () => {
   const { playClick, playHover } = useSounds();
   const location = useLocation();
 
-  const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Timeline", href: "#timeline" },
-    { name: "Tech Stack", href: "#tech-stack" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
+  const navItems = NAV_ITEMS;
 
   const handleNavClick = (href: string) => {
     playClick();

@@ -1,36 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
+import { Download } from "lucide-react";
 import "./resume.css";
 
-// SHARED COMPONENTS
-
-// PROJECT COMPONENTS
+// Components
 import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Header from "./components/Header";
 import ProfessionalSummary from "./components/ProfessionalSummary";
 import Skills from "./components/Skills";
 
-// ICONS
-import { Download } from "lucide-react";
-
-// HELPERS
-
-// ACTIONS
-
-// REDUCERS
-
-// APIS
-
-// CONSTANTS
-
-//----------------------------------------------------------------------------------------------------------------
-
 const Resume: React.FC = () => {
   const componentRef = useRef<HTMLDivElement>(null);
 
-  const handlePrint = () => {
+  const handlePrint = useCallback(() => {
     window.print();
-  };
+  }, []);
 
   return (
     <div className="resume-container min-h-screen bg-gray-100">
