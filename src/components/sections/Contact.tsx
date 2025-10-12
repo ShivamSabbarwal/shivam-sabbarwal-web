@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
 import { Mail, Github, Linkedin, MapPin, Phone, Instagram } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 const Contact = () => {
 

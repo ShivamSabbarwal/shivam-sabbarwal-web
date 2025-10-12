@@ -38,16 +38,11 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
         >
           {/* Fun Background Shape */}
           <div className="w-full h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-primary/20 via-accent/20 to-cartoon-highlight/20 rounded-3xl relative overflow-hidden">
-            {/* Animated Background Elements */}
+            {/* Simplified Background Elements */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               className="absolute -top-10 -right-10 w-32 h-32 bg-primary/30 rounded-full"
-            />
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute -bottom-10 -left-10 w-24 h-24 bg-accent/30 rounded-full"
             />
             
             {/* Project Title with Fun Styling */}
@@ -60,15 +55,15 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
                 <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black cartoon-text-large mb-2">
                   {project.title}
                 </h3>
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="flex justify-center space-x-2"
-                >
-                  <Sparkles className="w-6 h-6 text-primary" />
-                  <Zap className="w-6 h-6 text-accent" />
-                  <Sparkles className="w-6 h-6 text-cartoon-highlight" />
-                </motion.div>
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="flex justify-center space-x-2"
+                    >
+                      <Sparkles className="w-6 h-6 text-primary" />
+                      <Zap className="w-6 h-6 text-accent" />
+                      <Sparkles className="w-6 h-6 text-cartoon-highlight" />
+                    </motion.div>
               </motion.div>
             </div>
           </div>

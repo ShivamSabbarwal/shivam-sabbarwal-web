@@ -6,7 +6,7 @@ import { useSounds } from "../../lib/audio/sounds";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { Link, useLocation } from "@tanstack/react-router";
+import { useLocation } from "@tanstack/react-router";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,18 +15,18 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Timeline", href: "/#timeline" },
-    { name: "Tech Stack", href: "/#tech-stack" },
-    { name: "Projects", href: "/#projects" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Home", href: "#home" },
+    { name: "Timeline", href: "#timeline" },
+    { name: "Tech Stack", href: "#tech-stack" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const handleNavClick = (href: string) => {
     playClick();
-    if (href.startsWith('/#')) {
+    if (href.startsWith('#')) {
       // Handle hash navigation for sections on the home page
-      const hash = href.split('#')[1];
+      const hash = href.substring(1);
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -104,17 +104,16 @@ const Navigation = () => {
                   transition: "none" // Disable CSS transitions
                 }}
               >
-                <Link
-                  to={item.href}
+                <button
                   onClick={() => handleNavClick(item.href)}
                   className={`relative text-xs font-bold px-2 sm:px-3 py-2 rounded-md transition-colors ${
-                    location.pathname === item.href || (item.href === "/" && location.pathname === "/")
+                    location.pathname === "/" && item.href === "#home"
                       ? "text-primary-foreground bg-primary"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   }`}
                 >
                   {item.name}
-                </Link>
+                </button>
               </motion.div>
             ))}
           </motion.div>
@@ -256,13 +255,12 @@ const Navigation = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <Link
-                            to={item.href}
+                          <button
                             onClick={() => handleNavClick(item.href)}
                             className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 rounded-md hover:bg-accent transition-colors"
                           >
                             {item.name}
-                          </Link>
+                          </button>
                         </motion.div>
                       ))}
                     </div>
@@ -271,15 +269,13 @@ const Navigation = () => {
 
                     {/* Resume Button */}
                     <div className="space-y-3 sm:space-y-4">
-                      <Link
-                        to="/resume"
-                        target="_blank"
+                      <button
                         onClick={openResume}
                         className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 rounded-md border border-input hover:bg-accent transition-colors flex items-center"
                       >
                         <FileText className="w-4 h-4 mr-2" />
                         Resume
-                      </Link>
+                      </button>
                     </div>
 
                     <Separator />
