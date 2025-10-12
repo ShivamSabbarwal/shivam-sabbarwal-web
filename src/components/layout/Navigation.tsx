@@ -1,27 +1,49 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sun, Moon, Menu, FileText } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSounds } from "../../lib/audio/sounds";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { useLocation } from "@tanstack/react-router";
 import { NAV_ITEMS } from "@/constants";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const { theme, toggleTheme } = useTheme();
   const { playClick, playHover } = useSounds();
-  const location = useLocation();
 
   const navItems = NAV_ITEMS;
+
+  // Scroll spy functionality to detect active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems.map(item => item.href.substring(1));
+      const scrollPosition = window.scrollY + 100; // Offset for better UX
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    // Set initial active section
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [navItems]);
 
   const handleNavClick = (href: string) => {
     playClick();
     if (href.startsWith('#')) {
       // Handle hash navigation for sections on the home page
       const hash = href.substring(1);
+      setActiveSection(hash); // Update active section immediately
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -99,16 +121,18 @@ const Navigation = () => {
                   transition: "none" // Disable CSS transitions
                 }}
               >
-                <button
+                <Button
                   onClick={() => handleNavClick(item.href)}
-                  className={`relative text-xs font-bold px-2 sm:px-3 py-2 rounded-md transition-colors ${
-                    location.pathname === "/" && item.href === "#home"
-                      ? "text-primary-foreground bg-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  variant={activeSection === item.href.substring(1) ? "default" : "outline"}
+                  size="sm"
+                  className={`text-xs font-bold px-2 sm:px-3 py-2 ${
+                    activeSection === item.href.substring(1)
+                      ? "hover:animate-glow"
+                      : "hover:animate-pulse-color"
                   }`}
                 >
                   {item.name}
-                </button>
+                </Button>
               </motion.div>
             ))}
           </motion.div>
@@ -182,7 +206,7 @@ const Navigation = () => {
                 variant="outline"
                 size="icon"
                 onClick={toggleTheme}
-                className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
+                className="hover:animate-pulse-color w-8 h-8 sm:w-10 sm:h-10"
                 aria-label="Toggle theme"
               >
                 <motion.div
@@ -192,6 +216,7 @@ const Navigation = () => {
                   transition={{
                     scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
                   }}
+                  whileHover={{ rotate: 360 }}
                 >
                   {theme === 'light' ? (
                     <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -250,12 +275,17 @@ const Navigation = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <button
+                          <Button
                             onClick={() => handleNavClick(item.href)}
-                            className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 rounded-md hover:bg-accent transition-colors"
+                            variant={activeSection === item.href.substring(1) ? "default" : "outline"}
+                            className={`w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 ${
+                              activeSection === item.href.substring(1)
+                                ? "hover:animate-glow"
+                                : "hover:animate-pulse-color"
+                            }`}
                           >
                             {item.name}
-                          </button>
+                          </Button>
                         </motion.div>
                       ))}
                     </div>
@@ -264,13 +294,20 @@ const Navigation = () => {
 
                     {/* Resume Button */}
                     <div className="space-y-3 sm:space-y-4">
-                      <button
+                      <Button
                         onClick={openResume}
-                        className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 rounded-md border border-input hover:bg-accent transition-colors flex items-center"
+                        variant="outline"
+                        className="w-full justify-start text-left text-sm sm:text-base py-3 sm:py-4 hover:animate-pulse-color"
                       >
-                        <FileText className="w-4 h-4 mr-2" />
+                        <motion.div
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.5 }}
+                          className="mr-2"
+                        >
+                          <FileText className="w-4 h-4" />
+                        </motion.div>
                         Resume
-                      </button>
+                      </Button>
                     </div>
 
                     <Separator />

@@ -17,7 +17,7 @@ const Resume: React.FC = () => {
   }, []);
 
   return (
-    <div className="resume-container min-h-screen bg-gray-100">
+    <div className="resume-container">
       <div className="mx-auto w-[8.5in] bg-white">
         <div ref={componentRef} className="w-full space-y-4 p-[0.5in]">
           <Header />
