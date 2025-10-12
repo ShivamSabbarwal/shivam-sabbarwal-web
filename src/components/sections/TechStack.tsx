@@ -3,7 +3,6 @@ import {
   Code, 
   Database, 
   Cloud, 
-  Smartphone, 
   Globe, 
   Cpu,
   GitBranch,
@@ -17,7 +16,6 @@ import {
   Monitor,
   Smartphone as Mobile,
   GitCommit,
-  Eye,
   Code2,
   TestTube,
   Wrench
