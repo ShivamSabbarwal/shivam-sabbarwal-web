@@ -6,6 +6,7 @@ const Cursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [cursorType, setCursorType] = useState<'default' | 'button' | 'link' | 'text' | 'card' | 'input'>('default');
   const [isVisible, setIsVisible] = useState(false);
+  const [lastHoveredElement, setLastHoveredElement] = useState<HTMLElement | null>(null);
   
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -28,12 +29,13 @@ const Cursor = () => {
     const handleMouseEnter = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Check if we're already hovering over this element to prevent flickering
-      if (isHovering && target === e.relatedTarget) {
+      // Prevent flickering by checking if we're already hovering over the same element
+      if (isHovering && target === lastHoveredElement) {
         return;
       }
       
       setIsHovering(true);
+      setLastHoveredElement(target);
       
       // Determine cursor type based on element, checking for closest matching element
       const linkElement = target.closest('a');
@@ -65,6 +67,7 @@ const Cursor = () => {
       if (!target.contains(relatedTarget)) {
         setIsHovering(false);
         setCursorType('default');
+        setLastHoveredElement(null);
       }
     };
 
