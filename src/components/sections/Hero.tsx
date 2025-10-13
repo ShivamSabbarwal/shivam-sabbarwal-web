@@ -104,6 +104,8 @@ const Hero = () => {
                       loading="eager"
                       width="320"
                       height="320"
+                      fetchPriority="high"
+                      decoding="async"
                     />
                     
                     {/* Fun Overlay Effects */}

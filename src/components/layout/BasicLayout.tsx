@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
-interface ResumeLayoutProps {
+interface BasicLayoutProps {
   children: ReactNode;
 }
 
-const ResumeLayout = ({ children }: ResumeLayoutProps) => {
+const BasicLayout = ({ children }: BasicLayoutProps) => {
   return (
     <div className="min-h-screen bg-gray-100">
       {children}
@@ -12,4 +12,4 @@ const ResumeLayout = ({ children }: ResumeLayoutProps) => {
   );
 };
 
-export default ResumeLayout;
+export default BasicLayout;

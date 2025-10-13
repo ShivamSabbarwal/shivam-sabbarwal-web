@@ -6,12 +6,14 @@ import { useSounds } from "../../lib/audio/sounds";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { NAV_ITEMS } from "@/constants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const { theme, toggleTheme } = useTheme();
   const { playClick, playHover } = useSounds();
+  const isMobile = useIsMobile();
 
   const navItems = NAV_ITEMS;
 
@@ -54,7 +56,25 @@ const Navigation = () => {
 
   const openResume = () => {
     playClick();
-    window.open('/resume', '_blank');
+    
+    if (isMobile) {
+      // On mobile, automatically trigger PDF download
+      // Open resume page in new tab and trigger print after a short delay
+      const newWindow = window.open('/resume', '_blank');
+      
+      // Wait for the page to load, then trigger print
+      setTimeout(() => {
+        if (newWindow && !newWindow.closed) {
+          newWindow.focus();
+          // Trigger print dialog which allows PDF download
+          newWindow.print();
+          newWindow.close();
+        }
+      }, 1000);
+    } else {
+      // On desktop, open resume page normally
+      window.open('/resume', '_blank');
+    }
   };
 
 
@@ -159,7 +179,7 @@ const Navigation = () => {
               size="icon"
               onClick={openResume}
               className="hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
-              aria-label="Open Resume"
+              aria-label={isMobile ? "Download Resume PDF" : "Open Resume"}
             >
               <motion.div
                 animate={{

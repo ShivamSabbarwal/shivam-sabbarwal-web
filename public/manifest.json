@@ -1,0 +1,21 @@
+{
+  "name": "Shivam Sabbarwal - Software Engineer Portfolio",
+  "short_name": "Shivam Sabbarwal",
+  "description": "Portfolio of Shivam Sabbarwal, Senior Software Engineer specializing in full-stack development",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "software", "development"],
+  "lang": "en",
+  "dir": "ltr"
+}

@@ -185,7 +185,7 @@ const Timeline = () => {
     <section id="timeline" className="py-16 sm:py-20 md:py-24 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <motion.div
+        <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
@@ -199,7 +199,7 @@ const Timeline = () => {
             My professional journey in software engineering, from education to
             leading architectural transformations and CTO roles.
           </p>
-        </motion.div>
+        </motion.header>
 
         {/* Timeline */}
         <div className="relative">

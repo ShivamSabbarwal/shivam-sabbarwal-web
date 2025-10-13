@@ -4,3 +4,30 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+/**
+ * Generates a full URL by combining the current origin with a path
+ * @param path - The path to append to the base URL (e.g., "/resume", "/")
+ * @returns The full URL (e.g., "https://shivamsabbarwal.dev/resume")
+ */
+export function getFullUrl(path: string = ""): string {
+  if (typeof window === "undefined") {
+    // Server-side rendering fallback
+    return `https://shivamsabbarwal.dev${path}`;
+  }
+  
+  return `${window.location.origin}${path}`;
+}
+
+/**
+ * Gets the base URL for the current environment
+ * @returns The base URL (e.g., "https://shivamsabbarwal.dev")
+ */
+export function getBaseUrl(): string {
+  if (typeof window === "undefined") {
+    // Server-side rendering fallback
+    return "https://shivamsabbarwal.dev";
+  }
+  
+  return window.location.origin;
+}
