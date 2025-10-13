@@ -37,16 +37,16 @@ const EXPERIENCE_DATA: Experience[] = [
     period: 'July 2025 – Present',
     achievements: [
       <>
-        <strong>Developing Motionary and Agora platforms</strong> using ESRI mapping technologies and modern React architecture, refactoring legacy codebase to implement functional components, hooks, and Redux Toolkit (RTK).
+        <strong>Developed Motionary and Agora platforms</strong> using ESRI mapping technologies, React, TypeScript, and Redux Toolkit (RTK), refactoring legacy codebase to implement modern functional components and hooks.
       </>,
       <>
-        <strong>Implementing user consent management</strong> with PostHog product analytics, ensuring GDPR compliance and full ownership of data privacy features for geospatial monitoring applications.
+        <strong>Implemented user consent management system</strong> with PostHog product analytics, ensuring GDPR compliance and data privacy for geospatial monitoring applications.
       </>,
       <>
-        <strong>Collaborating with data delivery and backend API teams</strong> to integrate RESTful APIs and optimize data visualization workflows for InSAR monitoring and customer interaction features.
+        <strong>Collaborated with backend API teams</strong> to integrate RESTful APIs and optimize data visualization workflows for InSAR monitoring and customer interaction features.
       </>,
     ],
-    skills: ['React.js', 'Redux Toolkit (RTK)', 'TypeScript', 'ESRI/ArcGIS', 'PostHog', 'Docker', 'AWS'],
+    skills: ['React', 'Redux Toolkit', 'TypeScript', 'ESRI/ArcGIS', 'PostHog', 'Docker', 'AWS'],
   },
   {
     title: 'Chief Technology Officer (CTO)',
@@ -55,23 +55,19 @@ const EXPERIENCE_DATA: Experience[] = [
     period: 'December 2023 – Present',
     achievements: [
       <>
-        <strong>Built fintech platform</strong> addressing complex financial challenges for Non-Resident Indians (NRIs)
-        globally, streamlining property sales and international money transfers.
+        <strong>Architected and developed</strong> a comprehensive cross-border transaction platform serving 10,000+ Non-Resident Indians (NRIs) across India, Canada, USA, and Australia, facilitating overseas property sales and international money transfers.
       </>,
       <>
-        <strong>Managed cross-border transactions</strong> and Indian regulatory compliance, ensuring secure and
-        compliant international money transfers.
+        <strong>Led development of the platform</strong>, establishing development standards, code review processes, and implementing CI/CD pipelines using Docker and Kubernetes for scalable deployment.
       </>,
       <>
-        <strong>Prioritized security, transparency, and efficiency</strong> in financial solutions, building trust
-        with users handling sensitive financial operations.
+        <strong>Designed and implemented</strong> secure tax compliance systems for NRIs in multiple jurisdictions (India, Canada, USA, Australia), integrating directly with ICICI Bank and HDFC Bank APIs to ensure regulatory compliance and secure transactions.
       </>,
       <>
-        <strong>Simplified property sales in India</strong> with comprehensive legal, financial, and regulatory
-        management solutions.
+        <strong>Built comprehensive overseas property sales platform</strong> with automated legal, financial, and regulatory workflows, reducing property sale processing time by 60% through streamlined digital processes and direct bank integrations.
       </>,
     ],
-    skills: ['React.js', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes', 'TypeScript', 'Financial APIs'],
+    skills: ['React', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes', 'TypeScript', 'Banking APIs', 'Team Leadership', 'Microservices'],
   },
   {
     title: 'Senior Software Engineer',

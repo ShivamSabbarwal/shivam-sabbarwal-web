@@ -24,7 +24,7 @@ interface ProfessionalSummaryData {
 
 // CONSTANTS
 const PROFESSIONAL_SUMMARY: ProfessionalSummaryData = {
-  professionalSummary: "Creative Senior Software Engineer with 7 years of experience in developing cutting-edge solutions for complex productivity challenges. Known for a resourceful and adaptable approach to problem-solving, with a proven track record in leading projects, reducing technical debt, and enhancing system scalability."
+  professionalSummary: "Senior Software Engineer with 7+ years of experience in full-stack development, specializing in React, Node.js, TypeScript, and cloud technologies. Proven expertise in building scalable web applications, leading technical teams, and implementing modern development practices. Strong background in frontend development, backend architecture, and DevOps with experience in AWS, Docker, and CI/CD pipelines."
 } as const;
 
 //----------------------------------------------------------------------------------------------------------------
@@ -33,7 +33,9 @@ const ProfessionalSummary: React.FC = () => {
   return (
     <section>
       <h2 className="section-header text-lg font-bold tracking-wide">PROFESSIONAL SUMMARY</h2>
-      <p className="text-sm text-secondary">{PROFESSIONAL_SUMMARY.professionalSummary}</p>
+      <p className="text-sm text-secondary">
+        {PROFESSIONAL_SUMMARY.professionalSummary}
+      </p>
     </section>
   );
 };

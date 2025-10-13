@@ -36,16 +36,16 @@
 /* Modern Style - Portfolio Design System */
 .resume-container.main-page-style .section-header {
   color: var(--primary);
-  font-weight: 900;
-  letter-spacing: 0.03em;
-  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-shadow: 1px 1px 0 var(--cartoon-shadow);
   position: relative;
 }
 
 .resume-container.main-page-style .section-header::after {
   background: linear-gradient(90deg, var(--primary), var(--accent));
-  height: 4px;
-  border-radius: 2px;
+  height: 2px;
+  border-radius: 1px;
 }
 
 .resume-container.main-page-style .category-header {
@@ -54,42 +54,29 @@
   letter-spacing: 0.02em;
 }
 
-/* Modern Style - Angular Card Design for Sections */
+/* Modern Style - Clean Design for Sections */
 .resume-container.main-page-style .job-header,
 .resume-container.main-page-style .education-item,
 .resume-container.main-page-style .skills-category {
-  background: var(--cartoon-card);
-  border: 3px solid var(--foreground);
-  border-radius: 12px;
-  box-shadow: 4px 4px 0 var(--primary);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.resume-container.main-page-style .job-header:hover,
-.resume-container.main-page-style .education-item:hover,
-.resume-container.main-page-style .skills-category:hover {
-  transform: translateY(-2px) translateX(-2px);
-  box-shadow: 6px 6px 0 var(--primary);
+  background: transparent;
+  border: none;
+  padding: 1.25rem 0;
+  margin-bottom: 1.25rem;
 }
 
 /* Modern Style - Angular Tags */
 .resume-container.main-page-style .tag {
-  background: var(--muted);
-  color: var(--foreground);
-  border: 2px solid var(--foreground);
-  border-radius: 8px;
-  box-shadow: 2px 2px 0 var(--accent);
+  background: var(--primary);
+  color: var(--background);
+  border: none;
+  border-radius: 6px;
   font-weight: 600;
   transition: all 0.2s ease;
 }
 
 .resume-container.main-page-style .tag:hover {
-  transform: translateY(-1px) translateX(-1px);
-  box-shadow: 3px 3px 0 var(--accent);
   background: var(--accent);
-  color: var(--accent-foreground);
+  transform: translateY(-1px);
 }
 
 /* Modern Style - Typography */
@@ -103,28 +90,27 @@
 .resume-container.main-page-style .job-title {
   color: var(--primary);
   font-weight: 800;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  text-shadow: 1px 1px 0 var(--cartoon-shadow);
 }
 
 .resume-container.main-page-style .company-name {
-  color: var(--accent);
-  font-weight: 700;
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .resume-container.main-page-style .contact-info {
-  background: var(--cartoon-card);
-  border: 3px solid var(--foreground);
-  border-radius: 12px;
-  box-shadow: 4px 4px 0 var(--primary);
-  padding: 1rem;
+  background: transparent;
+  border: none;
+  padding: 1rem 0;
 }
 
 /* Modern Style - Enhanced Visual Hierarchy */
 .resume-container.main-page-style .achievement-list {
-  background: var(--muted);
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
+  background: transparent;
+  border: none;
+  padding: 0;
   margin-top: 0.5rem;
   list-style: none;
 }
@@ -158,16 +144,126 @@
   margin-bottom: 0;
 }
 
-/* Classic Style - Ensure proper bullet points */
+/* Classic Style - ATS-Friendly Formatting with Tailwind Integration */
+.resume-container:not(.main-page-style) {
+  /* ATS-friendly font and sizing - Web friendly */
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* Tasteful color accents for classic resume */
+.resume-container:not(.main-page-style) {
+  --resume-accent-color: #0d9488; /* Professional teal */
+  --resume-secondary-color: #64748b; /* Professional gray */
+  --resume-highlight-color: #f0fdfa; /* Very light teal background */
+}
+
+/* ATS-friendly section headers with Tailwind integration */
+.resume-container:not(.main-page-style) .section-header {
+  color: var(--resume-accent-color);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--resume-accent-color);
+  background-color: var(--resume-highlight-color);
+  padding: 12px 16px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* ATS-friendly category headers with Tailwind integration */
+.resume-container:not(.main-page-style) .category-header {
+  color: #000000;
+  text-transform: uppercase;
+  border-left: 4px solid var(--resume-accent-color);
+  padding-left: 12px;
+  letter-spacing: 0.3px;
+}
+
+/* ATS-friendly job titles and company names with Tailwind integration */
+.resume-container:not(.main-page-style) .job-title {
+  color: #000000;
+}
+
+.resume-container:not(.main-page-style) .company-name {
+  color: #000000;
+}
+
+
+/* ATS-friendly contact information with Tailwind integration */
+.resume-container:not(.main-page-style) .contact-info {
+  color: #000000;
+}
+
+
+/* ATS-friendly bullet points with Tailwind integration */
 .resume-container:not(.main-page-style) .achievement-list {
   list-style: disc;
   list-style-position: outside;
-  margin-left: 1rem;
+  margin-left: 20px;
 }
 
 .resume-container:not(.main-page-style) .achievement-list li {
   padding-left: 0;
-  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+/* ATS-friendly tags/skills with Tailwind integration */
+.resume-container:not(.main-page-style) .tag {
+  color: var(--resume-accent-color);
+  background-color: var(--resume-highlight-color);
+  border: 2px solid var(--resume-accent-color);
+  display: inline-block;
+  border-radius: 4px;
+}
+
+/* ATS-friendly text colors - consistent black text */
+.resume-container:not(.main-page-style) .text-primary {
+  color: #000000 !important;
+}
+
+.resume-container:not(.main-page-style) .text-secondary {
+  color: #000000 !important;
+}
+
+.resume-container:not(.main-page-style) .text-accent {
+  color: #000000 !important;
+}
+
+/* Print-friendly styles */
+@media print {
+  .resume-container:not(.main-page-style) {
+    font-size: 12px !important; /* Ensure print readability */
+    line-height: 1.4 !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+  }
+  
+  .resume-container:not(.main-page-style) .section-header {
+    font-size: 16px !important;
+    color: var(--resume-accent-color) !important; /* Keep teal accent for print */
+    background-color: var(--resume-highlight-color) !important;
+    border-bottom: 2px solid var(--resume-accent-color) !important;
+  }
+  
+  .resume-container:not(.main-page-style) .tag {
+    color: var(--resume-accent-color) !important; /* Keep teal accent for print */
+    background-color: var(--resume-highlight-color) !important; /* Keep light teal background for print */
+    border: 1px solid var(--resume-accent-color) !important;
+    font-size: 10px !important; /* Smaller for print */
+    padding: 2px 4px !important; /* Tighter padding for print */
+    margin: 1px !important; /* Minimal margin for print */
+    display: inline-block !important;
+    border-radius: 2px !important; /* Smaller radius for print */
+  }
+  
+  /* Override header colors for print - keep accent colors */
+  .resume-container:not(.main-page-style) h1 {
+    color: #000000 !important;
+  }
+  
+  .resume-container:not(.main-page-style) .text-accent {
+    color: var(--resume-accent-color) !important; /* Keep teal accent for print */
+  }
 }
 
 /* Override Tailwind colors within resume container */
