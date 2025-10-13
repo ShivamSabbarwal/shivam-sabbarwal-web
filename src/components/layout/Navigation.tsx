@@ -58,19 +58,13 @@ const Navigation = () => {
     playClick();
     
     if (isMobile) {
-      // On mobile, automatically trigger PDF download
-      // Open resume page in new tab and trigger print after a short delay
-      const newWindow = window.open('/resume', '_blank');
-      
-      // Wait for the page to load, then trigger print
-      setTimeout(() => {
-        if (newWindow && !newWindow.closed) {
-          newWindow.focus();
-          // Trigger print dialog which allows PDF download
-          newWindow.print();
-          newWindow.close();
-        }
-      }, 1000);
+      // On mobile, directly download the static PDF file
+      const link = document.createElement('a');
+      link.href = '/assets/resume.pdf';
+      link.download = `Shivam_Sabbarwal_Resume_${new Date().getFullYear()}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } else {
       // On desktop, open resume page normally
       window.open('/resume', '_blank');
