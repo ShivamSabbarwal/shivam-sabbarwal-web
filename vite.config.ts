@@ -31,19 +31,8 @@ export default defineConfig({
         },
       },
     },
-    // Enable gzip compression
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info'],
-      },
-    } as any,
     // Optimize chunk size
     chunkSizeWarningLimit: 1000,
-    // Enable source maps for debugging in production
-    sourcemap: false,
   },
   // Performance optimizations
   optimizeDeps: {
@@ -57,6 +46,4 @@ export default defineConfig({
     ],
     exclude: ['@tanstack/react-router-devtools']
   },
-  // Performance optimizations
-  // Note: Rolldown features will be available when properly installed
 });

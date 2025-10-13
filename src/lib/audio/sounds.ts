@@ -16,7 +16,7 @@ class SoundManager {
       return this.initPromise;
     }
 
-    this.initPromise = new Promise(async (resolve) => {
+    this.initPromise = new Promise((resolve) => {
       try {
         if (typeof window !== 'undefined') {
           this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();

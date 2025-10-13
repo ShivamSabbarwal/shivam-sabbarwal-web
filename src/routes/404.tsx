@@ -1,18 +1,21 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from "@tanstack/react-router";
 import SEO from '@/components/SEO'
 import { Button } from '@/components/ui/button'
 import { Home, ArrowLeft } from 'lucide-react'
+import { getFullUrl } from '@/lib/utils'
 
 export const Route = createFileRoute('/404')({
-  component: () => (
-    <>
-      <SEO 
-        title="Page Not Found - Shivam Sabbarwal"
-        description="The page you're looking for doesn't exist. Return to Shivam Sabbarwal's portfolio homepage."
-        url="https://shivamsabbarwal.com/404"
-        type="website"
-      />
+  component: () => {
+    const notFoundUrl = getFullUrl('/404');
+    
+    return (
+      <>
+        <SEO 
+          title="Page Not Found - Shivam Sabbarwal"
+          description="The page you're looking for doesn't exist. Return to Shivam Sabbarwal's portfolio homepage."
+          url={notFoundUrl}
+          type="website"
+        />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="text-center space-y-8 px-4">
           <div className="space-y-4">
@@ -30,7 +33,18 @@ export const Route = createFileRoute('/404')({
                 Go Home
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="font-semibold" onClick={() => window.history.back()}>
+            <Button
+              variant="outline"
+              size="lg"
+              className="font-semibold"
+              onClick={() => {
+                if (window.history.length > 1) {
+                  window.history.back()
+                } else {
+                  window.location.href = '/'
+                }
+              }}
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
             </Button>
@@ -38,5 +52,6 @@ export const Route = createFileRoute('/404')({
         </div>
       </div>
     </>
-  ),
+    )
+  },
 })
