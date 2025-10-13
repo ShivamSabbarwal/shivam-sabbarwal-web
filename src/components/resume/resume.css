@@ -11,11 +11,163 @@
   margin: 0;
   padding: 0;
   background-color: #f3f4f6; /* bg-gray-100 */
+  color: var(--resume-primary); /* Set default text color */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   line-height: 1.5;
+}
+
+/* Modern Portfolio Style Variant */
+.resume-container.main-page-style {
+  /* Portfolio Theme Colors */
+  --resume-primary: var(--primary);
+  --resume-secondary: var(--muted-foreground);
+  --resume-accent: var(--accent);
+  --resume-border: var(--border);
+  --resume-tag-bg: var(--muted);
+  --resume-tag-hover: var(--muted);
+  
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Modern Style - Portfolio Design System */
+.resume-container.main-page-style .section-header {
+  color: var(--primary);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+  position: relative;
+}
+
+.resume-container.main-page-style .section-header::after {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  height: 4px;
+  border-radius: 2px;
+}
+
+.resume-container.main-page-style .category-header {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Modern Style - Angular Card Design for Sections */
+.resume-container.main-page-style .job-header,
+.resume-container.main-page-style .education-item,
+.resume-container.main-page-style .skills-category {
+  background: var(--cartoon-card);
+  border: 3px solid var(--foreground);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--primary);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resume-container.main-page-style .job-header:hover,
+.resume-container.main-page-style .education-item:hover,
+.resume-container.main-page-style .skills-category:hover {
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 6px 6px 0 var(--primary);
+}
+
+/* Modern Style - Angular Tags */
+.resume-container.main-page-style .tag {
+  background: var(--muted);
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--accent);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.resume-container.main-page-style .tag:hover {
+  transform: translateY(-1px) translateX(-1px);
+  box-shadow: 3px 3px 0 var(--accent);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Modern Style - Typography */
+.resume-container.main-page-style h1 {
+  color: var(--primary);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+}
+
+.resume-container.main-page-style .job-title {
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.resume-container.main-page-style .company-name {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.resume-container.main-page-style .contact-info {
+  background: var(--cartoon-card);
+  border: 3px solid var(--foreground);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--primary);
+  padding: 1rem;
+}
+
+/* Modern Style - Enhanced Visual Hierarchy */
+.resume-container.main-page-style .achievement-list {
+  background: var(--muted);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  list-style: none;
+}
+
+.resume-container.main-page-style .achievement-list li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.resume-container.main-page-style .achievement-list li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+  transition: all 0.2s ease;
+}
+
+.resume-container.main-page-style .achievement-list li:hover::before {
+  color: var(--primary);
+  transform: scale(1.1);
+  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+}
+
+.resume-container.main-page-style .achievement-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Classic Style - Ensure proper bullet points */
+.resume-container:not(.main-page-style) .achievement-list {
+  list-style: disc;
+  list-style-position: outside;
+  margin-left: 1rem;
+}
+
+.resume-container:not(.main-page-style) .achievement-list li {
+  padding-left: 0;
+  margin-bottom: 0.5rem;
 }
 
 /* Override Tailwind colors within resume container */

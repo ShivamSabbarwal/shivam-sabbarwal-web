@@ -146,13 +146,13 @@ const Experience: React.FC = () => {
           <div key={job.company} className="space-y-3">
             <div className="job-header">
               <div className="flex justify-between items-baseline">
-                <h3 className="font-bold tracking-tight uppercase flex items-baseline gap-3 text-base text-primary">
+                <h3 className="job-title font-bold tracking-tight uppercase flex items-baseline gap-3 text-sm text-primary">
                   {job.title}
                   <span className="text-sm font-normal normal-case tracking-normal text-secondary">{job.location}</span>
                 </h3>
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <p className="font-medium text-base tracking-tight text-accent">{job.company}</p>
+                <p className="company-name font-medium text-sm tracking-tight text-accent">{job.company}</p>
                 <span className="text-sm opacity-60 text-secondary">•</span>
                 <span className="text-sm tracking-tight text-secondary">{job.period}</span>
               </div>
@@ -164,7 +164,7 @@ const Experience: React.FC = () => {
                 ))}
               </div>
             )}
-            <ul className="list-disc list-outside ml-4 space-y-2 text-base leading-relaxed text-secondary">
+            <ul className="achievement-list text-sm leading-relaxed text-secondary">
               {job.achievements.map((achievement, i) => (
                 <li key={i}>{achievement}</li>
               ))}

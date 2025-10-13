@@ -57,34 +57,34 @@ const Header: React.FC = () => {
       </div>
 
       {/* Contact Info Tags */}
-      <div className="flex flex-col flex-wrap justify-end gap-2">
+      <div className="contact-info flex flex-col flex-wrap justify-end gap-2">
         <div
           onClick={() => window.open(`tel:${HEADER_DATA.contact.phone}`, '_blank')}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Phone className="size-4 text-accent" />
-          {HEADER_DATA.contact.phone}
+          <span className="text-sm text-secondary" style={{ color: 'var(--resume-secondary)' }}>{HEADER_DATA.contact.phone}</span>
         </div>
         <div
           onClick={() => window.open(`mailto:${HEADER_DATA.contact.email}`, '_blank')}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Mail className="size-4 text-accent" />
-          {HEADER_DATA.contact.email}
+          <span className="text-sm text-secondary" style={{ color: 'var(--resume-secondary)' }}>{HEADER_DATA.contact.email}</span>
         </div>
         <div
           onClick={() => window.open(`https://${HEADER_DATA.contact.linkedin}`, '_blank')}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Linkedin className="size-4 text-accent" />
-          {HEADER_DATA.contact.linkedin}
+          <span className="text-sm text-secondary" style={{ color: 'var(--resume-secondary)' }}>{HEADER_DATA.contact.linkedin}</span>
         </div>
         <div
           onClick={() => window.open(`https://${HEADER_DATA.contact.website}`, '_blank')}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Globe className="size-4 text-accent" />
-          {HEADER_DATA.contact.website}
+          <span className="text-sm text-secondary" style={{ color: 'var(--resume-secondary)' }}>{HEADER_DATA.contact.website}</span>
         </div>
       </div>
     </header>

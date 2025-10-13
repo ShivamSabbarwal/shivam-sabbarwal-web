@@ -41,7 +41,7 @@ const Skills: React.FC = () => {
       <h2 className="section-header text-lg font-bold">SKILLS</h2>
       <div className="grid grid-cols-2 gap-x-8 gap-y-4">
         {Object.entries(SKILLS_DATA.skills).map(([category, skills]) => (
-          <div key={category} className="flex flex-col">
+          <div key={category} className="skills-category flex flex-col">
             <h3 className="category-header mb-2">
               {category}
             </h3>
