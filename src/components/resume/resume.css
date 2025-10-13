@@ -195,13 +195,24 @@
   color: #000000;
 }
 
-/* ATS-friendly tags/skills with Tailwind integration */
+/* ATS-friendly tags/skills with modern chip design */
 .resume-container:not(.main-page-style) .tag {
-  color: var(--resume-accent-color);
-  background-color: var(--resume-highlight-color);
-  border: 2px solid var(--resume-accent-color);
+  color: #374151; /* Dark grey text */
+  background-color: #f3f4f6; /* Light grey background */
+  border: none;
   display: inline-block;
-  border-radius: 4px;
+  border-radius: 20px; /* Rounded pill shape */
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.2s ease;
+}
+
+.resume-container:not(.main-page-style) .tag:hover {
+  background-color: #e5e7eb; /* Slightly darker on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 
@@ -222,14 +233,16 @@
   }
   
   .resume-container:not(.main-page-style) .tag {
-    color: var(--resume-accent-color) !important; /* Keep teal accent for print */
-    background-color: var(--resume-highlight-color) !important; /* Keep light teal background for print */
-    border: 1px solid var(--resume-accent-color) !important;
-    font-size: 10px !important; /* Smaller for print */
-    padding: 2px 4px !important; /* Tighter padding for print */
-    margin: 1px !important; /* Minimal margin for print */
+    color: #374151 !important; /* Dark grey text for print */
+    background-color: #f3f4f6 !important; /* Light grey background for print */
+    border: none !important;
+    font-size: 13px !important; /* Much larger for print readability */
+    padding: 6px 12px !important; /* More generous padding for print */
+    margin: 3px !important; /* Better spacing for print */
     display: inline-block !important;
-    border-radius: 2px !important; /* Smaller radius for print */
+    border-radius: 15px !important; /* Rounded for print */
+    box-shadow: none !important; /* Remove shadow for print */
+    font-weight: 600 !important; /* Slightly bolder for print */
   }
   
 }
