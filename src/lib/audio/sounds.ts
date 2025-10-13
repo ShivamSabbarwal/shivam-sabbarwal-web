@@ -2,22 +2,40 @@
 class SoundManager {
   private audioContext: AudioContext | null = null;
   private isEnabled = true;
+  private isInitialized = false;
+  private initPromise: Promise<void> | null = null;
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      this.initAudioContext();
-    }
+    // Don't initialize AudioContext until first user interaction
   }
 
-  private initAudioContext() {
-    try {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    } catch (e) {
-      console.warn('Web Audio API not supported');
+  private async initAudioContext() {
+    if (this.isInitialized) return;
+    
+    if (this.initPromise) {
+      return this.initPromise;
     }
+
+    this.initPromise = new Promise(async (resolve) => {
+      try {
+        if (typeof window !== 'undefined') {
+          this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+          this.isInitialized = true;
+        }
+      } catch (e) {
+        console.warn('Web Audio API not supported');
+      }
+      resolve();
+    });
+
+    return this.initPromise;
   }
 
   private async ensureReady() {
+    if (!this.isInitialized) {
+      await this.initAudioContext();
+    }
+    
     if (!this.audioContext) return false;
     
     if (this.audioContext.state === 'suspended') {
