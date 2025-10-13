@@ -32,24 +32,25 @@ interface Experience {
 const EXPERIENCE_DATA: Experience[] = [
   {
     title: 'Software Engineer',
-    company: '3vGeomatics',
+    company: '3vGeomatics (Orica Digital Solutions)',
     location: 'Vancouver, BC',
     period: 'July 2025 – Present',
     achievements: [
       <>
-        <strong>Recently joined</strong> to contribute technical leadership and expertise, bringing innovative solutions
-        to drive measurable business results.
+        <strong>Developing Motionary and Agora platforms</strong> using ESRI mapping technologies and modern React architecture, refactoring legacy codebase to implement functional components, hooks, and Redux Toolkit (RTK).
       </>,
       <>
-        <strong>Focusing on scalable solutions</strong> and technical excellence to deliver high-impact results
-        for the organization.
+        <strong>Implementing user consent management</strong> with PostHog product analytics, ensuring GDPR compliance and full ownership of data privacy features for geospatial monitoring applications.
+      </>,
+      <>
+        <strong>Collaborating with data delivery and backend API teams</strong> to integrate RESTful APIs and optimize data visualization workflows for InSAR monitoring and customer interaction features.
       </>,
     ],
-    skills: ['React.js', 'Node.js', 'TypeScript', 'AWS', 'PostgreSQL', 'Docker', 'Kubernetes'],
+    skills: ['React.js', 'Redux Toolkit (RTK)', 'TypeScript', 'ESRI/ArcGIS', 'PostHog', 'Docker', 'AWS'],
   },
   {
     title: 'Chief Technology Officer (CTO)',
-    company: 'Remittor',
+    company: 'Remittor AI',
     location: 'Surrey, BC',
     period: 'December 2023 – Present',
     achievements: [

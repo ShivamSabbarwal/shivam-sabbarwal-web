@@ -34,8 +34,8 @@ const Resume: React.FC = () => {
           <Education />
         </div>
 
-        {/* Control Buttons */}
-        <div className="fixed top-8 right-8 print:hidden flex flex-col gap-3">
+        {/* Control Buttons - Bottom Right */}
+        <div className="fixed bottom-8 right-8 print:hidden flex flex-col gap-3">
           {/* Style Toggle Button */}
           <motion.div
             whileHover={{ scale: 1.05, y: -3 }}
@@ -45,11 +45,11 @@ const Resume: React.FC = () => {
             <Button
               onClick={toggleStyle}
               variant="outline"
-              className="px-4 py-2 font-black text-sm hover:animate-pulse-color normal-case"
+              className="px-4 py-2 font-black text-sm hover:animate-pulse-color normal-case border-2 border-dashed border-primary/50 hover:border-primary transition-all duration-200 bg-gradient-to-r from-primary/5 to-accent/5"
             >
               {isMainPageStyle ? <FileText className="h-4 w-4" /> : <Palette className="h-4 w-4" />}
               <span className="ml-2">
-                {isMainPageStyle ? 'Classic' : 'Modern'}
+                {isMainPageStyle ? 'Switch to Classic' : 'Switch to Modern'}
               </span>
             </Button>
           </motion.div>

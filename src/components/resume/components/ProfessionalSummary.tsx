@@ -24,7 +24,7 @@ interface ProfessionalSummaryData {
 
 // CONSTANTS
 const PROFESSIONAL_SUMMARY: ProfessionalSummaryData = {
-  professionalSummary: "Creative Senior Software Engineer with 6 years of experience in developing cutting-edge solutions for complex productivity challenges. Known for a resourceful and adaptable approach to problem-solving, with a proven track record in leading projects, reducing technical debt, and enhancing system scalability."
+  professionalSummary: "Creative Senior Software Engineer with 7 years of experience in developing cutting-edge solutions for complex productivity challenges. Known for a resourceful and adaptable approach to problem-solving, with a proven track record in leading projects, reducing technical debt, and enhancing system scalability."
 } as const;
 
 //----------------------------------------------------------------------------------------------------------------
