@@ -1,8 +1,4 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/404", "dest": "/index.html" }
-  ],
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
