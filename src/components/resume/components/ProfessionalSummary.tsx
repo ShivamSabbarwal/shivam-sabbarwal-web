@@ -32,8 +32,10 @@ const PROFESSIONAL_SUMMARY: ProfessionalSummaryData = {
 const ProfessionalSummary: React.FC = () => {
   return (
     <section>
-      <h2 className="section-header text-lg font-bold tracking-wide">PROFESSIONAL SUMMARY</h2>
-      <p className="text-sm">
+      <h2 className="section-header text-lg font-bold tracking-wide">
+        PROFESSIONAL SUMMARY
+      </h2>
+      <p className="text-sm text-secondary">
         {PROFESSIONAL_SUMMARY.professionalSummary}
       </p>
     </section>
