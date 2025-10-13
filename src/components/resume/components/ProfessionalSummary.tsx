@@ -33,7 +33,7 @@ const ProfessionalSummary: React.FC = () => {
   return (
     <section>
       <h2 className="section-header text-lg font-bold tracking-wide">PROFESSIONAL SUMMARY</h2>
-      <p className="text-sm text-secondary">
+      <p className="text-sm">
         {PROFESSIONAL_SUMMARY.professionalSummary}
       </p>
     </section>
