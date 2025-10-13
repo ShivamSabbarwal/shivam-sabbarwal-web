@@ -15,8 +15,14 @@ const Resume: React.FC = () => {
   const componentRef = useRef<HTMLDivElement>(null);
   const [isMainPageStyle, setIsMainPageStyle] = useState(false);
 
-  const handlePrint = useCallback(() => {
-    window.print();
+  const handleDownload = useCallback(() => {
+      const link = document.createElement('a');
+      link.href = '/assets/resume.pdf';
+      link.download = `Shivam_Sabbarwal_Resume_${new Date().getFullYear()}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    
   }, []);
 
   const toggleStyle = useCallback(() => {
@@ -62,12 +68,12 @@ const Resume: React.FC = () => {
             transition={{ duration: 0.1, ease: "easeOut" }}
           >
             <Button
-              onClick={handlePrint}
+              onClick={handleDownload}
               className="px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:animate-glow normal-case"
               aria-label="Download resume as PDF"
             >
               <Download className="h-5 w-5" />
-              <span>Download PDF</span>
+              <span>{'Download PDF'}</span>
             </Button>
           </motion.div>
         </div>
