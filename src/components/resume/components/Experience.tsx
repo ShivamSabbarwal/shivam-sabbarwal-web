@@ -32,45 +32,42 @@ interface Experience {
 const EXPERIENCE_DATA: Experience[] = [
   {
     title: 'Software Engineer',
-    company: '3vGeomatics',
+    company: '3vGeomatics (Orica Digital Solutions)',
     location: 'Vancouver, BC',
     period: 'July 2025 – Present',
     achievements: [
       <>
-        <strong>Recently joined</strong> to contribute technical leadership and expertise, bringing innovative solutions
-        to drive measurable business results.
+        <strong>Developed Motionary and Agora platforms</strong> using ESRI mapping technologies, React, TypeScript, and Redux Toolkit (RTK), refactoring legacy codebase to implement modern functional components and hooks.
       </>,
       <>
-        <strong>Focusing on scalable solutions</strong> and technical excellence to deliver high-impact results
-        for the organization.
+        <strong>Implemented user consent management system</strong> with PostHog product analytics, ensuring GDPR compliance and data privacy for geospatial monitoring applications.
+      </>,
+      <>
+        <strong>Collaborated with backend API teams</strong> to integrate RESTful APIs and optimize data visualization workflows for InSAR monitoring and customer interaction features.
       </>,
     ],
-    skills: ['React.js', 'Node.js', 'TypeScript', 'AWS', 'PostgreSQL', 'Docker', 'Kubernetes'],
+    skills: ['React', 'Redux Toolkit', 'TypeScript', 'ESRI/ArcGIS', 'PostHog', 'Docker', 'AWS'],
   },
   {
     title: 'Chief Technology Officer (CTO)',
-    company: 'Remittor',
+    company: 'Remittor AI',
     location: 'Surrey, BC',
     period: 'December 2023 – Present',
     achievements: [
       <>
-        <strong>Built fintech platform</strong> addressing complex financial challenges for Non-Resident Indians (NRIs)
-        globally, streamlining property sales and international money transfers.
+        <strong>Architected and developed</strong> a comprehensive cross-border transaction platform serving 10,000+ Non-Resident Indians (NRIs) across India, Canada, USA, and Australia, facilitating overseas property sales and international money transfers.
       </>,
       <>
-        <strong>Managed cross-border transactions</strong> and Indian regulatory compliance, ensuring secure and
-        compliant international money transfers.
+        <strong>Led development of the platform</strong>, establishing development standards, code review processes, and implementing CI/CD pipelines using Docker and Kubernetes for scalable deployment.
       </>,
       <>
-        <strong>Prioritized security, transparency, and efficiency</strong> in financial solutions, building trust
-        with users handling sensitive financial operations.
+        <strong>Designed and implemented</strong> secure tax compliance systems for NRIs in multiple jurisdictions (India, Canada, USA, Australia), integrating directly with ICICI Bank and HDFC Bank APIs to ensure regulatory compliance and secure transactions.
       </>,
       <>
-        <strong>Simplified property sales in India</strong> with comprehensive legal, financial, and regulatory
-        management solutions.
+        <strong>Built comprehensive overseas property sales platform</strong> with automated legal, financial, and regulatory workflows, reducing property sale processing time by 60% through streamlined digital processes and direct bank integrations.
       </>,
     ],
-    skills: ['React.js', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes', 'TypeScript', 'Financial APIs'],
+    skills: ['React', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes', 'TypeScript', 'Banking APIs', 'Team Leadership', 'Microservices'],
   },
   {
     title: 'Senior Software Engineer',
@@ -146,13 +143,13 @@ const Experience: React.FC = () => {
           <div key={job.company} className="space-y-3">
             <div className="job-header">
               <div className="flex justify-between items-baseline">
-                <h3 className="font-bold tracking-tight uppercase flex items-baseline gap-3 text-base text-primary">
+                <h3 className="job-title font-bold tracking-tight uppercase flex items-baseline gap-3 text-sm text-primary">
                   {job.title}
                   <span className="text-sm font-normal normal-case tracking-normal text-secondary">{job.location}</span>
                 </h3>
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <p className="font-medium text-base tracking-tight text-accent">{job.company}</p>
+                <p className="company-name font-medium text-sm tracking-tight text-accent">{job.company}</p>
                 <span className="text-sm opacity-60 text-secondary">•</span>
                 <span className="text-sm tracking-tight text-secondary">{job.period}</span>
               </div>
@@ -164,7 +161,7 @@ const Experience: React.FC = () => {
                 ))}
               </div>
             )}
-            <ul className="list-disc list-outside ml-4 space-y-2 text-base leading-relaxed text-secondary">
+            <ul className="achievement-list text-sm leading-relaxed text-secondary">
               {job.achievements.map((achievement, i) => (
                 <li key={i}>{achievement}</li>
               ))}

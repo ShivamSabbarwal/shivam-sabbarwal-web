@@ -26,10 +26,10 @@ interface SkillsData {
 // CONSTANTS
 const SKILLS_DATA: SkillsData = {
   skills: {
-    Core: ['React.js', 'Node.js', 'Python', 'TypeScript', 'AWS', 'Git', 'PostgreSQL', 'MongoDB'],
-    Frontend: ['Redux', 'TailwindCSS', 'HTML5/CSS3', 'Webpack'],
-    'Backend & DevOps': ['Express.js', 'Django', 'Flask', 'RESTful APIs', 'Docker', 'WebSockets'],
-    Other: ['UI/UX Design', 'AWS Certified Developer', 'WebRTC'],
+    Frontend: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vite', 'React Native'],
+    Backend: ['Node.js', 'Python', 'Go', 'PostgreSQL', 'MongoDB', 'Redis', 'Serverless'],
+    'Cloud & DevOps': ['AWS', 'Vercel', 'Cloudflare', 'Docker', 'CI/CD', 'Terraform', 'Kubernetes'],
+    'AI & Dev Tools': ['OpenAI API', 'LangChain', 'Vitest', 'Jest', 'Cypress', 'Playwright', 'Git', 'Figma', 'VS Code'],
   },
 } as const;
 
@@ -41,7 +41,7 @@ const Skills: React.FC = () => {
       <h2 className="section-header text-lg font-bold">SKILLS</h2>
       <div className="grid grid-cols-2 gap-x-8 gap-y-4">
         {Object.entries(SKILLS_DATA.skills).map(([category, skills]) => (
-          <div key={category} className="flex flex-col">
+          <div key={category} className="skills-category flex flex-col">
             <h3 className="category-header mb-2">
               {category}
             </h3>

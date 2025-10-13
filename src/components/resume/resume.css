@@ -11,11 +11,240 @@
   margin: 0;
   padding: 0;
   background-color: #f3f4f6; /* bg-gray-100 */
+  color: var(--resume-primary); /* Set default text color */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   line-height: 1.5;
+}
+
+/* Modern Portfolio Style Variant */
+.resume-container.main-page-style {
+  /* Portfolio Theme Colors */
+  --resume-primary: var(--primary);
+  --resume-secondary: var(--muted-foreground);
+  --resume-accent: var(--accent);
+  --resume-border: var(--border);
+  --resume-tag-bg: var(--muted);
+  --resume-tag-hover: var(--muted);
+  
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Modern Style - Portfolio Design System */
+.resume-container.main-page-style .section-header {
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+  position: relative;
+}
+
+.resume-container.main-page-style .section-header::after {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  height: 2px;
+  border-radius: 1px;
+}
+
+.resume-container.main-page-style .category-header {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Modern Style - Clean Design for Sections */
+.resume-container.main-page-style .job-header,
+.resume-container.main-page-style .education-item,
+.resume-container.main-page-style .skills-category {
+  background: transparent;
+  border: none;
+  padding: 1.25rem 0;
+  margin-bottom: 1.25rem;
+}
+
+/* Modern Style - Angular Tags */
+.resume-container.main-page-style .tag {
+  background: var(--primary);
+  color: var(--background);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.resume-container.main-page-style .tag:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Modern Style - Typography */
+.resume-container.main-page-style h1 {
+  color: var(--primary);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+}
+
+.resume-container.main-page-style .job-title {
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+}
+
+/* Modern Style - Enhanced Visual Hierarchy */
+.resume-container.main-page-style .achievement-list {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 0.5rem;
+  list-style: none;
+}
+
+.resume-container.main-page-style .achievement-list li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.resume-container.main-page-style .achievement-list li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+  transition: all 0.2s ease;
+}
+
+.resume-container.main-page-style .achievement-list li:hover::before {
+  color: var(--primary);
+  transform: scale(1.1);
+  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+}
+
+.resume-container.main-page-style .achievement-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Classic Style - ATS-Friendly Formatting with Tailwind Integration */
+.resume-container:not(.main-page-style) {
+  /* ATS-friendly font and sizing - Web friendly */
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* Tasteful color accents for classic resume */
+.resume-container:not(.main-page-style) {
+  --resume-accent-color: #0d9488; /* Professional teal */
+  --resume-secondary-color: #64748b; /* Professional gray */
+  --resume-highlight-color: #f0fdfa; /* Very light teal background */
+}
+
+/* ATS-friendly section headers with Tailwind integration */
+.resume-container:not(.main-page-style) .section-header {
+  color: var(--resume-accent-color);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--resume-accent-color);
+  background-color: var(--resume-highlight-color);
+  padding: 12px 16px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* ATS-friendly category headers with Tailwind integration */
+.resume-container:not(.main-page-style) .category-header {
+  color: #000000;
+  text-transform: uppercase;
+  border-left: 4px solid var(--resume-accent-color);
+  padding-left: 12px;
+  letter-spacing: 0.3px;
+}
+
+/* ATS-friendly job titles and company names with Tailwind integration */
+.resume-container:not(.main-page-style) .job-title {
+  color: #000000;
+}
+
+.resume-container:not(.main-page-style) .company-name {
+  color: #000000;
+}
+
+
+/* ATS-friendly contact information with Tailwind integration */
+.resume-container:not(.main-page-style) .contact-info {
+  color: #000000;
+}
+
+
+/* ATS-friendly bullet points with Tailwind integration */
+.resume-container:not(.main-page-style) .achievement-list {
+  list-style: disc;
+  list-style-position: outside;
+  margin-left: 20px;
+}
+
+.resume-container:not(.main-page-style) .achievement-list li {
+  padding-left: 0;
+  color: #000000;
+}
+
+/* ATS-friendly tags/skills with modern chip design */
+.resume-container:not(.main-page-style) .tag {
+  color: #374151; /* Dark grey text */
+  background-color: #f3f4f6; /* Light grey background */
+  border: none;
+  display: inline-block;
+  border-radius: 20px; /* Rounded pill shape */
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.2s ease;
+}
+
+.resume-container:not(.main-page-style) .tag:hover {
+  background-color: #e5e7eb; /* Slightly darker on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Print-friendly styles */
+@media print {
+  .resume-container:not(.main-page-style) {
+    font-size: 12px !important; /* Ensure print readability */
+    line-height: 1.4 !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+  }
+  
+  .resume-container:not(.main-page-style) .section-header {
+    font-size: 16px !important;
+    color: var(--resume-accent-color) !important; /* Keep teal accent for print */
+    background-color: var(--resume-highlight-color) !important;
+    border-bottom: 2px solid var(--resume-accent-color) !important;
+  }
+  
+  .resume-container:not(.main-page-style) .tag {
+    color: #374151 !important; /* Dark grey text for print */
+    background-color: #f3f4f6 !important; /* Light grey background for print */
+    border: none !important;
+    font-size: 13px !important; /* Much larger for print readability */
+    padding: 6px 12px !important; /* More generous padding for print */
+    margin: 3px !important; /* Better spacing for print */
+    display: inline-block !important;
+    border-radius: 15px !important; /* Rounded for print */
+    box-shadow: none !important; /* Remove shadow for print */
+    font-weight: 600 !important; /* Slightly bolder for print */
+  }
+  
 }
 
 /* Override Tailwind colors within resume container */
@@ -33,12 +262,12 @@
 
 /* Override tag styling within resume container */
 .resume-container .tag {
-  background-color: var(--resume-tag-bg) !important;
-  color: var(--resume-secondary) !important;
+  background-color: var(--resume-tag-bg);
+  color: var(--resume-secondary);
 }
 
 .resume-container .tag:hover {
-  background-color: var(--resume-tag-hover) !important;
+  background-color: var(--resume-tag-hover);
 }
 
 /* Modern Typography - scoped to resume */
@@ -52,13 +281,6 @@
   letter-spacing: -0.025em;
 }
 
-/* Page Styles */
-.resume-container .page {
-  width: 8.5in;
-  min-height: 11in;
-  padding: 0.5in;
-  background: white;
-}
 
 /* Section Headers */
 .resume-container .section-header {
@@ -129,14 +351,9 @@
     display: none;
   }
   
-  /* Hide back button and devtools in print */
-  .resume-container .fixed,
-  .fixed {
-    display: none !important;
-  }
-  
-  
   /* Hide any elements with fixed positioning */
+  .resume-container .fixed,
+  .fixed,
   *[style*="position: fixed"],
   *[style*="position:fixed"] {
     display: none !important;
