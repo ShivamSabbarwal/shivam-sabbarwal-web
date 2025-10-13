@@ -94,18 +94,6 @@
   text-shadow: 1px 1px 0 var(--cartoon-shadow);
 }
 
-.resume-container.main-page-style .company-name {
-  color: var(--primary);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
-.resume-container.main-page-style .contact-info {
-  background: transparent;
-  border: none;
-  padding: 1rem 0;
-}
-
 /* Modern Style - Enhanced Visual Hierarchy */
 .resume-container.main-page-style .achievement-list {
   background: transparent;
@@ -216,18 +204,6 @@
   border-radius: 4px;
 }
 
-/* ATS-friendly text colors - consistent black text */
-.resume-container:not(.main-page-style) .text-primary {
-  color: #000000 !important;
-}
-
-.resume-container:not(.main-page-style) .text-secondary {
-  color: #000000 !important;
-}
-
-.resume-container:not(.main-page-style) .text-accent {
-  color: #000000 !important;
-}
 
 /* Print-friendly styles */
 @media print {
@@ -256,14 +232,6 @@
     border-radius: 2px !important; /* Smaller radius for print */
   }
   
-  /* Override header colors for print - keep accent colors */
-  .resume-container:not(.main-page-style) h1 {
-    color: #000000 !important;
-  }
-  
-  .resume-container:not(.main-page-style) .text-accent {
-    color: var(--resume-accent-color) !important; /* Keep teal accent for print */
-  }
 }
 
 /* Override Tailwind colors within resume container */
@@ -281,12 +249,12 @@
 
 /* Override tag styling within resume container */
 .resume-container .tag {
-  background-color: var(--resume-tag-bg) !important;
-  color: var(--resume-secondary) !important;
+  background-color: var(--resume-tag-bg);
+  color: var(--resume-secondary);
 }
 
 .resume-container .tag:hover {
-  background-color: var(--resume-tag-hover) !important;
+  background-color: var(--resume-tag-hover);
 }
 
 /* Modern Typography - scoped to resume */
@@ -300,13 +268,6 @@
   letter-spacing: -0.025em;
 }
 
-/* Page Styles */
-.resume-container .page {
-  width: 8.5in;
-  min-height: 11in;
-  padding: 0.5in;
-  background: white;
-}
 
 /* Section Headers */
 .resume-container .section-header {
@@ -377,14 +338,9 @@
     display: none;
   }
   
-  /* Hide back button and devtools in print */
-  .resume-container .fixed,
-  .fixed {
-    display: none !important;
-  }
-  
-  
   /* Hide any elements with fixed positioning */
+  .resume-container .fixed,
+  .fixed,
   *[style*="position: fixed"],
   *[style*="position:fixed"] {
     display: none !important;

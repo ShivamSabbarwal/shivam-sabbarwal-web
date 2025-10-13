@@ -46,6 +46,7 @@ const Resume: React.FC = () => {
               onClick={toggleStyle}
               variant="outline"
               className="px-4 py-2 font-black text-sm hover:animate-pulse-color normal-case border-2 border-dashed border-primary/50 hover:border-primary transition-all duration-200 bg-gradient-to-r from-primary/5 to-accent/5"
+              aria-label={isMainPageStyle ? "Switch to Classic style" : "Switch to Modern style"}
             >
               {isMainPageStyle ? <FileText className="h-4 w-4" /> : <Palette className="h-4 w-4" />}
               <span className="ml-2">
@@ -63,6 +64,7 @@ const Resume: React.FC = () => {
             <Button
               onClick={handlePrint}
               className="px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:animate-glow normal-case"
+              aria-label="Download resume as PDF"
             >
               <Download className="h-5 w-5" />
               <span>Download PDF</span>

@@ -29,7 +29,7 @@ const SKILLS_DATA: SkillsData = {
     Frontend: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vite', 'React Native'],
     Backend: ['Node.js', 'Python', 'Go', 'PostgreSQL', 'MongoDB', 'Redis', 'Serverless'],
     'Cloud & DevOps': ['AWS', 'Vercel', 'Cloudflare', 'Docker', 'CI/CD', 'Terraform', 'Kubernetes'],
-    'AI & Dev Tools': ['OpenAI API', 'LangChain', 'Testing', 'Playwright', 'Git', 'Figma', 'VS Code'],
+    'AI & Dev Tools': ['OpenAI API', 'LangChain', 'Vitest', 'Jest', 'Cypress', 'Playwright', 'Git', 'Figma', 'VS Code'],
   },
 } as const;
 
