@@ -2,6 +2,7 @@ import { createRootRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
+import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -30,14 +31,16 @@ const AppContent = () => {
 export const Route = createRootRoute({
   component: () => (
     <ErrorBoundary>
-      <ThemeProvider>
-        <LoadingProvider>
-          <AppContent />
-          <TanStackRouterDevtools />
-          <SpeedInsights debug={false} />
-          <Analytics debug={false} />
-        </LoadingProvider>
-      </ThemeProvider>
+      <HelmetProvider>
+        <ThemeProvider>
+          <LoadingProvider>
+            <AppContent />
+            <TanStackRouterDevtools />
+            <SpeedInsights debug={false} />
+            <Analytics debug={false} />
+          </LoadingProvider>
+        </ThemeProvider>
+      </HelmetProvider>
     </ErrorBoundary>
   ),
 });
