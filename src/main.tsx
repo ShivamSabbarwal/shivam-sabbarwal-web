@@ -5,7 +5,13 @@ import { routeTree } from './routeTree.gen'
 import "./globals.css";
 
 // Create a new router instance
-const router = createRouter({ routeTree })
+const router = createRouter({ 
+  routeTree,
+  defaultNotFoundComponent: () => {
+    window.location.href = '/404'
+    return null
+  }
+})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

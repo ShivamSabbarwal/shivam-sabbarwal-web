@@ -5,17 +5,18 @@ import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import MainLayout from "@/components/layout/MainLayout";
-import ResumeLayout from "@/components/layout/ResumeLayout";
+import BasicLayout from "@/components/layout/BasicLayout";
 
 const AppContent = () => {
   const location = useLocation();
   const isResumePage = location.pathname === "/resume";
+  const is404Page = location.pathname === "/404";
 
-  if (isResumePage) {
+  if (isResumePage || is404Page) {
     return (
-      <ResumeLayout>
+      <BasicLayout>
         <Outlet />
-      </ResumeLayout>
+      </BasicLayout>
     );
   }
 

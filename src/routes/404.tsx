@@ -1,8 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import SEO from '@/components/SEO'
 import { Button } from '@/components/ui/button'
-import { Home, ArrowLeft } from 'lucide-react'
+import { Home } from 'lucide-react'
 import { getFullUrl } from '@/lib/utils'
+import Cursor from '@/components/interactive/Cursor'
+import FloatingBubbles from '@/components/interactive/FloatingBubbles'
+import { PERFORMANCE } from '@/constants'
 
 export const Route = createFileRoute('/404')({
   component: () => {
@@ -16,38 +19,32 @@ export const Route = createFileRoute('/404')({
           url={notFoundUrl}
           type="website"
         />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <FloatingBubbles count={PERFORMANCE.FLOATING_BUBBLES_COUNT} />
+        <Cursor />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="text-center space-y-8 px-4">
-          <div className="space-y-4">
-            <h1 className="text-9xl font-black text-primary/20">404</h1>
-            <h2 className="text-4xl font-bold text-foreground">Page Not Found</h2>
-            <p className="text-xl text-muted-foreground max-w-md mx-auto">
-              Oops! The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.
+          <div className="space-y-6">
+            <div className="relative">
+              <h1 className="text-6xl sm:text-8xl lg:text-9xl font-black text-primary/20 animate-bounce">404</h1>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">Houston, we have a problem!</h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto px-2">
+              Looks like this page went on vacation without telling anyone! 🏖️
+              Maybe it's hiding behind the couch? Or perhaps it got lost in the WiFi? 📶
             </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="font-semibold">
+          <div className="flex justify-center">
+            <Button asChild size="lg" className="font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 transition-all duration-300 transform hover:scale-105">
               <Link to="/">
                 <Home className="w-4 h-4 mr-2" />
-                Go Home
+                Beam Me Home, Scotty!
               </Link>
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="font-semibold"
-              onClick={() => {
-                if (window.history.length > 1) {
-                  window.history.back()
-                } else {
-                  window.location.href = '/'
-                }
-              }}
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Go Back
-            </Button>
+          </div>
+          
+          <div className="text-sm text-muted-foreground/60 max-w-md mx-auto">
+            <p>💡 <strong>Pro tip:</strong> Try not to break the internet next time! 😄</p>
           </div>
         </div>
       </div>
