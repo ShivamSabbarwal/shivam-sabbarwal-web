@@ -50,7 +50,7 @@ const HEADER_DATA: HeaderData = {
 
 const Header: React.FC = () => {
   return (
-    <header className="mb-8 flex items-center justify-between gap-4 space-y-2">
+    <header className="mb-4 flex items-center justify-between gap-4 space-y-2">
       <div className="flex flex-col gap-2">
         <h1 className="text-4xl font-bold tracking-wide text-primary mb-2">
           {HEADER_DATA.name}
