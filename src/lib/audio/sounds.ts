@@ -21,9 +21,12 @@ class SoundManager {
         if (typeof window !== 'undefined') {
           this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
           this.isInitialized = true;
+        } else {
+          this.initPromise = null;
         }
       } catch (e) {
         console.warn('Web Audio API not supported');
+        this.initPromise = null;
       }
       resolve();
     });

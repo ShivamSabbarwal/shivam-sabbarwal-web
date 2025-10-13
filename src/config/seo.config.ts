@@ -20,8 +20,8 @@ export const getHomeSEO = (): SEOProps => {
       "url": fullUrl,
       "image": `${baseUrl}/assets/profile-pic.jpg`,
       "sameAs": [
-        "https://github.com/shivamsabbarwal",
-        "https://linkedin.com/in/shivamsabbarwal"
+        "https://www.github.com/shivamsabbarwal",
+        "https://www.linkedin.com/in/shivamsabbarwal"
       ],
       "knowsAbout": [
         "Software Engineering",
@@ -42,5 +42,3 @@ export const getHomeSEO = (): SEOProps => {
   }
 }
 
-// For backward compatibility, export a default instance
-export const homeSEO = getHomeSEO();

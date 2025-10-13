@@ -7,7 +7,7 @@ export interface SEOProps {
   image?: string;
   url?: string;
   type?: 'website' | 'profile' | 'article';
-  structuredData?: object;
+  structuredData?: Record<string, unknown>;
 }
 
 const SEO = ({
