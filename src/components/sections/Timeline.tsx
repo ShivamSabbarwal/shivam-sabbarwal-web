@@ -245,7 +245,7 @@ const Timeline = () => {
               >
                 {/* Timeline Dot */}
                 <motion.div
-                  className="absolute left-6 sm:left-8 md:left-1/2 w-6 sm:w-8 h-6 sm:h-8 transform md:-translate-x-1/2 z-10 flex items-center justify-center"
+                  className="absolute left-4 sm:left-5 md:left-1/2 w-6 sm:w-8 h-6 sm:h-8 transform md:-translate-x-1/2 z-10 flex items-center justify-center"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{
@@ -274,8 +274,8 @@ const Timeline = () => {
                   </div>
 
                   {/* Month/Year label */}
-                  <div className="absolute -top-6 sm:-top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                    <span className="text-xs font-bold text-primary bg-background px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full border border-primary/20 shadow-sm">
+                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2  max-w-[100px] text-center">
+                    <span className="text-xs font-bold text-primary bg-background px-2 py-1 rounded-xl border border-primary/20 shadow-sm inline-block">
                       {getMonthYear(item.period)}
                     </span>
                   </div>
