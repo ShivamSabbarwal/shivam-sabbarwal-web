@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useCallback, useState } from "react";
 import { Download, Palette, FileText } from "lucide-react";
 import { motion } from "motion/react";

@@ -1,28 +1,67 @@
+"use client";
+
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Mail, Github, Linkedin, MapPin, Phone, Instagram } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Phone, Instagram, Send, Loader2, CheckCircle } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { sendContactEmail } from "@/app/actions/contact";
+
+const schema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type FormData = z.infer<typeof schema>;
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    icon: <Github className="w-5 h-5" />,
+    url: "https://github.com/ShivamSabbarwal",
+    color: "hover:text-gray-400",
+  },
+  {
+    name: "LinkedIn",
+    icon: <Linkedin className="w-5 h-5" />,
+    url: "https://linkedin.ca/in/shivamsabbarwal",
+    color: "hover:text-blue-400",
+  },
+  {
+    name: "Instagram",
+    icon: <Instagram className="w-5 h-5" />,
+    url: "https://instagram.com/shiv.sabb",
+    color: "hover:text-pink-400",
+  },
+];
 
 const Contact = () => {
+  const [submitted, setSubmitted] = useState(false);
 
-  const socialLinks = [
-    {
-      name: "GitHub",
-      icon: <Github className="w-6 h-6" />,
-      url: "https://github.com/ShivamSabbarwal",
-      color: "hover:text-gray-400",
-    },
-    {
-      name: "LinkedIn",
-      icon: <Linkedin className="w-6 h-6" />,
-      url: "https://linkedin.ca/in/shivamsabbarwal",
-      color: "hover:text-blue-400",
-    },
-    {
-      name: "Instagram",
-      icon: <Instagram className="w-6 h-6" />,
-      url: "https://instagram.com/shiv.sabb",
-      color: "hover:text-pink-400",
-    },
-  ];
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await sendContactEmail(data);
+      setSubmitted(true);
+      reset();
+      toast.success("Message sent! I'll get back to you soon.");
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <section id="contact" className="py-16 sm:py-20 md:py-24 relative">
@@ -46,7 +85,7 @@ const Contact = () => {
 
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Contact Information */}
+            {/* Left: Contact Info + Socials */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -67,13 +106,13 @@ const Contact = () => {
               </div>
 
               {/* Contact Details */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <motion.div
                   whileHover={{ x: 15, scale: 1.02, rotate: 1, y: -2 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   className="group flex items-center space-x-4 p-4 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-300 hover:animate-glow angular-card"
                 >
-                  <motion.div 
+                  <motion.div
                     className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
@@ -81,10 +120,10 @@ const Contact = () => {
                     <Mail className="w-6 h-6 text-primary" />
                   </motion.div>
                   <div>
-                    <p className="font-semibold text-lg">Email</p>
+                    <p className="font-semibold">Email</p>
                     <a
-                      href="mailto:shivam.sabb@gmail.com?subject=Portfolio Inquiry&body=Hi Shivam,%0D%0A%0D%0AI came across your portfolio and would like to discuss potential opportunities.%0D%0A%0D%0ABest regards,"
-                      className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-base"
+                      href="mailto:shivam.sabb@gmail.com"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
                     >
                       shivam.sabb@gmail.com
                     </a>
@@ -96,7 +135,7 @@ const Contact = () => {
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   className="group flex items-center space-x-4 p-4 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-300 hover:animate-glow angular-card"
                 >
-                  <motion.div 
+                  <motion.div
                     className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300"
                     whileHover={{ rotate: -360 }}
                     transition={{ duration: 0.5 }}
@@ -104,10 +143,10 @@ const Contact = () => {
                     <Phone className="w-6 h-6 text-primary" />
                   </motion.div>
                   <div>
-                    <p className="font-semibold text-lg">Phone</p>
+                    <p className="font-semibold">Phone</p>
                     <a
-                      href="sms:+15066090423?body=Hi Shivam,%0D%0A%0D%0AI came across your portfolio and would like to discuss potential opportunities.%0D%0A%0D%0ABest regards,"
-                      className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-base"
+                      href="sms:+15066090423"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
                     >
                       +1 (506) 609-0423
                     </a>
@@ -119,7 +158,7 @@ const Contact = () => {
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   className="group flex items-center space-x-4 p-4 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-300 hover:animate-glow angular-card"
                 >
-                  <motion.div 
+                  <motion.div
                     className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
@@ -127,89 +166,131 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-primary" />
                   </motion.div>
                   <div>
-                    <p className="font-semibold text-lg">Location</p>
-                    <p className="text-muted-foreground text-base">
-                      New Westminster, BC
+                    <p className="font-semibold">Location</p>
+                    <p className="text-muted-foreground text-sm">
+                      Ontario, Canada
                     </p>
                   </div>
                 </motion.div>
               </div>
-            </motion.div>
 
-            {/* Social Links & Additional Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div>
-                <h4 className="text-2xl font-black mb-6 cartoon-text">
-                  Connect With Me
-                </h4>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  Follow my journey and stay updated with my latest projects,
-                  insights, and professional updates.
-                </p>
-              </div>
-
-              {/* Social Links Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Social Links */}
+              <div className="flex gap-3">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.name}
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: index * 0.1,
-                      ease: "easeOut",
-                    }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.05, y: -5, rotate: 5 }}
-                    whileTap={{ scale: 0.95, rotate: -5 }}
+                    whileHover={{ scale: 1.1, y: -3, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group p-6 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-300 text-center hover:animate-bounce-slow angular-card hover:cartoon-shadow-lg ${social.color}`}
+                    aria-label={social.name}
+                    className={`p-3 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-300 angular-card hover:cartoon-shadow-lg ${social.color}`}
                   >
-                    <div className="flex flex-col items-center space-y-3">
-                      <motion.div 
-                        className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300"
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {social.icon}
-                      </motion.div>
-                      <span className="font-semibold text-sm">
-                        {social.name}
-                      </span>
-                    </div>
+                    {social.icon}
                   </motion.a>
                 ))}
               </div>
+            </motion.div>
 
-              {/* Availability Status */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02, y: -2 }}
-                className="p-6 rounded-xl border border-border bg-gradient-to-r from-primary/5 to-accent/5 angular-card hover:animate-glow"
-              >
-                <div className="mb-3">
-                  <h5 className="font-semibold text-lg">
-                    Let's Build Something
-                  </h5>
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  I'm always looking to work on something exciting! Reach out if
-                  you have a fun idea or just want to talk about technology,
-                  projects, or anything interesting.
-                </p>
-              </motion.div>
+            {/* Right: Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="p-6 sm:p-8 rounded-2xl border border-border bg-card angular-card">
+                <h4 className="text-2xl font-black mb-6 cartoon-text">
+                  Send a Message
+                </h4>
+
+                {submitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex flex-col items-center justify-center py-12 text-center space-y-4"
+                  >
+                    <CheckCircle className="w-14 h-14 text-primary" />
+                    <h5 className="text-xl font-bold">Message sent!</h5>
+                    <p className="text-muted-foreground">
+                      Thanks for reaching out. I'll get back to you soon.
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => setSubmitted(false)}
+                      className="mt-2"
+                    >
+                      Send another
+                    </Button>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
+                        placeholder="Your name"
+                        {...register("name")}
+                        className={errors.name ? "border-destructive" : ""}
+                      />
+                      {errors.name && (
+                        <p className="text-destructive text-xs">{errors.name.message}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        {...register("email")}
+                        className={errors.email ? "border-destructive" : ""}
+                      />
+                      {errors.email && (
+                        <p className="text-destructive text-xs">{errors.email.message}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor="message">Message</Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Tell me about your project or just say hi..."
+                        rows={5}
+                        {...register("message")}
+                        className={errors.message ? "border-destructive" : ""}
+                      />
+                      {errors.message && (
+                        <p className="text-destructive text-xs">{errors.message.message}</p>
+                      )}
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full font-bold hover:animate-glow"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                )}
+              </div>
             </motion.div>
           </div>
         </div>

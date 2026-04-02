@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import { ArrowUp, Github, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";

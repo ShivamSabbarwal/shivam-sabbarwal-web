@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import { ArrowDown, Sparkles, Code, Palette } from "lucide-react";
 import { useSounds } from "../../lib/audio/sounds";

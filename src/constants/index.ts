@@ -30,7 +30,7 @@ export const SOCIAL_LINKS = [
 export const CONTACT_INFO = {
   email: "shivam.sabb@gmail.com",
   phone: "+1 (506) 609-0423",
-  location: "New Westminster, BC",
+  location: "Ontario, Canada",
 } as const;
 
 // Animation constants
