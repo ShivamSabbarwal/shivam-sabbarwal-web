@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Mail, Github, Linkedin, MapPin, Phone, Instagram, Send, Loader2, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Loader2, CheckCircle } from "lucide-react";
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/BrandIcons";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -24,19 +25,19 @@ type FormData = z.infer<typeof schema>;
 const socialLinks = [
   {
     name: "GitHub",
-    icon: <Github className="w-5 h-5" />,
+    icon: <GithubIcon className="w-5 h-5" />,
     url: "https://github.com/ShivamSabbarwal",
     color: "hover:text-gray-400",
   },
   {
     name: "LinkedIn",
-    icon: <Linkedin className="w-5 h-5" />,
+    icon: <LinkedinIcon className="w-5 h-5" />,
     url: "https://linkedin.ca/in/shivamsabbarwal",
     color: "hover:text-blue-400",
   },
   {
     name: "Instagram",
-    icon: <Instagram className="w-5 h-5" />,
+    icon: <InstagramIcon className="w-5 h-5" />,
     url: "https://instagram.com/shiv.sabb",
     color: "hover:text-pink-400",
   },

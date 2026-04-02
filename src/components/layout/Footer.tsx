@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowUp, Github, Linkedin, Instagram } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/BrandIcons";
 import { Button } from "@/components/ui/button";
 import { NAV_ITEMS, SOCIAL_LINKS } from "@/constants";
 
@@ -27,15 +28,15 @@ const Footer = () => {
   const socialLinks = [
     {
       ...SOCIAL_LINKS[0],
-      icon: <Github className="w-5 h-5" />,
+      icon: <GithubIcon className="w-5 h-5" />,
     },
     {
       ...SOCIAL_LINKS[1],
-      icon: <Linkedin className="w-5 h-5" />,
+      icon: <LinkedinIcon className="w-5 h-5" />,
     },
     {
       ...SOCIAL_LINKS[2],
-      icon: <Instagram className="w-5 h-5" />,
+      icon: <InstagramIcon className="w-5 h-5" />,
     },
   ];
 

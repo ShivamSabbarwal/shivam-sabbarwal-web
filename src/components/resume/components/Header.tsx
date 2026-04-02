@@ -6,7 +6,8 @@ import React from "react";
 // PROJECT COMPONENTS
 
 // ICONS
-import { Linkedin, Mail, Phone, Globe } from "lucide-react";
+import { Mail, Phone, Globe } from "lucide-react";
+import { LinkedinIcon } from "@/components/icons/BrandIcons";
 
 // HELPERS
 
@@ -88,7 +89,7 @@ const Header: React.FC = () => {
           }
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
-          <Linkedin className="size-4 text-accent" />
+          <LinkedinIcon className="size-4 text-accent" />
           <span className="text-sm text-secondary">
             {HEADER_DATA.contact.linkedin}
           </span>

@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { motion } from "motion/react";
-import { ExternalLink, Github, Sparkles, Zap } from "lucide-react";
+import { ExternalLink, Sparkles, Zap } from "lucide-react";
+import { GithubIcon } from "@/components/icons/BrandIcons";
 import { useSounds } from "../lib/audio/sounds";
 import { Badge } from "@/components/ui/badge";
 
@@ -167,7 +168,7 @@ const ProjectCard = memo(
                 transition={{ duration: 0.5 }}
                 className="p-3 angular-card group-hover:animate-bounce-slow"
               >
-                <Github className="w-5 h-5 sm:w-6 sm:h-6" />
+                <GithubIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.div>
               <span className="cartoon-highlight">Explore Code</span>
             </motion.a>
