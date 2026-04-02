@@ -11,7 +11,7 @@ class SoundManager {
 
   private async initAudioContext() {
     if (this.isInitialized) return;
-    
+
     if (this.initPromise) {
       return this.initPromise;
     }
@@ -25,7 +25,6 @@ class SoundManager {
           this.initPromise = null;
         }
       } catch (e) {
-        console.warn('Web Audio API not supported');
         this.initPromise = null;
       }
       resolve();
@@ -38,9 +37,9 @@ class SoundManager {
     if (!this.isInitialized) {
       await this.initAudioContext();
     }
-    
+
     if (!this.audioContext) return false;
-    
+
     if (this.audioContext.state === 'suspended') {
       try {
         await this.audioContext.resume();
@@ -78,11 +77,7 @@ class SoundManager {
   // Sound effects
   playClick = () => this.playSound(800, 0.1, 'square', 0.15);
   playHover = () => this.playSound(600, 0.05, 'sine', 0.08);
-  playSuccess = () => this.playSound(1000, 0.2, 'sine', 0.12);
-  playError = () => this.playSound(300, 0.3, 'sawtooth', 0.15);
   playBounce = () => this.playSound(400, 0.15, 'triangle', 0.1);
-  playPop = () => this.playSound(500, 0.08, 'square', 0.12);
-  playSwoosh = () => this.playSound(200, 0.2, 'sine', 0.08);
 }
 
 // Export singleton instance
@@ -90,4 +85,3 @@ export const soundManager = new SoundManager();
 
 // React hook for easy sound integration
 export const useSounds = () => soundManager;
-

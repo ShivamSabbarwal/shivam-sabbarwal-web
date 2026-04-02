@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import type { LucideIcon } from "lucide-react";
 import { 
   Code, 
   Database, 
@@ -94,7 +95,7 @@ const TechStack = () => {
     }
   ];
 
-  const TechItem = ({ name, icon: Icon, description }: { name: string; icon: any; description: string }) => (
+  const TechItem = ({ name, icon: Icon, description }: { name: string; icon: LucideIcon; description: string }) => (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}

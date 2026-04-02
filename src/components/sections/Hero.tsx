@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowDown, Sparkles, Code, Palette } from "lucide-react";
 import { useSounds } from "../../lib/audio/sounds";
@@ -99,15 +100,13 @@ const Hero = () => {
                       transform: 'perspective(1000px) rotateX(8deg) rotateY(-8deg) scale(1.02)'
                     }}
                   >
-                    <img 
-                      src="/assets/profile-pic.jpg" 
-                      alt="Shivam Sabbarwal - Senior Software Engineer" 
-                      className="w-full h-full object-cover scale-125 hover:scale-110 transition-transform duration-500" 
-                      loading="eager"
-                      width="320"
-                      height="320"
-                      fetchPriority="high"
-                      decoding="async"
+                    <Image
+                      src="/assets/profile-pic.jpg"
+                      alt="Shivam Sabbarwal - Senior Software Engineer"
+                      fill
+                      sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, (max-width: 1280px) 288px, 320px"
+                      className="object-cover scale-125 hover:scale-110 transition-transform duration-500"
+                      priority
                     />
                     
                     {/* Fun Overlay Effects */}

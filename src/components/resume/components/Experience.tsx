@@ -1,34 +1,15 @@
-// LIBRARIES / PACKAGES
-import React from 'react';
-
-// SHARED COMPONENTS
+import type { ReactNode } from 'react';
 import Tag from './Tag';
 
-// PROJECT COMPONENTS
-
-// ICONS
-
-// HELPERS
-
-// ACTIONS
-
-// REDUCERS
-
-// APIS
-
-// CONSTANTS
-
-// TYPES
 interface Experience {
   title: string;
   company: string;
   location: string;
   period: string;
-  achievements: React.ReactNode[];
+  achievements: ReactNode[];
   skills: string[];
 }
 
-// CONSTANTS
 const EXPERIENCE_DATA: Experience[] = [
   {
     title: 'Software Engineer',
@@ -132,9 +113,7 @@ const EXPERIENCE_DATA: Experience[] = [
   },
 ] as const;
 
-//----------------------------------------------------------------------------------------------------------------
-
-const Experience: React.FC = () => {
+const Experience = () => {
   return (
     <section>
       <h2 className="section-header text-lg font-bold mb-6 tracking-wide">EXPERIENCE</h2>

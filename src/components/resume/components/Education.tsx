@@ -1,24 +1,5 @@
-// LIBRARIES / PACKAGES
-import React from 'react';
-
-// SHARED COMPONENTS
 import Tag from './Tag';
 
-// PROJECT COMPONENTS
-
-// ICONS
-
-// HELPERS
-
-// ACTIONS
-
-// REDUCERS
-
-// APIS
-
-// CONSTANTS
-
-// TYPES
 interface EducationData {
   degree: string;
   school: string;
@@ -27,7 +8,6 @@ interface EducationData {
   highlights: string[];
 }
 
-// CONSTANTS
 const EDUCATION_DATA: EducationData = {
   degree: "Bachelor's in Software Engineering",
   school: "University of New Brunswick",
@@ -35,13 +15,11 @@ const EDUCATION_DATA: EducationData = {
   graduationDate: "April 2020",
   highlights: [
     "Co-op Certification",
-    "Minor in Biomedical Engineering"
-  ]
+    "Minor in Biomedical Engineering",
+  ],
 } as const;
 
-//----------------------------------------------------------------------------------------------------------------
-
-const Education: React.FC = () => {
+const Education = () => {
   return (
     <section>
       <h2 className="section-header text-lg font-bold tracking-wide">EDUCATION</h2>
@@ -59,7 +37,7 @@ const Education: React.FC = () => {
         </div>
         {EDUCATION_DATA.highlights && (
           <div className="flex flex-wrap gap-1.5 mt-2">
-            {EDUCATION_DATA.highlights.map((highlight: string) => (
+            {EDUCATION_DATA.highlights.map((highlight) => (
               <Tag key={highlight}>{highlight}</Tag>
             ))}
           </div>

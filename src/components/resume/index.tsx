@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { Download, Palette, FileText } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
@@ -13,18 +13,16 @@ import Header from "./components/Header";
 import ProfessionalSummary from "./components/ProfessionalSummary";
 import Skills from "./components/Skills";
 
-const Resume: React.FC = () => {
-  const componentRef = useRef<HTMLDivElement>(null);
+const Resume = () => {
   const [isMainPageStyle, setIsMainPageStyle] = useState(false);
 
   const handleDownload = useCallback(() => {
-      const link = document.createElement('a');
-      link.href = '/assets/resume.pdf';
-      link.download = `Shivam_Sabbarwal_Resume_${new Date().getFullYear()}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    
+    const link = document.createElement('a');
+    link.href = '/assets/resume.pdf';
+    link.download = `Shivam_Sabbarwal_Resume_${new Date().getFullYear()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }, []);
 
   const toggleStyle = useCallback(() => {
@@ -34,7 +32,7 @@ const Resume: React.FC = () => {
   return (
     <div className={`resume-container ${isMainPageStyle ? 'main-page-style' : ''}`}>
       <div className="mx-auto w-[8.5in] bg-white">
-        <div ref={componentRef} className="w-full space-y-4 p-[0.5in]">
+        <div className="w-full space-y-4 p-[0.5in]">
           <Header />
           <ProfessionalSummary />
           <Experience />
@@ -75,7 +73,7 @@ const Resume: React.FC = () => {
               aria-label="Download resume as PDF"
             >
               <Download className="h-5 w-5" />
-              <span>{'Download PDF'}</span>
+              <span>Download PDF</span>
             </Button>
           </motion.div>
         </div>

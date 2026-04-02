@@ -1,25 +1,6 @@
-// LIBRARIES / PACKAGES
-import React from "react";
-
-// SHARED COMPONENTS
-
-// PROJECT COMPONENTS
-
-// ICONS
 import { Mail, Phone, Globe } from "lucide-react";
 import { LinkedinIcon } from "@/components/icons/BrandIcons";
 
-// HELPERS
-
-// ACTIONS
-
-// REDUCERS
-
-// APIS
-
-// CONSTANTS
-
-// TYPES
 interface Contact {
   phone: string;
   email: string;
@@ -34,7 +15,6 @@ interface HeaderData {
   contact: Contact;
 }
 
-// CONSTANTS
 const HEADER_DATA: HeaderData = {
   name: "SHIVAM SABBARWAL",
   title: "Senior Software Engineer",
@@ -47,9 +27,7 @@ const HEADER_DATA: HeaderData = {
   },
 } as const;
 
-//----------------------------------------------------------------------------------------------------------------
-
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <header className="mb-4 flex items-center justify-between gap-4 space-y-2">
       <div className="flex flex-col gap-2">
@@ -62,48 +40,32 @@ const Header: React.FC = () => {
       {/* Contact Info Tags */}
       <div className="contact-info flex flex-col flex-wrap justify-end gap-2">
         <div
-          onClick={() =>
-            window.open(`tel:${HEADER_DATA.contact.phone}`, "_blank")
-          }
+          onClick={() => window.open(`tel:${HEADER_DATA.contact.phone}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Phone className="size-4 text-accent" />
-          <span className="text-sm text-secondary">
-            {HEADER_DATA.contact.phone}
-          </span>
+          <span className="text-sm text-secondary">{HEADER_DATA.contact.phone}</span>
         </div>
         <div
-          onClick={() =>
-            window.open(`mailto:${HEADER_DATA.contact.email}`, "_blank")
-          }
+          onClick={() => window.open(`mailto:${HEADER_DATA.contact.email}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Mail className="size-4 text-accent" />
-          <span className="text-sm text-secondary">
-            {HEADER_DATA.contact.email}
-          </span>
+          <span className="text-sm text-secondary">{HEADER_DATA.contact.email}</span>
         </div>
         <div
-          onClick={() =>
-            window.open(`https://${HEADER_DATA.contact.linkedin}`, "_blank")
-          }
+          onClick={() => window.open(`https://${HEADER_DATA.contact.linkedin}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <LinkedinIcon className="size-4 text-accent" />
-          <span className="text-sm text-secondary">
-            {HEADER_DATA.contact.linkedin}
-          </span>
+          <span className="text-sm text-secondary">{HEADER_DATA.contact.linkedin}</span>
         </div>
         <div
-          onClick={() =>
-            window.open(`https://${HEADER_DATA.contact.website}`, "_blank")
-          }
+          onClick={() => window.open(`https://${HEADER_DATA.contact.website}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
           <Globe className="size-4 text-accent" />
-          <span className="text-sm text-secondary">
-            {HEADER_DATA.contact.website}
-          </span>
+          <span className="text-sm text-secondary">{HEADER_DATA.contact.website}</span>
         </div>
       </div>
     </header>

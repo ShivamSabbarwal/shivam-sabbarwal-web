@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { motion } from "motion/react";
 import { ExternalLink, Sparkles, Zap } from "lucide-react";
 import { GithubIcon } from "@/components/icons/BrandIcons";
@@ -18,8 +17,7 @@ interface ProjectCardProps {
   isAlternating?: boolean;
 }
 
-const ProjectCard = memo(
-  ({ project, index, isAlternating = false }: ProjectCardProps) => {
+const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps) => {
     const { playClick, playHover } = useSounds();
 
     return (
@@ -40,7 +38,7 @@ const ProjectCard = memo(
             className="relative"
           >
             {/* Project Visual Card */}
-            <div className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-primary/20 via-accent/20 to-cartoon-highlight/20 rounded-3xl relative overflow-hidden">
+            <div className="w-full h-64 md:h-80 lg:h-96 bg-linear-to-br from-primary/20 via-accent/20 to-cartoon-highlight/20 rounded-3xl relative overflow-hidden">
               {/* Background Elements */}
               <motion.div
                 animate={{ rotate: 360 }}
@@ -176,9 +174,6 @@ const ProjectCard = memo(
         </div>
       </motion.div>
     );
-  }
-);
-
-ProjectCard.displayName = "ProjectCard";
+};
 
 export default ProjectCard;
