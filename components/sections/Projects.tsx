@@ -23,29 +23,28 @@ const CreativeProjects = () => {
     },
   ];
 
-
   return (
-    <section id="projects" className="py-16 sm:py-20 md:py-24 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="projects" className="py-20 sm:py-28 relative">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6">
-            <span className="cartoon-text">Featured</span> <span className="cartoon-accent">Projects</span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
+            Featured <span className="text-primary">Projects</span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto font-medium px-2">
-            Key projects showcasing my expertise in full-stack development, 
-            architectural design, and innovative solutions for complex business challenges.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Key projects showcasing expertise in full-stack development,
+            architectural design, and innovative solutions.
           </p>
         </motion.div>
 
-        {/* Projects Grid with Staggered Layout */}
-        <div className="space-y-16 sm:space-y-20 md:space-y-24">
+        {/* Projects */}
+        <div className="space-y-20 sm:space-y-28">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}

@@ -1,20 +1,20 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
-import { Outfit, Montserrat, Geist_Mono } from "next/font/google";
+import { Manrope, Instrument_Serif, Geist_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/lib/utils";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-heading" });
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-sans" });
+const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-heading" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 const BASE_URL = "https://shivamsabbarwal.dev";
 
 export const viewport: Viewport = {
-  themeColor: "#3b82f6",
+  themeColor: "#8b6914",
 };
 
 export const metadata: Metadata = {
@@ -71,7 +71,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", outfit.variable, montserrat.variable, geistMono.variable)}
+      className={cn("antialiased grain", manrope.variable, instrumentSerif.variable, geistMono.variable)}
     >
       <head />
       <body>
