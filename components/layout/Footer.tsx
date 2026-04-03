@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowUp } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/BrandIcons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowUp01Icon, GithubIcon, Linkedin01Icon, InstagramIcon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { NAV_ITEMS, SOCIAL_LINKS } from "@/constants";
 
@@ -25,20 +25,11 @@ const Footer = () => {
     }
   };
 
-  const socialLinks = [
-    {
-      ...SOCIAL_LINKS[0],
-      icon: <GithubIcon className="w-5 h-5" />,
-    },
-    {
-      ...SOCIAL_LINKS[1],
-      icon: <LinkedinIcon className="w-5 h-5" />,
-    },
-    {
-      ...SOCIAL_LINKS[2],
-      icon: <InstagramIcon className="w-5 h-5" />,
-    },
-  ];
+  const socialIcons = [GithubIcon, Linkedin01Icon, InstagramIcon];
+  const socialLinks = SOCIAL_LINKS.map((link, i) => ({
+    ...link,
+    icon: socialIcons[i],
+  }));
 
   return (
     <footer className="relative border-t border-border">
@@ -55,7 +46,7 @@ const Footer = () => {
             <h3 className="text-xl font-black cartoon-text">
               Shivam Sabbarwal
             </h3>
-            
+
             {/* Social Links */}
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
@@ -77,7 +68,7 @@ const Footer = () => {
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
-                    {social.icon}
+                    <HugeiconsIcon icon={social.icon} className="w-5 h-5" />
                   </motion.div>
                 </motion.a>
               ))}
@@ -123,7 +114,7 @@ const Footer = () => {
               className="p-2 hover:animate-bounce-slow transition-all duration-300"
               aria-label="Scroll to top"
             >
-              <ArrowUp className="w-4 h-4" />
+              <HugeiconsIcon icon={ArrowUp01Icon} className="w-4 h-4" />
             </Button>
           </motion.div>
         </div>

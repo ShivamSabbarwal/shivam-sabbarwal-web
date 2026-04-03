@@ -16,7 +16,7 @@ export const SOCIAL_LINKS = [
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.ca/in/shivamsabbarwal",
+    url: "https://linkedin.com/in/shivamsabbarwal",
     color: "hover:text-blue-400",
   },
   {

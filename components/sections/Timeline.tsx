@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "motion/react";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  Calendar,
-  MapPin,
-  Building2,
-  Award,
-  GraduationCap,
-} from "lucide-react";
+  Calendar01Icon,
+  MapPinIcon,
+  Building01Icon,
+  Award01Icon,
+  GraduationScrollIcon,
+} from "@hugeicons/core-free-icons";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -164,9 +165,7 @@ const Timeline = () => {
     },
   ];
 
-  // Extract month and year from period strings for timeline dots
   const getMonthYear = (period: string) => {
-    // Extract month and year from the start of the period (always show start date)
     const monthYearMatch = period.match(/([A-Za-z]+)\s+(\d{4})/);
     if (monthYearMatch) {
       const month = monthYearMatch[1];
@@ -174,7 +173,6 @@ const Timeline = () => {
       return `${month} ${year}`;
     }
 
-    // Fallback for year ranges like "2014 – 2020"
     const yearMatch = period.match(/(\d{4})/);
     if (yearMatch) {
       return yearMatch[1];
@@ -207,18 +205,13 @@ const Timeline = () => {
         <div className="relative">
           {/* Timeline Line */}
           <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-2 sm:w-3 transform md:-translate-x-1/2">
-            {/* Main timeline line with faded ends */}
             <div className="w-full h-full timeline-line rounded-full relative">
-              {/* Fade effect at top */}
               <div className="absolute top-0 left-0 w-full h-6 sm:h-8 bg-gradient-to-b from-transparent to-timeline-line"></div>
-              {/* Fade effect at bottom */}
               <div className="absolute bottom-0 left-0 w-full h-6 sm:h-8 bg-gradient-to-t from-transparent to-timeline-line"></div>
             </div>
 
-            {/* Subtle glow effect */}
             <div className="absolute inset-0 w-full h-full timeline-line rounded-full opacity-20"></div>
 
-            {/* Progress line animation */}
             <motion.div
               className="absolute top-0 left-0 w-full timeline-progress rounded-full"
               initial={{ height: "0%" }}
@@ -257,32 +250,24 @@ const Timeline = () => {
                   }}
                   viewport={{ once: true }}
                 >
-                  {/* Outer ring with enhanced styling */}
                   <div className="absolute inset-0 w-6 sm:w-8 h-6 sm:h-8 timeline-dot rounded-full border-2 border-background"></div>
-
-                  {/* Inner dot */}
                   <div className="absolute top-1 sm:top-1.5 left-1 sm:left-1.5 w-4 sm:w-5 h-4 sm:h-5 bg-background rounded-full shadow-inner border border-primary/20"></div>
-
-                  {/* Glow effect */}
                   <div className="absolute inset-0 w-6 sm:w-8 h-6 sm:h-8 timeline-dot-glow rounded-full"></div>
 
-                  {/* Category icon */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     {item.category === "education" ? (
-                      <GraduationCap className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-primary" />
+                      <HugeiconsIcon icon={GraduationScrollIcon} className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-primary" />
                     ) : (
-                      <Building2 className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-primary" />
+                      <HugeiconsIcon icon={Building01Icon} className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-primary" />
                     )}
                   </div>
 
-                  {/* Month/Year label */}
                   <div className="absolute -top-10 left-1/2 transform -translate-x-1/2  max-w-[100px] text-center">
                     <span className="text-xs font-bold text-primary bg-background px-2 py-1 rounded-xl border border-primary/20 shadow-sm inline-block">
                       {getMonthYear(item.period)}
                     </span>
                   </div>
 
-                  {/* Status indicator - only for current work */}
                   {item.type === "current" && item.category === "work" && (
                     <motion.div
                       className="absolute -top-0.5 sm:-top-1 -right-0.5 sm:-right-1 w-3 sm:w-4 h-3 sm:h-4 rounded-full border-2 border-background bg-green-500 dark:bg-green-400"
@@ -291,7 +276,6 @@ const Timeline = () => {
                     ></motion.div>
                   )}
 
-                  {/* Pulse ring for current work */}
                   {item.type === "current" && item.category === "work" && (
                     <motion.div
                       className="absolute inset-0 w-6 sm:w-8 h-6 sm:h-8 border-2 border-green-500 dark:border-green-400 rounded-full"
@@ -315,7 +299,6 @@ const Timeline = () => {
                   >
                     <Card className="p-4 sm:p-6 hover:cartoon-shadow-lg transition-all duration-150 hover:animate-float">
                       <CardContent className="p-0">
-                        {/* Item Header */}
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
                           <div className="flex-1">
                             <h3 className="text-lg sm:text-xl font-black cartoon-text mb-1">
@@ -323,9 +306,9 @@ const Timeline = () => {
                             </h3>
                             <div className="flex items-center space-x-2 text-muted-foreground mb-2">
                               {item.category === "education" ? (
-                                <GraduationCap className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                                <HugeiconsIcon icon={GraduationScrollIcon} className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                               ) : (
-                                <Building2 className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                                <HugeiconsIcon icon={Building01Icon} className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                               )}
                               <span className="font-semibold text-sm sm:text-base">
                                 {item.company}
@@ -333,17 +316,16 @@ const Timeline = () => {
                             </div>
                             <div className="flex flex-col space-y-1 text-xs sm:text-sm text-muted-foreground">
                               <div className="flex items-center space-x-1">
-                                <Calendar className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                                <HugeiconsIcon icon={Calendar01Icon} className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                                 <span>{item.period}</span>
                               </div>
                               <div className="flex items-center space-x-1">
-                                <MapPin className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                                <HugeiconsIcon icon={MapPinIcon} className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                                 <span>{item.location}</span>
                               </div>
                             </div>
                           </div>
 
-                          {/* Status Badge */}
                           <Badge
                             variant={
                               item.type === "current"
@@ -366,15 +348,13 @@ const Timeline = () => {
                           </Badge>
                         </div>
 
-                        {/* Description */}
                         <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
                           {item.description}
                         </p>
 
-                        {/* Achievements/Highlights */}
                         <div>
                           <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide text-primary mb-2 flex items-center">
-                            <Award className="w-3.5 sm:w-4 h-3.5 sm:h-4 mr-2" />
+                            <HugeiconsIcon icon={Award01Icon} className="w-3.5 sm:w-4 h-3.5 sm:h-4 mr-2" />
                             {item.category === "education"
                               ? "Key Highlights"
                               : "Key Achievements"}

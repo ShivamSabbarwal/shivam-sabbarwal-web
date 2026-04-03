@@ -2,9 +2,10 @@
 
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
-import { Sun, Moon, Menu, FileText } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Sun03Icon, Moon02Icon, Menu01Icon, File01Icon } from "@hugeicons/core-free-icons";
 import { useTheme } from "@/contexts/ThemeContext";
-import { useSounds } from "../../lib/audio/sounds";
+import { useSounds } from "@/lib/audio/sounds";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { NAV_ITEMS } from "@/constants";
@@ -13,17 +14,18 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const { theme, toggleTheme } = useTheme();
+  const { theme, isHydrated, toggleTheme } = useTheme();
   const { playClick, playHover } = useSounds();
   const isMobile = useIsMobile();
 
   const navItems = NAV_ITEMS;
 
-  // Scroll spy functionality to detect active section
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateActiveSection = () => {
       const sections = navItems.map(item => item.href.substring(1));
-      const scrollPosition = window.scrollY + 100; // Offset for better UX
+      const scrollPosition = window.scrollY + 100;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
@@ -32,35 +34,39 @@ const Navigation = () => {
           break;
         }
       }
+      ticking = false;
     };
 
-    // Set initial active section
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateActiveSection);
+        ticking = true;
+      }
+    };
+
+    updateActiveSection();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [navItems]);
 
   const handleNavClick = (href: string) => {
     playClick();
     if (href.startsWith('#')) {
-      // Handle hash navigation for sections on the home page
       const hash = href.substring(1);
-      setActiveSection(hash); // Update active section immediately
+      setActiveSection(hash);
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     }
-    // Close mobile menu if open
     setIsMobileMenuOpen(false);
   };
 
   const openResume = () => {
     playClick();
-    
+
     if (isMobile) {
-      // On mobile, directly download the static PDF file
       const link = document.createElement('a');
       link.href = '/assets/resume.pdf';
       link.download = `Shivam_Sabbarwal_Resume_${new Date().getFullYear()}.pdf`;
@@ -68,7 +74,6 @@ const Navigation = () => {
       link.click();
       document.body.removeChild(link);
     } else {
-      // On desktop, open resume page normally
       window.open('/resume', '_blank');
     }
   };
@@ -82,10 +87,10 @@ const Navigation = () => {
       layout
       className="fixed z-40 top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
       style={{
-        transition: "none" // Disable CSS transitions in favor of Framer Motion
+        transition: "none"
       }}
     >
-      <motion.div 
+      <motion.div
         layout
         className="mx-auto px-3 sm:px-6 py-2 sm:py-3"
         transition={{
@@ -93,7 +98,7 @@ const Navigation = () => {
           padding: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
         }}
       >
-        <motion.div 
+        <motion.div
           layout
           className="flex items-center space-x-2 sm:space-x-4"
           transition={{
@@ -103,7 +108,7 @@ const Navigation = () => {
         >
 
           {/* Navigation Items - Hidden on mobile, shown on larger screens */}
-          <motion.div 
+          <motion.div
             layout
             className="hidden md:flex items-center space-x-1 sm:space-x-2"
             transition={{
@@ -116,14 +121,14 @@ const Navigation = () => {
                 key={item.name}
                 layout
                 initial={{ opacity: 0, y: -20 }}
-                animate={{ 
-                  opacity: 1, 
+                animate={{
+                  opacity: 1,
                   y: 0,
                   scale: 0.9,
                 }}
-                transition={{ 
-                  delay: index * 0.1 + 0.3, 
-                  duration: 0.1, 
+                transition={{
+                  delay: index * 0.1 + 0.3,
+                  duration: 0.1,
                   ease: "easeOut",
                   layout: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
                   scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
@@ -133,7 +138,7 @@ const Navigation = () => {
                 onHoverStart={playHover}
                 onTapStart={playClick}
                 style={{
-                  transition: "none" // Disable CSS transitions
+                  transition: "none"
                 }}
               >
                 <Button
@@ -167,7 +172,7 @@ const Navigation = () => {
             onHoverStart={playHover}
             onTapStart={playClick}
             style={{
-              transition: "none" // Disable CSS transitions
+              transition: "none"
             }}
           >
             <Button
@@ -185,13 +190,13 @@ const Navigation = () => {
                   scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
                 }}
               >
-                <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+                <HugeiconsIcon icon={File01Icon} className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.div>
             </Button>
           </motion.div>
 
           {/* Theme Toggle & Mobile Menu */}
-          <motion.div 
+          <motion.div
             layout
             className="flex items-center space-x-1 sm:space-x-2"
             transition={{
@@ -214,7 +219,7 @@ const Navigation = () => {
               onHoverStart={playHover}
               onTapStart={playClick}
               style={{
-                transition: "none" // Disable CSS transitions
+                transition: "none"
               }}
             >
               <Button
@@ -233,10 +238,12 @@ const Navigation = () => {
                   }}
                   whileHover={{ rotate: 360 }}
                 >
-                  {theme === 'light' ? (
-                    <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {!isHydrated ? (
+                    <span className="w-4 h-4 sm:w-5 sm:h-5" />
+                  ) : theme === 'light' ? (
+                    <HugeiconsIcon icon={Moon02Icon} className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : (
-                    <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <HugeiconsIcon icon={Sun03Icon} className="w-4 h-4 sm:w-5 sm:h-5" />
                   )}
                 </motion.div>
               </Button>
@@ -257,59 +264,59 @@ const Navigation = () => {
               onHoverStart={playHover}
               onTapStart={playClick}
               style={{
-                transition: "none" // Disable CSS transitions
+                transition: "none"
               }}
             >
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="md:hidden hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
+                <SheetTrigger
+                  render={
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="md:hidden hover:animate-glow w-8 h-8 sm:w-10 sm:h-10"
+                    />
+                  }
+                >
+                  <motion.div
+                    animate={{
+                      scale: 0.83
+                    }}
+                    transition={{
+                      scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+                    }}
                   >
-                    <motion.div
-                      animate={{
-                        scale: 0.83
-                      }}
-                      transition={{
-                        scale: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
-                      }}
-                    >
-                      <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </motion.div>
-                  </Button>
+                    <HugeiconsIcon icon={Menu01Icon} className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </motion.div>
                 </SheetTrigger>
-                  <SheetContent 
-                    side="right" 
+                  <SheetContent
+                    side="right"
                     className="w-[320px] sm:w-[380px] md:w-[420px] backdrop-blur-xl border-l-4 border-primary/20 z-[60]"
                   >
-                    {/* Accessibility Title and Description */}
                     <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                     <SheetDescription className="sr-only">
                       Navigate through different sections of the portfolio
                     </SheetDescription>
 
-                    {/* Cool Background Effects */}
                     <div className="absolute inset-0 -z-10">
                       <motion.div
-                        animate={{ 
+                        animate={{
                           rotate: [0, 360],
                           scale: [1, 1.1, 1]
                         }}
-                        transition={{ 
-                          duration: 20, 
+                        transition={{
+                          duration: 20,
                           repeat: Infinity,
                           ease: "linear"
                         }}
                         className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-xl"
                       />
                       <motion.div
-                        animate={{ 
+                        animate={{
                           rotate: [360, 0],
                           scale: [1, 1.2, 1]
                         }}
-                        transition={{ 
-                          duration: 25, 
+                        transition={{
+                          duration: 25,
                           repeat: Infinity,
                           ease: "linear"
                         }}
@@ -318,7 +325,6 @@ const Navigation = () => {
                     </div>
 
                     <div className="relative z-10 mt-8 mx-4 space-y-6">
-                      {/* Header */}
                       <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -329,7 +335,6 @@ const Navigation = () => {
                         <p className="text-sm text-muted-foreground mt-2">Explore my portfolio</p>
                       </motion.div>
 
-                    {/* Navigation Links */}
                     <div className="space-y-3">
                       {navItems.map((item, index) => (
                         <motion.div

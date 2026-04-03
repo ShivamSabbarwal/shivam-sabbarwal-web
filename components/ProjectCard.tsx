@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
-import { ExternalLink, Sparkles, Zap } from "lucide-react";
-import { GithubIcon } from "@/components/icons/BrandIcons";
-import { useSounds } from "../lib/audio/sounds";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { LinkSquare02Icon, SparklesIcon, ZapIcon, GithubIcon } from "@hugeicons/core-free-icons";
+import { useSounds } from "@/lib/audio/sounds";
 import { Badge } from "@/components/ui/badge";
 
 interface ProjectCardProps {
@@ -68,9 +68,9 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
                     transition={{ duration: 3, repeat: Infinity }}
                     className="flex justify-center space-x-2"
                   >
-                    <Sparkles className="w-6 h-6 text-primary" />
-                    <Zap className="w-6 h-6 text-accent" />
-                    <Sparkles className="w-6 h-6 text-cartoon-highlight" />
+                    <HugeiconsIcon icon={SparklesIcon} className="w-6 h-6 text-primary" />
+                    <HugeiconsIcon icon={ZapIcon} className="w-6 h-6 text-accent" />
+                    <HugeiconsIcon icon={SparklesIcon} className="w-6 h-6 text-cartoon-highlight" />
                   </motion.div>
                 </motion.div>
               </div>
@@ -145,7 +145,7 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
                 transition={{ duration: 0.5 }}
                 className="p-3 angular-card group-hover:animate-bounce-slow"
               >
-                <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6" />
+                <HugeiconsIcon icon={LinkSquare02Icon} className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.div>
               <span className="cartoon-text">View Live Project</span>
             </motion.a>
@@ -166,7 +166,7 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
                 transition={{ duration: 0.5 }}
                 className="p-3 angular-card group-hover:animate-bounce-slow"
               >
-                <GithubIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                <HugeiconsIcon icon={GithubIcon} className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.div>
               <span className="cartoon-highlight">Explore Code</span>
             </motion.a>

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
-import Timeline from "@/components/sections/Timeline";
-import TechStack from "@/components/sections/TechStack";
-import CreativeProjects from "@/components/sections/Projects";
-import Contact from "@/components/sections/Contact";
 import MainLayout from "@/components/layout/MainLayout";
+
+const Timeline = dynamic(() => import("@/components/sections/Timeline"));
+const TechStack = dynamic(() => import("@/components/sections/TechStack"));
+const CreativeProjects = dynamic(() => import("@/components/sections/Projects"));
+const Contact = dynamic(() => import("@/components/sections/Contact"));
 
 const BASE_URL = "https://shivamsabbarwal.dev";
 

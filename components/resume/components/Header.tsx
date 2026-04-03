@@ -1,5 +1,5 @@
-import { Mail, Phone, Globe } from "lucide-react";
-import { LinkedinIcon } from "@/components/icons/BrandIcons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Mail01Icon, Call02Icon, GlobeIcon, Linkedin01Icon } from "@hugeicons/core-free-icons";
 
 interface Contact {
   phone: string;
@@ -22,7 +22,7 @@ const HEADER_DATA: HeaderData = {
     phone: "+1 (506) 609-0423",
     email: "shivam.sabb@gmail.com",
     location: "Vancouver, BC",
-    linkedin: "linkedin.ca/in/shivamsabbarwal",
+    linkedin: "linkedin.com/in/shivamsabbarwal",
     website: "shivamsabbarwal.dev",
   },
 } as const;
@@ -43,28 +43,28 @@ const Header = () => {
           onClick={() => window.open(`tel:${HEADER_DATA.contact.phone}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
-          <Phone className="size-4 text-accent" />
+          <HugeiconsIcon icon={Call02Icon} className="size-4 text-accent" />
           <span className="text-sm text-secondary">{HEADER_DATA.contact.phone}</span>
         </div>
         <div
           onClick={() => window.open(`mailto:${HEADER_DATA.contact.email}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
-          <Mail className="size-4 text-accent" />
+          <HugeiconsIcon icon={Mail01Icon} className="size-4 text-accent" />
           <span className="text-sm text-secondary">{HEADER_DATA.contact.email}</span>
         </div>
         <div
           onClick={() => window.open(`https://${HEADER_DATA.contact.linkedin}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
-          <LinkedinIcon className="size-4 text-accent" />
+          <HugeiconsIcon icon={Linkedin01Icon} className="size-4 text-accent" />
           <span className="text-sm text-secondary">{HEADER_DATA.contact.linkedin}</span>
         </div>
         <div
           onClick={() => window.open(`https://${HEADER_DATA.contact.website}`, "_blank")}
           className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
         >
-          <Globe className="size-4 text-accent" />
+          <HugeiconsIcon icon={GlobeIcon} className="size-4 text-accent" />
           <span className="text-sm text-secondary">{HEADER_DATA.contact.website}</span>
         </div>
       </div>

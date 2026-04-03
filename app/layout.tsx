@@ -1,9 +1,15 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
+import { Outfit, Montserrat, Geist_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { cn } from "@/lib/utils";
 import { Providers } from "./providers";
 import "./globals.css";
+
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-heading" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 const BASE_URL = "https://shivamsabbarwal.dev";
 
@@ -62,17 +68,12 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-      </head>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn("antialiased", outfit.variable, montserrat.variable, geistMono.variable)}
+    >
+      <head />
       <body>
         <Providers>{children}</Providers>
         <SpeedInsights debug={false} />

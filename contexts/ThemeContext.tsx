@@ -6,6 +6,7 @@ type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
+  isHydrated: boolean;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
 }
@@ -57,7 +58,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, isHydrated, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

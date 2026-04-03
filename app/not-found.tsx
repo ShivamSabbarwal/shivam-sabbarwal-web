@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Home01Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
 import Cursor from "@/components/interactive/Cursor";
 import FloatingBubbles from "@/components/interactive/FloatingBubbles";
 import { PERFORMANCE } from "@/constants";
@@ -10,7 +11,7 @@ export default function NotFound() {
     <>
       <FloatingBubbles count={PERFORMANCE.FLOATING_BUBBLES_COUNT} />
       <Cursor />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-primary/5 via-background to-accent/5">
         <div className="text-center space-y-8 px-4">
           <div className="space-y-6">
             <div className="relative">
@@ -30,14 +31,13 @@ export default function NotFound() {
 
           <div className="flex justify-center">
             <Button
-              asChild
+              render={<Link href="/" />}
+              nativeButton={false}
               size="lg"
-              className="font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 transition-all duration-300 transform hover:scale-105"
+              className="font-semibold bg-linear-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 transition-all duration-300 transform hover:scale-105"
             >
-              <Link href="/">
-                <Home className="w-4 h-4 mr-2" />
-                Beam Me Home, Scotty!
-              </Link>
+              <HugeiconsIcon icon={Home01Icon} className="w-4 h-4 mr-2" />
+              Beam Me Home, Scotty!
             </Button>
           </div>
 

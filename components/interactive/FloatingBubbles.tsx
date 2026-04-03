@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useRef, useCallback } from "react";
 
 interface Bubble {
-  id: number;
   x: number;
   y: number;
   size: number;
@@ -13,9 +11,8 @@ interface Bubble {
   speedY: number;
   rotation: number;
   rotationSpeed: number;
-  pixelSize: number;
-  pattern: number[][];
   radius: number;
+  element: HTMLDivElement | null;
 }
 
 interface FloatingBubblesProps {
@@ -23,332 +20,197 @@ interface FloatingBubblesProps {
   className?: string;
 }
 
+const BUBBLE_COLORS = [
+  "96, 125, 139",
+  "156, 39, 176",
+  "76, 175, 80",
+  "255, 152, 0",
+  "33, 150, 243",
+  "233, 30, 99",
+  "103, 58, 183",
+  "0, 150, 136",
+  "255, 193, 7",
+  "63, 81, 181",
+  "139, 195, 74",
+  "255, 87, 34",
+];
+
 const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [bubbles, setBubbles] = useState<Bubble[]>([]);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const animationRef = useRef<number | undefined>(undefined);
+  const bubblesRef = useRef<Bubble[]>([]);
+  const animationRef = useRef<number>(0);
+  const mouseRef = useRef({ x: 0, y: 0 });
 
-  // Simple pixel art patterns for clean bubbles
-  const pixelPatterns = {
-    small: [
-      [0, 1, 0],
-      [1, 1, 1],
-      [0, 1, 0]
-    ],
-    medium: [
-      [0, 1, 1, 0],
-      [1, 1, 1, 1],
-      [1, 1, 1, 1],
-      [0, 1, 1, 0]
-    ],
-    large: [
-      [0, 0, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1, 0],
-      [1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1],
-      [0, 1, 1, 1, 1, 0],
-      [0, 0, 1, 1, 0, 0]
-    ],
-    xlarge: [
-      [0, 0, 0, 1, 1, 0, 0, 0],
-      [0, 0, 1, 1, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1, 1, 1, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1],
-      [0, 1, 1, 1, 1, 1, 1, 0],
-      [0, 0, 1, 1, 1, 1, 0, 0],
-      [0, 0, 0, 1, 1, 0, 0, 0]
-    ]
-  };
+  const initBubbles = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  // Better colors with more vibrancy and variety
-  const bubbleColors = [
-    'rgba(96, 125, 139, 0.4)',   // Blue-gray
-    'rgba(156, 39, 176, 0.4)',   // Purple
-    'rgba(76, 175, 80, 0.4)',    // Green
-    'rgba(255, 152, 0, 0.4)',    // Orange
-    'rgba(33, 150, 243, 0.4)',   // Blue
-    'rgba(233, 30, 99, 0.4)',    // Pink
-    'rgba(103, 58, 183, 0.4)',   // Deep purple
-    'rgba(0, 150, 136, 0.4)',    // Teal
-    'rgba(255, 193, 7, 0.4)',    // Amber
-    'rgba(63, 81, 181, 0.4)',    // Indigo
-    'rgba(139, 195, 74, 0.4)',   // Light green
-    'rgba(255, 87, 34, 0.4)'     // Deep orange
-  ];
+    const width = container.offsetWidth || window.innerWidth;
+    const height = container.offsetHeight || window.innerHeight;
 
-  // Initialize bubbles
-  useEffect(() => {
-    const initializeBubbles = () => {
-      const newBubbles: Bubble[] = [];
-      const container = containerRef.current;
-      if (!container) return;
+    // Clear existing bubble elements
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
 
-      const containerRect = container.getBoundingClientRect();
-      // Ensure we have valid dimensions
-      const width = containerRect.width || window.innerWidth;
-      const height = containerRect.height || window.innerHeight;
-      
-      for (let i = 0; i < count; i++) {
-        // Better size distribution to ensure visibility
-        let size;
-        if (i < count * 0.3) {
-          // 30% small bubbles (16-32px)
-          size = Math.random() * 16 + 16;
-        } else if (i < count * 0.6) {
-          // 30% medium bubbles (32-64px)
-          size = Math.random() * 32 + 32;
-        } else if (i < count * 0.8) {
-          // 20% large bubbles (64-96px)
-          size = Math.random() * 32 + 64;
-        } else {
-          // 20% extra large bubbles (96-120px)
-          size = Math.random() * 24 + 96;
-        }
-        
-        const pixelSize = Math.max(2, Math.floor(size / 10)); // Ensure minimum pixel size
-        
-        let pattern;
-        if (size < 32) pattern = pixelPatterns.small;
-        else if (size < 64) pattern = pixelPatterns.medium;
-        else if (size < 96) pattern = pixelPatterns.large;
-        else pattern = pixelPatterns.xlarge;
+    const bubbles: Bubble[] = [];
 
-        // Create more scattered distribution
-        const margin = Math.max(50, size * 0.5); // Ensure bubbles don't spawn too close to edges
-        const availableWidth = width - (margin * 2);
-        const availableHeight = height - (margin * 2);
-        
-        // Use a more scattered approach with some clustering avoidance
-        let x: number, y: number;
-        let attempts = 0;
-        const maxAttempts = 50;
-        
-        do {
-          x = margin + Math.random() * availableWidth;
-          y = margin + Math.random() * availableHeight;
-          attempts++;
-        } while (attempts < maxAttempts && newBubbles.some(bubble => {
-          const distance = Math.sqrt(Math.pow(x - bubble.x, 2) + Math.pow(y - bubble.y, 2));
-          return distance < (size + bubble.size) * 0.8; // Minimum separation
-        }));
+    for (let i = 0; i < count; i++) {
+      let size: number;
+      if (i < count * 0.3) size = Math.random() * 16 + 16;
+      else if (i < count * 0.6) size = Math.random() * 32 + 32;
+      else if (i < count * 0.8) size = Math.random() * 32 + 64;
+      else size = Math.random() * 24 + 96;
 
-        newBubbles.push({
-          id: i,
-          x,
-          y,
-          size,
-          color: bubbleColors[Math.floor(Math.random() * bubbleColors.length)],
-          speedX: (Math.random() - 0.5) * 1.2, // Increased speed for more movement
-          speedY: (Math.random() - 0.5) * 1.2,
-          rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 5, // Increased rotation speed from 3 to 5
-          pixelSize,
-          pattern,
-          radius: size / 2
-        });
-      }
-      
-      setBubbles(newBubbles);
-    };
+      const rgb = BUBBLE_COLORS[Math.floor(Math.random() * BUBBLE_COLORS.length)];
+      const margin = Math.max(50, size * 0.5);
 
-    initializeBubbles();
+      const el = document.createElement("div");
+      el.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: 50%;
+        background: rgba(${rgb}, 0.35);
+        filter: drop-shadow(0 0 6px rgba(${rgb}, 0.2));
+        will-change: transform;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+      `;
+      container.appendChild(el);
+
+      // Fade in with stagger
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          el.style.opacity = "0.7";
+        }, i * 100);
+      });
+
+      bubbles.push({
+        x: margin + Math.random() * (width - margin * 2),
+        y: margin + Math.random() * (height - margin * 2),
+        size,
+        color: rgb,
+        speedX: (Math.random() - 0.5) * 1.2,
+        speedY: (Math.random() - 0.5) * 1.2,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 5,
+        radius: size / 2,
+        element: el,
+      });
+    }
+
+    bubblesRef.current = bubbles;
   }, [count]);
 
-  // Mouse tracking
+  // Mouse tracking via ref — no React re-render
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const onMove = (e: MouseEvent) => {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
     };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-
-  // Collision detection functions
-  const checkBubbleCollision = (bubble1: Bubble, bubble2: Bubble) => {
-    const dx = (bubble1.x + bubble1.radius) - (bubble2.x + bubble2.radius);
-    const dy = (bubble1.y + bubble1.radius) - (bubble2.y + bubble2.radius);
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    return distance < (bubble1.radius + bubble2.radius);
-  };
-
-  // Cache UI elements for better performance
-  const uiElementsRef = useRef<Element[]>([]);
-  
+  // Animation loop — pure DOM, no setState
   useEffect(() => {
-    // Cache UI elements once instead of querying every frame
-    uiElementsRef.current = Array.from(document.querySelectorAll('nav, header, main, section, article, aside, footer, [role="banner"], [role="navigation"], [role="main"], [role="complementary"], [role="contentinfo"]'));
-  }, []);
+    initBubbles();
 
-  const checkUIElementCollision = (bubble: Bubble) => {
-    const bubbleCenterX = bubble.x + bubble.radius;
-    const bubbleCenterY = bubble.y + bubble.radius;
-    
-    for (const element of uiElementsRef.current) {
-      const rect = element.getBoundingClientRect();
-      
-      // Quick bounds check
-      if (bubbleCenterX > rect.left - bubble.radius && 
-          bubbleCenterX < rect.right + bubble.radius &&
-          bubbleCenterY > rect.top - bubble.radius && 
-          bubbleCenterY < rect.bottom + bubble.radius) {
-        return { collided: true, element, rect };
-      }
-    }
-    return { collided: false };
-  };
-
-  // Animation loop with performance optimization
-  useEffect(() => {
     let lastTime = 0;
-    const targetFPS = 20; // Further reduce to 20fps for better performance
-    const frameInterval = 1000 / targetFPS;
-    
-    const animate = (currentTime: number) => {
-      if (currentTime - lastTime < frameInterval) {
+    const frameInterval = 1000 / 24; // 24 fps
+
+    const animate = (now: number) => {
+      if (now - lastTime < frameInterval) {
         animationRef.current = requestAnimationFrame(animate);
         return;
       }
-      lastTime = currentTime;
-      
-      setBubbles(prevBubbles => {
-        const container = containerRef.current;
-        if (!container) return prevBubbles;
+      lastTime = now;
 
-        const containerRect = container.getBoundingClientRect();
-        const width = containerRect.width || window.innerWidth;
-        const height = containerRect.height || window.innerHeight;
-        const mouseInfluenceRadius = 80; // Much smaller radius - cursor can get very close
+      const container = containerRef.current;
+      if (!container) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
 
-        return prevBubbles.map((bubble, index) => {
-          let newX = bubble.x + bubble.speedX;
-          let newY = bubble.y + bubble.speedY;
+      const width = container.offsetWidth || window.innerWidth;
+      const height = container.offsetHeight || window.innerHeight;
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      const mouseInfluenceRadius = 80;
+      const bubbles = bubblesRef.current;
 
-          // Cursor avoidance
-          const distanceToMouse = Math.sqrt(
-            Math.pow(mousePosition.x - (newX + bubble.radius), 2) +
-            Math.pow(mousePosition.y - (newY + bubble.radius), 2)
-          );
+      for (let i = 0; i < bubbles.length; i++) {
+        const b = bubbles[i];
+        let nx = b.x + b.speedX;
+        let ny = b.y + b.speedY;
 
-          if (distanceToMouse < mouseInfluenceRadius) {
-            // Smoother force calculation with easing
-            const normalizedDistance = (mouseInfluenceRadius - distanceToMouse) / mouseInfluenceRadius;
-            const avoidanceForce = Math.pow(normalizedDistance, 1.5); // Less aggressive than squared, more than linear
-            const angle = Math.atan2(
-              newY + bubble.radius - mousePosition.y,
-              newX + bubble.radius - mousePosition.x
-            );
-            
-            // Smoother push effect with gradual strength
-            const pushStrength = avoidanceForce * 6; // Reduced from 8 for smoother effect
-            newX += Math.cos(angle) * pushStrength;
-            newY += Math.sin(angle) * pushStrength;
-            
-            // Smoother speed adjustment with gradual momentum
-            const speedAdjustment = avoidanceForce * 0.3; // Reduced from 0.5 for smoother acceleration
-            bubble.speedX += Math.cos(angle) * speedAdjustment;
-            bubble.speedY += Math.sin(angle) * speedAdjustment;
-          }
+        // Cursor avoidance
+        const dx = mx - (nx + b.radius);
+        const dy = my - (ny + b.radius);
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-          // Simplified collision detection - only check every few frames
-          if (Math.random() < 0.3) { // Only check 30% of the time
-            const maxCollisionDistance = 80;
-            for (let i = 0; i < prevBubbles.length; i++) {
-              if (i !== index) {
-                const otherBubble = prevBubbles[i];
-                
-                // Quick distance check
-                const quickDx = Math.abs((newX + bubble.radius) - (otherBubble.x + otherBubble.radius));
-                const quickDy = Math.abs((newY + bubble.radius) - (otherBubble.y + otherBubble.radius));
-                
-                if (quickDx < maxCollisionDistance && quickDy < maxCollisionDistance) {
-                  const tempBubble = { ...bubble, x: newX, y: newY };
-                  
-                  if (checkBubbleCollision(tempBubble, otherBubble)) {
-                    // Simple bounce away
-                    const dx = (newX + bubble.radius) - (otherBubble.x + otherBubble.radius);
-                    const dy = (newY + bubble.radius) - (otherBubble.y + otherBubble.radius);
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance > 0) {
-                      const separationX = (dx / distance) * 2;
-                      const separationY = (dy / distance) * 2;
-                      
-                      newX += separationX;
-                      newY += separationY;
-                      
-                      // Simple bounce
-                      bubble.speedX *= -0.5;
-                      bubble.speedY *= -0.5;
-                    }
-                  }
-                }
-              }
+        if (dist < mouseInfluenceRadius && dist > 0) {
+          const norm = (mouseInfluenceRadius - dist) / mouseInfluenceRadius;
+          const force = norm * norm * 6;
+          const angle = Math.atan2(-dy, -dx);
+          nx += Math.cos(angle) * force;
+          ny += Math.sin(angle) * force;
+          b.speedX += Math.cos(angle) * norm * 0.3;
+          b.speedY += Math.sin(angle) * norm * 0.3;
+        }
+
+        // Bubble-bubble collision (simplified, only nearby)
+        if (Math.random() < 0.3) {
+          for (let j = i + 1; j < bubbles.length; j++) {
+            const o = bubbles[j];
+            const cdx = (nx + b.radius) - (o.x + o.radius);
+            const cdy = (ny + b.radius) - (o.y + o.radius);
+            const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+            const minDist = b.radius + o.radius;
+
+            if (cdist < minDist && cdist > 0) {
+              const sep = ((minDist - cdist) / cdist) * 0.5;
+              nx += cdx * sep;
+              ny += cdy * sep;
+              b.speedX *= -0.5;
+              b.speedY *= -0.5;
             }
           }
+        }
 
-          // Check collision with UI elements
-          const uiCollision = checkUIElementCollision({ ...bubble, x: newX, y: newY });
-          if (uiCollision.collided && uiCollision.rect) {
-            const rect = uiCollision.rect;
-            const bubbleCenterX = newX + bubble.radius;
-            const bubbleCenterY = newY + bubble.radius;
-            
-            // Calculate bounce direction away from UI element
-            let bounceX = 0;
-            let bounceY = 0;
-            
-            if (bubbleCenterX < rect.left) bounceX = -1;
-            else if (bubbleCenterX > rect.right) bounceX = 1;
-            
-            if (bubbleCenterY < rect.top) bounceY = -1;
-            else if (bubbleCenterY > rect.bottom) bounceY = 1;
-            
-            // Apply bounce
-            bubble.speedX += bounceX * 0.8;
-            bubble.speedY += bounceY * 0.8;
-            
-            // Move bubble away from UI element
-            newX += bounceX * 1;
-            newY += bounceY * 1;
-          }
+        // Boundary bounce
+        if (nx <= 0 || nx >= width - b.size) {
+          b.speedX *= -0.8;
+          nx = Math.max(0, Math.min(width - b.size, nx));
+        }
+        if (ny <= 0 || ny >= height - b.size) {
+          b.speedY *= -0.8;
+          ny = Math.max(0, Math.min(height - b.size, ny));
+        }
 
-          // Boundary collision with bounce
-          if (newX <= 0 || newX >= width - bubble.size) {
-            bubble.speedX *= -0.8; // Bounce with some energy loss
-            newX = Math.max(0, Math.min(width - bubble.size, newX));
-          }
-          
-          if (newY <= 0 || newY >= height - bubble.size) {
-            bubble.speedY *= -0.8;
-            newY = Math.max(0, Math.min(height - bubble.size, newY));
-          }
+        // Random drift
+        if (Math.random() < 0.15) {
+          b.speedX += (Math.random() - 0.5) * 0.05;
+          b.speedY += (Math.random() - 0.5) * 0.05;
+        }
 
-          // Add some random drift (increased for more scattered movement)
-          if (Math.random() < 0.15) { // Increased to 15% chance per frame
-            bubble.speedX += (Math.random() - 0.5) * 0.05; // Increased drift strength
-            bubble.speedY += (Math.random() - 0.5) * 0.05;
-          }
-          
-          // Apply smooth damping to prevent jittery movement
-          bubble.speedX *= 0.98; // Gentle damping
-          bubble.speedY *= 0.98;
-          
-          // Limit speed (increased for more scattered movement)
-          bubble.speedX = Math.max(-2.0, Math.min(2.0, bubble.speedX));
-          bubble.speedY = Math.max(-2.0, Math.min(2.0, bubble.speedY));
+        // Damping & speed limit
+        b.speedX *= 0.98;
+        b.speedY *= 0.98;
+        b.speedX = Math.max(-2, Math.min(2, b.speedX));
+        b.speedY = Math.max(-2, Math.min(2, b.speedY));
 
-          return {
-            ...bubble,
-            x: newX,
-            y: newY,
-            rotation: bubble.rotation + bubble.rotationSpeed // Constant rotation regardless of cursor interaction
-          };
-        });
-      });
+        b.x = nx;
+        b.y = ny;
+        b.rotation += b.rotationSpeed;
+
+        // Direct DOM update — no React reconciliation
+        if (b.element) {
+          b.element.style.transform = `translate3d(${nx}px, ${ny}px, 0) rotate(${b.rotation}deg)`;
+        }
+      }
 
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -356,82 +218,16 @@ const FloatingBubbles = ({ count = 8, className = "" }: FloatingBubblesProps) =>
     animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      cancelAnimationFrame(animationRef.current);
     };
-  }, [mousePosition]);
-
-  const renderPixelBubble = (bubble: Bubble) => {
-    const { pattern, pixelSize, color, size } = bubble;
-    const pixels = [];
-
-    for (let row = 0; row < pattern.length; row++) {
-      for (let col = 0; col < pattern[row].length; col++) {
-        if (pattern[row][col] === 1) {
-          pixels.push(
-            <div
-              key={`${row}-${col}`}
-              className="absolute"
-              style={{
-                left: col * pixelSize,
-                top: row * pixelSize,
-                width: pixelSize,
-                height: pixelSize,
-                backgroundColor: color,
-                opacity: 0.6
-              }}
-            />
-          );
-        }
-      }
-    }
-
-    // Extract RGB values from the color for glow effect
-    const colorMatch = bubble.color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-    const rgbValues = colorMatch ? `${colorMatch[1]}, ${colorMatch[2]}, ${colorMatch[3]}` : '96, 125, 139';
-    
-    return (
-      <div
-        className="absolute bubble-glow floating-bubble"
-        style={{
-          left: bubble.x,
-          top: bubble.y,
-          width: size,
-          height: size,
-          transform: `rotate(${bubble.rotation}deg)`,
-          '--bubble-rgb': rgbValues,
-          filter: `
-            drop-shadow(0 0 6px rgba(${rgbValues}, 0.2))
-          `
-        } as React.CSSProperties}
-      >
-        {pixels}
-      </div>
-    );
-  };
+  }, [initBubbles]);
 
   return (
     <div
       ref={containerRef}
       className={`fixed inset-0 pointer-events-none overflow-hidden ${className}`}
       style={{ zIndex: 1 }}
-    >
-      {bubbles.map(bubble => (
-        <motion.div
-          key={bubble.id}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.7, scale: 1 }}
-          transition={{ 
-            duration: 1,
-            delay: bubble.id * 0.1,
-            ease: "easeOut"
-          }}
-        >
-          {renderPixelBubble(bubble)}
-        </motion.div>
-      ))}
-    </div>
+    />
   );
 };
 

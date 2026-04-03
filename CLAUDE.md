@@ -55,20 +55,19 @@ Personal portfolio site: **Next.js 16 App Router** · **React 19** · **Tailwind
 
 | Layer | Location | Notes |
 |---|---|---|
-| App shell | `src/app/layout.tsx` → `providers.tsx` | ErrorBoundary → ThemeProvider (custom, not next-themes) |
-| Main page layout | `src/components/layout/MainLayout.tsx` | Navigation, Footer, Cursor, FloatingBubbles |
-| Sections | `src/components/sections/` | Hero, Timeline, TechStack, Projects, Contact — all `"use client"` |
-| Resume | `src/components/resume/` | Self-contained: index.tsx + components/ subfolder |
-| UI primitives | `src/components/ui/` | shadcn/ui (badge, button, card, input, label, sheet, sonner, textarea) |
-| Brand icons | `src/components/icons/BrandIcons.tsx` | GithubIcon, LinkedinIcon, InstagramIcon (inline SVGs) |
-| Server actions | `src/app/actions/contact.ts` | Contact form email via nodemailer + react-email |
-| Audio | `src/lib/audio/sounds.ts` | Web Audio API: playClick, playHover, playBounce |
-| Constants | `src/constants/index.ts` | NAV_ITEMS, SOCIAL_LINKS, PERFORMANCE config |
-| Theme | `src/contexts/ThemeContext.tsx` | Custom light/dark with localStorage persistence |
+| App shell | `app/layout.tsx` → `providers.tsx` | ErrorBoundary → ThemeProvider (custom, not next-themes) |
+| Main page layout | `components/layout/MainLayout.tsx` | Navigation, Footer, Cursor, FloatingBubbles |
+| Sections | `components/sections/` | Hero, Timeline, TechStack, Projects, Contact — all `"use client"` |
+| Resume | `components/resume/` | Self-contained: index.tsx + components/ subfolder |
+| UI primitives | `components/ui/` | shadcn/ui (badge, button, card, input, label, sheet, sonner, textarea) |
+| Server actions | `app/actions/contact.ts` | Contact form email via nodemailer + react-email |
+| Audio | `lib/audio/sounds.ts` | Web Audio API: playClick, playHover, playBounce |
+| Constants | `constants/index.ts` | NAV_ITEMS, SOCIAL_LINKS, PERFORMANCE config |
+| Theme | `contexts/ThemeContext.tsx` | Custom light/dark with localStorage persistence |
 
 ### Import Alias
 
-`@/*` → `./src/*` (tsconfig.json)
+`@/*` → `./*` (tsconfig.json)
 
 ---
 
@@ -77,11 +76,12 @@ Personal portfolio site: **Next.js 16 App Router** · **React 19** · **Tailwind
 - **React 19**: No `import React`. Use named imports (`useState`, `useEffect`, `type ReactNode`). No `React.FC`.
 - **Tailwind v4**: Use `bg-linear-to-br` not `bg-gradient-to-br`. CSS uses `@theme inline` and `@custom-variant`.
 - **Animations**: Use `motion` package. Import from `"motion/react"` (not `framer-motion`).
-- **Icons**: `lucide-react` for general icons. Brand icons from `@/components/icons/BrandIcons`.
-- **Icon typing**: `LucideIcon` type from `lucide-react` for icon props (not `any`).
+- **Icons**: `@hugeicons/react` + `@hugeicons/core-free-icons`. Usage: `<HugeiconsIcon icon={SomeIcon} />`. Import `IconSvgElement` type for icon props.
+- **No lucide-react**: Removed. All icons are hugeicons.
 - **Images**: Next.js `<Image>` with `fill`/`sizes`/`priority` — never raw `<img>`.
 - **Client components**: `"use client"` only where needed (hooks, browser APIs, motion).
-- **Resume styling**: Own system in `src/app/globals.css` resume section — separate from main site's cartoon/3D aesthetic.
+- **Resume styling**: Own system in `app/globals.css` resume section — separate from main site's cartoon/3D aesthetic.
+- **No src/ folder**: All source code is at root (`app/`, `components/`, `lib/`, `hooks/`, `constants/`, `contexts/`, `emails/`).
 
 ---
 

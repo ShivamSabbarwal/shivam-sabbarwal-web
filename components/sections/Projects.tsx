@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import ProjectCard from "../ProjectCard";
+import ProjectCard from "@/components/ProjectCard";
 
 const CreativeProjects = () => {
   const projects = [

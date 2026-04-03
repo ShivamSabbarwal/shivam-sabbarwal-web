@@ -2,8 +2,18 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Mail, MapPin, Phone, Send, Loader2, CheckCircle } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/BrandIcons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Mail01Icon,
+  MapPinIcon,
+  Call02Icon,
+  SentIcon,
+  Loading03Icon,
+  CheckmarkCircle02Icon,
+  GithubIcon,
+  Linkedin01Icon,
+  InstagramIcon,
+} from "@hugeicons/core-free-icons";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -25,19 +35,19 @@ type FormData = z.infer<typeof schema>;
 const socialLinks = [
   {
     name: "GitHub",
-    icon: <GithubIcon className="w-5 h-5" />,
+    icon: GithubIcon,
     url: "https://github.com/ShivamSabbarwal",
     color: "hover:text-gray-400",
   },
   {
     name: "LinkedIn",
-    icon: <LinkedinIcon className="w-5 h-5" />,
-    url: "https://linkedin.ca/in/shivamsabbarwal",
+    icon: Linkedin01Icon,
+    url: "https://linkedin.com/in/shivamsabbarwal",
     color: "hover:text-blue-400",
   },
   {
     name: "Instagram",
-    icon: <InstagramIcon className="w-5 h-5" />,
+    icon: InstagramIcon,
     url: "https://instagram.com/shiv.sabb",
     color: "hover:text-pink-400",
   },
@@ -90,7 +100,7 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               className="space-y-8"
             >
@@ -118,7 +128,7 @@ const Contact = () => {
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <Mail className="w-6 h-6 text-primary" />
+                    <HugeiconsIcon icon={Mail01Icon} className="w-6 h-6 text-primary" />
                   </motion.div>
                   <div>
                     <p className="font-semibold">Email</p>
@@ -141,7 +151,7 @@ const Contact = () => {
                     whileHover={{ rotate: -360 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <Phone className="w-6 h-6 text-primary" />
+                    <HugeiconsIcon icon={Call02Icon} className="w-6 h-6 text-primary" />
                   </motion.div>
                   <div>
                     <p className="font-semibold">Phone</p>
@@ -164,7 +174,7 @@ const Contact = () => {
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <MapPin className="w-6 h-6 text-primary" />
+                    <HugeiconsIcon icon={MapPinIcon} className="w-6 h-6 text-primary" />
                   </motion.div>
                   <div>
                     <p className="font-semibold">Location</p>
@@ -192,7 +202,7 @@ const Contact = () => {
                     aria-label={social.name}
                     className={`p-3 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-300 angular-card hover:cartoon-shadow-lg ${social.color}`}
                   >
-                    {social.icon}
+                    <HugeiconsIcon icon={social.icon} className="w-5 h-5" />
                   </motion.a>
                 ))}
               </div>
@@ -216,7 +226,7 @@ const Contact = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-12 text-center space-y-4"
                   >
-                    <CheckCircle className="w-14 h-14 text-primary" />
+                    <HugeiconsIcon icon={CheckmarkCircle02Icon} className="w-14 h-14 text-primary" />
                     <h5 className="text-xl font-bold">Message sent!</h5>
                     <p className="text-muted-foreground">
                       Thanks for reaching out. I'll get back to you soon.
@@ -279,12 +289,12 @@ const Contact = () => {
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          <HugeiconsIcon icon={Loading03Icon} className="w-4 h-4 mr-2 animate-spin" />
                           Sending...
                         </>
                       ) : (
                         <>
-                          <Send className="w-4 h-4 mr-2" />
+                          <HugeiconsIcon icon={SentIcon} className="w-4 h-4 mr-2" />
                           Send Message
                         </>
                       )}
