@@ -192,11 +192,13 @@
     transform: translateZ(0); /* Force GPU acceleration */
   }
 
-  /* Hide cursor only on non-resume pages */
-  body:not(.resume-page) *,
-  body:not(.resume-page) *::before, 
-  body:not(.resume-page) *::after {
-    cursor: none !important;
+  /* Hide default cursor on desktop (custom cursor replaces it) */
+  @media (pointer: fine) {
+    *,
+    *::before,
+    *::after {
+      cursor: none !important;
+    }
   }
 }
 

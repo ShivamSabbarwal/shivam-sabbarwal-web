@@ -19,6 +19,7 @@ const Cursor = () => {
   const cursorType = useRef<CursorType>("default");
   const visible = useRef(false);
   const hovering = useRef(false);
+  const pressing = useRef(false);
   // Smooth spring positions
   const pos = useRef({ x: -100, y: -100 });
   const target = useRef({ x: -100, y: -100 });
@@ -30,7 +31,8 @@ const Cursor = () => {
     if (!dot) return;
 
     const color = CURSOR_COLORS[cursorType.current];
-    const scale = hovering.current ? 1.2 : 1;
+    const hoverScale = hovering.current ? 1.2 : 1;
+    const scale = pressing.current ? hoverScale * 0.8 : hoverScale;
     const opacity = visible.current ? 0.8 : 0;
 
     dot.style.transform = `translate3d(${pos.current.x - 8}px, ${pos.current.y - 8}px, 0) scale(${scale})`;
@@ -111,12 +113,10 @@ const Cursor = () => {
     };
 
     const onDown = () => {
-      const dot = dotRef.current;
-      if (dot) dot.style.scale = "0.8";
+      pressing.current = true;
     };
     const onUp = () => {
-      const dot = dotRef.current;
-      if (dot) dot.style.scale = "1";
+      pressing.current = false;
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
