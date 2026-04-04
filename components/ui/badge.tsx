@@ -5,22 +5,20 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-lg border-2 px-3 py-1 text-xs font-bold w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "chip inline-flex items-center justify-center border px-2.5 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
         default:
-          "angular-chip bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+          "bg-primary text-primary-foreground border-primary/20 [a&]:hover:bg-primary/90",
         secondary:
-          "angular-chip bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+          "bg-secondary text-secondary-foreground border-secondary [a&]:hover:bg-secondary/80",
         destructive:
-          "angular-chip bg-destructive text-destructive-foreground [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-destructive text-destructive-foreground border-destructive/20 [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "angular-chip text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+          "text-foreground border-border [a&]:hover:bg-secondary [a&]:hover:text-foreground",
         accent:
-          "angular-chip bg-accent text-accent-foreground [a&]:hover:bg-accent/90",
-        highlight:
-          "angular-chip bg-cartoon-highlight text-foreground [a&]:hover:bg-cartoon-highlight/90",
+          "bg-accent text-accent-foreground border-accent/20 [a&]:hover:bg-accent/90",
       },
     },
     defaultVariants: {

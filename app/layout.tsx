@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 const BASE_URL = "https://shivamsabbarwal.dev";
 
 export const viewport: Viewport = {
-  themeColor: "#8b6914",
+  themeColor: "#0d7d8a",
 };
 
 export const metadata: Metadata = {

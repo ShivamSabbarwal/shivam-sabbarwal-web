@@ -38,7 +38,7 @@
   color: var(--primary);
   font-weight: 800;
   letter-spacing: 0.01em;
-  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+  text-shadow: none;
   position: relative;
 }
 
@@ -84,14 +84,14 @@
   color: var(--primary);
   font-weight: 900;
   letter-spacing: 0.03em;
-  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+  text-shadow: none;
 }
 
 .resume-container.main-page-style .job-title {
   color: var(--primary);
   font-weight: 800;
   letter-spacing: 0.01em;
-  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+  text-shadow: none;
 }
 
 /* Modern Style - Enhanced Visual Hierarchy */
@@ -118,14 +118,14 @@
   color: var(--accent);
   font-weight: bold;
   font-size: 1.2em;
-  text-shadow: 1px 1px 0 var(--cartoon-shadow);
+  text-shadow: none;
   transition: all 0.2s ease;
 }
 
 .resume-container.main-page-style .achievement-list li:hover::before {
   color: var(--primary);
   transform: scale(1.1);
-  text-shadow: 2px 2px 0 var(--cartoon-shadow);
+  text-shadow: none;
 }
 
 .resume-container.main-page-style .achievement-list li:last-child {

@@ -25,7 +25,9 @@ const CreativeProjects = () => {
 
   return (
     <section id="projects" className="py-20 sm:py-28 relative">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+      <div className="section-glow absolute inset-0 pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 relative">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -35,12 +37,13 @@ const CreativeProjects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
-            Featured <span className="text-primary">Projects</span>
+            Featured <span className="text-primary italic">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Key projects showcasing expertise in full-stack development,
-            architectural design, and innovative solutions.
+            Key projects showcasing expertise in full-stack development
+            and innovative solutions.
           </p>
+          <div className="accent-line w-24 mx-auto mt-6" />
         </motion.div>
 
         {/* Projects */}

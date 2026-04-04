@@ -78,7 +78,7 @@ const Navigation = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed z-40 top-3 sm:top-4 left-1/2 -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl floating-dock"
+      className="fixed z-40 top-3 sm:top-4 left-1/2 -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl nav-dock"
     >
       <div className="px-3 sm:px-5 py-2 sm:py-2.5">
         <div className="flex items-center gap-1 sm:gap-2">

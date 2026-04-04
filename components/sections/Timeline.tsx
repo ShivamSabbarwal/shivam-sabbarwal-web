@@ -10,7 +10,6 @@ import {
   GraduationScrollIcon,
 } from "@hugeicons/core-free-icons";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 
 const Timeline = () => {
   const timelineHistory = [
@@ -20,27 +19,29 @@ const Timeline = () => {
       company: "3vGeomatics (Orica Digital Solutions)",
       location: "Vancouver, BC",
       period: "July 2025 – Present",
+      year: "2025",
       description:
         "Developing Motionary and Agora platforms using ESRI mapping technologies, React, TypeScript, and Redux Toolkit (RTK), refactoring legacy codebase to implement modern functional components and hooks",
       achievements: [
-        "Implementing user consent management system with PostHog product analytics, ensuring GDPR compliance and data privacy for geospatial monitoring applications",
-        "Collaborating with backend API teams to integrate RESTful APIs and optimize data visualization workflows for InSAR monitoring and customer interaction features",
+        "Implementing user consent management system with PostHog product analytics, ensuring GDPR compliance",
+        "Collaborating with backend API teams to integrate RESTful APIs and optimize data visualization workflows",
       ],
       type: "current",
       category: "work",
     },
     {
       id: 2,
-      title: "Chief Technology Officer (CTO)",
+      title: "Chief Technology Officer",
       company: "Remittor AI",
       location: "Surrey, BC",
       period: "December 2023 – Present",
+      year: "2023",
       description:
-        "Architected and developed a comprehensive cross-border transaction platform serving 10,000+ Non-Resident Indians (NRIs) across India, Canada, USA, and Australia, facilitating overseas property sales and international money transfers.",
+        "Architected a cross-border transaction platform serving 10,000+ NRIs across India, Canada, USA, and Australia.",
       achievements: [
-        "Led development of the platform, establishing development standards, code review processes, and implementing CI/CD pipelines using Docker and Kubernetes for scalable deployment",
-        "Designed and implemented secure tax compliance systems for NRIs in multiple jurisdictions (India, Canada, USA, Australia), integrating directly with ICICI Bank and HDFC Bank APIs to ensure regulatory compliance and secure transactions",
-        "Built comprehensive overseas property sales platform with automated legal, financial, and regulatory workflows, reducing property sale processing time by 60% through streamlined digital processes and direct bank integrations",
+        "Led platform development with CI/CD pipelines using Docker and Kubernetes for scalable deployment",
+        "Designed secure tax compliance systems integrating directly with ICICI Bank and HDFC Bank APIs",
+        "Built overseas property sales platform reducing processing time by 60%",
       ],
       type: "current",
       category: "work",
@@ -51,13 +52,12 @@ const Timeline = () => {
       company: "Unleashd Technologies",
       location: "British Columbia, Canada",
       period: "January 2022 – July 2025",
+      year: "2022",
       description:
-        "Transformed technology stack and delivered measurable business results by implementing scalable, secure, and future-proof solutions across frontend, backend, database, and cloud infrastructure.",
+        "Transformed technology stack delivering measurable business results across frontend, backend, database, and cloud.",
       achievements: [
-        "Accelerated development cycles by migrating from legacy CSS to TailwindCSS and building reusable component design system",
-        "Doubled client acquisition by creating tools that solved major pain points",
-        "Modernized full technology stack across React, Node.js/Express, Python/Django, PostgreSQL, and AWS",
-        "Enabled faster, data-driven decision making by designing and implementing ETL pipelines",
+        "Doubled client acquisition by building tools that solved major pain points",
+        "Modernized full stack across React, Node.js/Express, Python/Django, PostgreSQL, and AWS",
         "Cut data acquisition costs by 65% through architectural improvements",
       ],
       type: "previous",
@@ -69,13 +69,13 @@ const Timeline = () => {
       company: "Four Eyes Financial",
       location: "Saint John, NB",
       period: "July 2020 – January 2022",
+      year: "2020",
       description:
-        "Delivered high-impact financial technology solutions by developing custom CRM platform, integrating real-time communication, and building interactive data dashboards.",
+        "Delivered fintech solutions: custom CRM platform, real-time video conferencing, and interactive data dashboards.",
       achievements: [
-        "Improved business efficiency by developing full-featured web-based CRM platform using MERN stack",
-        "Enhanced client communication by integrating video conferencing using WebRTC and AWS Chime",
-        "Delivered real-time financial insights by designing interactive data dashboards with D3.js, Recharts, and Ant Design",
-        "Optimized financial analytics by maintaining and enhancing dedicated microservice",
+        "Built full-featured CRM platform using MERN stack",
+        "Integrated video conferencing using WebRTC and AWS Chime",
+        "Designed interactive data dashboards with D3.js and Recharts",
       ],
       type: "previous",
       category: "work",
@@ -83,15 +83,15 @@ const Timeline = () => {
     {
       id: 5,
       title: "Full-Stack Developer",
-      company: "New Brunswick Innovation Foundation",
+      company: "NB Innovation Foundation",
       location: "Fredericton, NB",
       period: "May 2019 – August 2019",
+      year: "2019",
       description:
-        "Designed and developed a web-based CRM platform using the MERN technology stack to automate and streamline client and business financial processes.",
+        "Designed and developed a web-based CRM platform using MERN stack to streamline financial processes.",
       achievements: [
-        "Designed and developed web-based CRM platform using MERN stack",
-        "Analyzed business and client requirements to prioritize feature development",
-        "Integrated 3rd party APIs to implement technically challenging features efficiently and reliably",
+        "Built CRM platform from scratch using MERN stack",
+        "Integrated 3rd party APIs for technically challenging features",
       ],
       type: "previous",
       category: "work",
@@ -102,63 +102,44 @@ const Timeline = () => {
       company: "CGI",
       location: "Fredericton, NB",
       period: "January 2018 – August 2018",
+      year: "2018",
       description:
-        "Enhanced existing product functionality and developed new application modules using ASP.NET, C#, JavaScript, HTML, and CSS.",
+        "Enhanced product functionality and developed new modules using ASP.NET, C#, JavaScript, HTML, and CSS.",
       achievements: [
-        "Enhanced existing product functionality by thoroughly preparing and performing unit/system testing",
-        "Developed new application modules to replace outdated UI in ASP.NET using C#, JavaScript, HTML and CSS",
-        "Created and updated SQL queries and stored procedures using SQL Server 2016",
-        "Coordinated with project owners to organize and prioritize feature development timeline and project scope",
+        "Developed new application modules replacing outdated UI",
+        "Created SQL queries and stored procedures using SQL Server 2016",
       ],
       type: "previous",
       category: "work",
     },
     {
       id: 7,
-      title: "Assistant Project Manager (Co-op)",
+      title: "Co-op Roles",
       company: "Irving Oil",
       location: "Saint John, NB",
-      period: "January 2017 – May 2017",
+      period: "2016 – 2017",
+      year: "2016",
       description:
-        "Developed positive rapport with management and employees to facilitate effective communication and collaboration while coordinating day-to-day business operations.",
+        "Assistant Project Manager and QA/BI Analyst roles: coordinated operations, developed corrective action plans, and designed test cases.",
       achievements: [
-        "Developed positive rapport with both management personnel and employees to facilitate effective communication and collaboration",
-        "Coordinated day-to-day business operations, communicating effectively with both management and technical staff",
-        "Adapted quickly to changing and competing project demands",
-        "Continually advanced product knowledge and communicated updates to employees",
+        "Managed day-to-day business operations across technical and management teams",
+        "Developed QA strategies to improve product reliability",
       ],
       type: "previous",
       category: "work",
     },
     {
       id: 8,
-      title: "QA/BI Analyst (Co-op)",
-      company: "Irving Oil",
-      location: "Saint John, NB",
-      period: "May 2016 – August 2016",
-      description:
-        "Developed corrective action plans and prevention strategies to improve product reliability while designing and updating test cases for software system testing.",
-      achievements: [
-        "Developed corrective action plans and prevention strategies to improve product reliability",
-        "Reviewed project requirements to resolve product and business vulnerabilities",
-        "Designed and updated test cases to maximize the success of software system testing",
-      ],
-      type: "previous",
-      category: "work",
-    },
-    {
-      id: 9,
-      title: "Bachelor of Science (BSc)",
+      title: "BSc Software Engineering",
       company: "University of New Brunswick",
       location: "Fredericton, NB",
       period: "September 2014 – April 2020",
+      year: "2014",
       description:
-        "Comprehensive software engineering education with focus on modern development practices, system design, and practical application of computer science principles.",
+        "Comprehensive software engineering education with co-op certification and biomedical engineering minor.",
       achievements: [
         "Co-op Certification Program",
         "Minor in Biomedical Engineering",
-        "Strong foundation in software development methodologies",
-        "Hands-on experience with real-world projects",
       ],
       type: "completed",
       category: "education",
@@ -177,38 +158,38 @@ const Timeline = () => {
           className="text-center mb-16 sm:mb-20"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
-            <span className="text-primary">Timeline</span>
+            My <span className="text-primary italic">Timeline</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            My professional journey in software engineering, from education to
-            leading architectural transformations and CTO roles.
+            From education through to CTO — a decade of building and leading.
           </p>
+          <div className="accent-line w-24 mx-auto mt-6" />
         </motion.header>
 
         {/* Timeline */}
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-px transform md:-translate-x-1/2">
-            <div className="w-full h-full bg-border" />
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-px">
+            <div className="w-full h-full timeline-line" />
             <motion.div
               className="absolute top-0 left-0 w-full timeline-progress"
               initial={{ height: "0%" }}
               whileInView={{ height: "100%" }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
+              transition={{ duration: 2, ease: "easeOut" }}
               viewport={{ once: true }}
             />
           </div>
 
           {/* Timeline Items */}
-          <div className="space-y-12 sm:space-y-16">
+          <div className="space-y-2">
             {timelineHistory.map((item, index) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.05,
+                  duration: 0.45,
+                  delay: index * 0.04,
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 viewport={{ once: true }}
@@ -216,108 +197,81 @@ const Timeline = () => {
                   index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
-                {/* Timeline Dot */}
-                <motion.div
-                  className="absolute left-4 sm:left-6 md:left-1/2 w-4 h-4 transform md:-translate-x-1/2 z-10 flex items-center justify-center"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: index * 0.05 + 0.15,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  viewport={{ once: true }}
-                >
-                  <div className="w-3 h-3 rounded-full bg-primary ring-4 ring-background" />
-                  {item.type === "current" && item.category === "work" && (
-                    <motion.div
-                      className="absolute inset-0 w-4 h-4 rounded-full border border-primary/40"
-                      animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                  )}
-                </motion.div>
+                {/* Year marker — large, bold number at the dot */}
+                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 flex flex-col items-center">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.04 + 0.1 }}
+                    viewport={{ once: true }}
+                    className="w-16 h-8 rounded-full bg-background border border-border flex items-center justify-center"
+                  >
+                    <span className="text-xs font-bold text-primary font-sans tracking-wider">
+                      {item.year}
+                    </span>
+                  </motion.div>
+                </div>
 
                 {/* Content Card */}
                 <div
-                  className={`ml-14 sm:ml-18 md:ml-0 md:w-[45%] ${
+                  className={`ml-24 md:ml-0 md:w-[44%] ${
                     index % 2 === 0
-                      ? "md:mr-auto md:pr-10"
-                      : "md:ml-auto md:pl-10"
+                      ? "md:mr-auto md:pr-12"
+                      : "md:ml-auto md:pl-12"
                   }`}
                 >
-                  <Card className="p-5 sm:p-6 hover:shadow-md transition-shadow duration-300">
-                    <CardContent className="p-0">
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
-                        <div className="flex-1">
-                          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1 font-sans">
-                            {item.title}
-                          </h3>
-                          <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                            {item.category === "education" ? (
-                              <HugeiconsIcon icon={GraduationScrollIcon} className="w-3.5 h-3.5" />
-                            ) : (
-                              <HugeiconsIcon icon={Building01Icon} className="w-3.5 h-3.5" />
-                            )}
-                            <span className="font-medium text-sm">
-                              {item.company}
-                            </span>
-                          </div>
-                          <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <HugeiconsIcon icon={Calendar01Icon} className="w-3 h-3" />
-                              <span>{item.period}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <HugeiconsIcon icon={MapPinIcon} className="w-3 h-3" />
-                              <span>{item.location}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <Badge
-                          variant={
-                            item.type === "current"
-                              ? "default"
-                              : item.type === "completed"
-                                ? "secondary"
-                                : "outline"
-                          }
-                          className="text-xs font-medium self-start"
-                        >
-                          {item.type === "current"
-                            ? "Current"
-                            : item.type === "completed"
-                              ? "Completed"
-                              : "Previous"}
-                        </Badge>
-                      </div>
-
-                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                        {item.description}
-                      </p>
-
+                  <div className="surface-card p-5 sm:p-6">
+                    <div className="flex items-start justify-between gap-3 mb-3">
                       <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-wider text-primary mb-2 flex items-center gap-1.5">
-                          <HugeiconsIcon icon={Award01Icon} className="w-3.5 h-3.5" />
-                          {item.category === "education"
-                            ? "Key Highlights"
-                            : "Key Achievements"}
-                        </h4>
-                        <ul className="space-y-1">
-                          {item.achievements.map((achievement, idx) => (
-                            <li
-                              key={idx}
-                              className="text-xs text-muted-foreground flex items-start gap-2"
-                            >
-                              <span className="w-1 h-1 bg-primary/60 rounded-full mt-1.5 shrink-0" />
-                              {achievement}
-                            </li>
-                          ))}
-                        </ul>
+                        <h3 className="text-base sm:text-lg font-semibold text-foreground font-sans leading-snug">
+                          {item.title}
+                        </h3>
+                        <div className="flex items-center gap-1.5 text-muted-foreground mt-1">
+                          {item.category === "education" ? (
+                            <HugeiconsIcon icon={GraduationScrollIcon} className="w-3.5 h-3.5" />
+                          ) : (
+                            <HugeiconsIcon icon={Building01Icon} className="w-3.5 h-3.5" />
+                          )}
+                          <span className="text-sm font-medium">{item.company}</span>
+                        </div>
                       </div>
-                    </CardContent>
-                  </Card>
+                      {item.type === "current" && (
+                        <Badge variant="default" className="text-[10px] shrink-0">
+                          Current
+                        </Badge>
+                      )}
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mb-3">
+                      <span className="flex items-center gap-1">
+                        <HugeiconsIcon icon={Calendar01Icon} className="w-3 h-3" />
+                        {item.period}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <HugeiconsIcon icon={MapPinIcon} className="w-3 h-3" />
+                        {item.location}
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      {item.description}
+                    </p>
+
+                    <div>
+                      <h4 className="text-[11px] font-semibold uppercase tracking-wider text-primary/70 mb-2 flex items-center gap-1">
+                        <HugeiconsIcon icon={Award01Icon} className="w-3 h-3" />
+                        {item.category === "education" ? "Highlights" : "Achievements"}
+                      </h4>
+                      <ul className="space-y-1.5">
+                        {item.achievements.map((achievement, idx) => (
+                          <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
+                            <span className="w-1 h-1 bg-primary/40 rounded-full mt-1.5 shrink-0" />
+                            {achievement}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}

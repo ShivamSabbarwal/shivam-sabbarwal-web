@@ -33,21 +33,9 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const socialLinks = [
-  {
-    name: "GitHub",
-    icon: GithubIcon,
-    url: "https://github.com/ShivamSabbarwal",
-  },
-  {
-    name: "LinkedIn",
-    icon: Linkedin01Icon,
-    url: "https://linkedin.com/in/shivamsabbarwal",
-  },
-  {
-    name: "Instagram",
-    icon: InstagramIcon,
-    url: "https://instagram.com/shiv.sabb",
-  },
+  { name: "GitHub", icon: GithubIcon, url: "https://github.com/ShivamSabbarwal" },
+  { name: "LinkedIn", icon: Linkedin01Icon, url: "https://linkedin.com/in/shivamsabbarwal" },
+  { name: "Instagram", icon: InstagramIcon, url: "https://instagram.com/shiv.sabb" },
 ];
 
 const Contact = () => {
@@ -72,8 +60,10 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 bg-secondary/30 relative">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8">
+    <section id="contact" className="py-20 sm:py-28 relative">
+      <div className="section-glow absolute inset-0 pointer-events-none" />
+
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 relative">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -83,47 +73,46 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
-            Let's <span className="text-primary">Connect</span>
+            Let's <span className="text-primary italic">Connect</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Ready to bring your ideas to life? Let's collaborate and create
             something amazing together.
           </p>
+          <div className="accent-line w-24 mx-auto mt-6" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left: Contact Info */}
+        <div className="grid lg:grid-cols-5 gap-12 lg:gap-8 items-start">
+          {/* Left: Contact Info — 2 cols */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="lg:col-span-2 space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-normal tracking-tight mb-4">
+              <h3 className="text-2xl font-normal tracking-tight mb-3">
                 Get In Touch
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                I'm always excited to work on new projects and collaborate
-                with like-minded individuals. Whether you have a project in
-                mind or just want to chat about technology, feel free to reach
-                out.
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Whether you have a project in mind or just want to chat
+                about technology, I'd love to hear from you.
               </p>
             </div>
 
             {/* Contact Details */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <a
                 href="mailto:shivam.sabb@gmail.com"
-                className="group flex items-center gap-4 p-4 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/3 transition-all duration-300"
+                className="group flex items-center gap-3 p-3.5 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/3 transition-all duration-200"
               >
-                <div className="p-2.5 rounded-lg bg-primary/8">
-                  <HugeiconsIcon icon={Mail01Icon} className="w-5 h-5 text-primary" />
+                <div className="p-2 rounded-lg bg-primary/8">
+                  <HugeiconsIcon icon={Mail01Icon} className="w-4 h-4 text-primary" />
                 </div>
-                <div>
-                  <p className="font-medium text-sm">Email</p>
-                  <p className="text-muted-foreground text-sm group-hover:text-primary transition-colors">
+                <div className="min-w-0">
+                  <p className="text-xs font-medium text-muted-foreground">Email</p>
+                  <p className="text-sm group-hover:text-primary transition-colors truncate">
                     shivam.sabb@gmail.com
                   </p>
                 </div>
@@ -131,26 +120,26 @@ const Contact = () => {
 
               <a
                 href="sms:+15066090423"
-                className="group flex items-center gap-4 p-4 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/3 transition-all duration-300"
+                className="group flex items-center gap-3 p-3.5 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/3 transition-all duration-200"
               >
-                <div className="p-2.5 rounded-lg bg-primary/8">
-                  <HugeiconsIcon icon={Call02Icon} className="w-5 h-5 text-primary" />
+                <div className="p-2 rounded-lg bg-primary/8">
+                  <HugeiconsIcon icon={Call02Icon} className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <p className="font-medium text-sm">Phone</p>
-                  <p className="text-muted-foreground text-sm group-hover:text-primary transition-colors">
+                  <p className="text-xs font-medium text-muted-foreground">Phone</p>
+                  <p className="text-sm group-hover:text-primary transition-colors">
                     +1 (506) 609-0423
                   </p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl border border-border">
-                <div className="p-2.5 rounded-lg bg-primary/8">
-                  <HugeiconsIcon icon={MapPinIcon} className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border">
+                <div className="p-2 rounded-lg bg-primary/8">
+                  <HugeiconsIcon icon={MapPinIcon} className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <p className="font-medium text-sm">Location</p>
-                  <p className="text-muted-foreground text-sm">Ontario, Canada</p>
+                  <p className="text-xs font-medium text-muted-foreground">Location</p>
+                  <p className="text-sm">Ontario, Canada</p>
                 </div>
               </div>
             </div>
@@ -164,7 +153,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/20 hover:bg-primary/3 transition-all duration-300"
+                  className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/20 hover:bg-primary/3 transition-all duration-200"
                 >
                   <HugeiconsIcon icon={social.icon} className="w-4 h-4" />
                 </a>
@@ -172,15 +161,16 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Right: Contact Form */}
+          {/* Right: Contact Form — 3 cols */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
+            className="lg:col-span-3"
           >
-            <div className="p-6 sm:p-8 rounded-2xl border border-border bg-card">
-              <h4 className="text-xl font-semibold mb-6 font-sans">
+            <div className="surface-card p-6 sm:p-8">
+              <h4 className="text-lg font-semibold mb-6 font-sans">
                 Send a Message
               </h4>
 
@@ -190,46 +180,46 @@ const Contact = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center py-12 text-center space-y-4"
                 >
-                  <HugeiconsIcon icon={CheckmarkCircle02Icon} className="w-12 h-12 text-primary" />
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HugeiconsIcon icon={CheckmarkCircle02Icon} className="w-6 h-6 text-primary" />
+                  </div>
                   <h5 className="text-lg font-semibold font-sans">Message sent!</h5>
                   <p className="text-muted-foreground text-sm">
                     Thanks for reaching out. I'll get back to you soon.
                   </p>
-                  <Button
-                    variant="outline"
-                    onClick={() => setSubmitted(false)}
-                    className="mt-2"
-                  >
+                  <Button variant="outline" onClick={() => setSubmitted(false)} className="mt-2">
                     Send another
                   </Button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                  <div className="space-y-1.5">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      placeholder="Your name"
-                      {...register("name")}
-                      className={errors.name ? "border-destructive" : ""}
-                    />
-                    {errors.name && (
-                      <p className="text-destructive text-xs">{errors.name.message}</p>
-                    )}
-                  </div>
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
+                        placeholder="Your name"
+                        {...register("name")}
+                        className={errors.name ? "border-destructive" : ""}
+                      />
+                      {errors.name && (
+                        <p className="text-destructive text-xs">{errors.name.message}</p>
+                      )}
+                    </div>
 
-                  <div className="space-y-1.5">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      {...register("email")}
-                      className={errors.email ? "border-destructive" : ""}
-                    />
-                    {errors.email && (
-                      <p className="text-destructive text-xs">{errors.email.message}</p>
-                    )}
+                    <div className="space-y-1.5">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        {...register("email")}
+                        className={errors.email ? "border-destructive" : ""}
+                      />
+                      {errors.email && (
+                        <p className="text-destructive text-xs">{errors.email.message}</p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="space-y-1.5">
@@ -246,11 +236,7 @@ const Contact = () => {
                     )}
                   </div>
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full font-medium"
-                  >
+                  <Button type="submit" disabled={isSubmitting} className="w-full">
                     {isSubmitting ? (
                       <>
                         <HugeiconsIcon icon={Loading03Icon} className="w-4 h-4 mr-2 animate-spin" />
