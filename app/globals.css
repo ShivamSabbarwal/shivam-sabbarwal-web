@@ -158,12 +158,6 @@
     font-weight: 600;
   }
 
-  .text-emphasis-lg {
-    color: var(--primary);
-    font-weight: 600;
-    font-size: 1.1em;
-  }
-
   .text-accent-emphasis {
     color: var(--accent);
     font-weight: 600;

@@ -83,8 +83,8 @@ const TechStack = () => {
     },
   ];
 
-  const TechItem = ({ name, icon, description, wide }: { name: string; icon: IconSvgElement; description: string; wide?: boolean }) => (
-    <div className={`flex items-center gap-3 p-2.5 rounded-lg hover:bg-secondary/50 transition-colors duration-200 ${wide ? "" : ""}`}>
+  const TechItem = ({ name, icon, description }: { name: string; icon: IconSvgElement; description: string }) => (
+    <div className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-secondary/50 transition-colors duration-200">
       <div className="w-8 h-8 bg-primary/8 rounded-lg flex items-center justify-center shrink-0">
         <HugeiconsIcon icon={icon} className="w-4 h-4 text-primary/70" />
       </div>
@@ -150,7 +150,6 @@ const TechStack = () => {
                     name={tech.name}
                     icon={tech.icon}
                     description={tech.description}
-                    wide={!!category.span}
                   />
                 ))}
               </div>
