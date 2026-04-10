@@ -1,6 +1,18 @@
+import type { IconType } from "react-icons";
 
-const PlaywrightIcon = ({
-  size = undefined,
+interface PlaywrightIconProps extends React.SVGAttributes<SVGElement> {
+  size?: string | number;
+  color?: string;
+  background?: string;
+  rotation?: number;
+  shadow?: number;
+  flipHorizontal?: boolean;
+  flipVertical?: boolean;
+  padding?: number;
+}
+
+const PlaywrightIcon: IconType = ({
+  size,
   color = '#000000',
   strokeWidth = 2,
   background = 'transparent',
@@ -12,7 +24,7 @@ const PlaywrightIcon = ({
   padding = 0,
   style = {},
   className = '',
-}) => {
+}: PlaywrightIconProps) => {
   const transforms = [];
   if (rotation !== 0) transforms.push(`rotate(${rotation}deg)`);
   if (flipHorizontal) transforms.push('scaleX(-1)');

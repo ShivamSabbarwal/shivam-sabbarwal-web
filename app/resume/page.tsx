@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ResumeClient from "./ResumeClient";
 
 const RESUME_URL = "https://shivamsabbarwal.dev/resume";
@@ -48,7 +49,9 @@ export default function ResumePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ResumeClient />
+      <Suspense fallback={null}>
+        <ResumeClient />
+      </Suspense>
     </>
   );
 }
