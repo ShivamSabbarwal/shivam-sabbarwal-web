@@ -52,6 +52,7 @@ const Navigation = () => {
       setActiveSection(hash);
       const element = document.getElementById(hash);
       if (element) {
+        window.dispatchEvent(new CustomEvent("nav:scroll-start"));
         element.scrollIntoView({ behavior: "smooth" });
       }
     }

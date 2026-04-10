@@ -99,7 +99,12 @@ const Timeline = () => {
 
   useEffect(() => {
     let ticking = false;
+    let suppressed = false;
+    let suppressTimer: ReturnType<typeof setTimeout> | null = null;
+
     const findActive = () => {
+      ticking = false;
+      if (suppressed) return;
       const viewportCenter = window.innerHeight / 2;
       let bestIdx = 0;
       let bestDist = Infinity;
@@ -114,7 +119,6 @@ const Timeline = () => {
         }
       });
       setActiveIndex(bestIdx);
-      ticking = false;
     };
     const onScroll = () => {
       if (!ticking) {
@@ -122,12 +126,34 @@ const Timeline = () => {
         ticking = true;
       }
     };
+    const release = () => {
+      suppressed = false;
+      if (suppressTimer) {
+        clearTimeout(suppressTimer);
+        suppressTimer = null;
+      }
+      window.removeEventListener("scrollend", release);
+      findActive();
+    };
+    const onNavStart = () => {
+      suppressed = true;
+      if (suppressTimer) clearTimeout(suppressTimer);
+      // Hold until smooth-scroll settles; scrollend fires when it does,
+      // and a safety timeout releases in case scrollend isn't supported.
+      window.addEventListener("scrollend", release, { once: true });
+      suppressTimer = setTimeout(release, 1500);
+    };
+
     findActive();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", findActive);
+    window.addEventListener("nav:scroll-start", onNavStart);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", findActive);
+      window.removeEventListener("nav:scroll-start", onNavStart);
+      window.removeEventListener("scrollend", release);
+      if (suppressTimer) clearTimeout(suppressTimer);
     };
   }, []);
 
