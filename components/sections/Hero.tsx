@@ -55,13 +55,15 @@ function MagneticButton({ children, className, ...props }: React.ComponentProps<
 const Hero = () => {
   const spotlightRef = useRef<HTMLDivElement>(null);
 
-  const scrollToNext = () => {
-    document.getElementById("timeline")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    window.dispatchEvent(new CustomEvent("nav:scroll-start"));
+    el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollToNext = () => scrollToSection("timeline");
+  const scrollToContact = () => scrollToSection("contact");
 
   return (
     <section
