@@ -98,7 +98,7 @@ const TechStack = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           viewport={{ once: true }}
-          className="mt-14 flex flex-wrap justify-center gap-8 sm:gap-16"
+          className="mt-14 grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-8 sm:gap-16"
         >
           {TECH_STATS.map((stat, index) => {
             const StatIcon = stat.icon;

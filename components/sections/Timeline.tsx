@@ -1,32 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState, forwardRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { LuCalendar, LuMapPin, LuBuilding2, LuAward, LuGraduationCap, LuChevronDown } from "react-icons/lu";
 import { Badge } from "@/components/ui/badge";
 import { TIMELINE } from "@/constants";
 
-function TimelineCard({ item }: { item: (typeof TIMELINE)[number] }) {
-  const [expanded, setExpanded] = useState(item.type === "current");
-
+const TimelineCard = forwardRef<HTMLDivElement, { item: (typeof TIMELINE)[number]; expanded: boolean }>(
+  function TimelineCard({ item, expanded }, ref) {
   return (
     <div
-      className={`surface-card p-5 sm:p-6 cursor-pointer select-none ${
+      ref={ref}
+      className={`surface-card p-5 sm:p-6 select-none ${
         item.type === "current"
           ? "border-l-3 border-l-primary"
           : item.category === "education"
             ? "border-l-3 border-l-accent/50"
             : ""
       }`}
-      onClick={() => setExpanded((v) => !v)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setExpanded((v) => !v);
-        }
-      }}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
@@ -100,9 +91,46 @@ function TimelineCard({ item }: { item: (typeof TIMELINE)[number] }) {
       </AnimatePresence>
     </div>
   );
-}
+});
 
 const Timeline = () => {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const findActive = () => {
+      const viewportCenter = window.innerHeight / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      cardRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - viewportCenter);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = idx;
+        }
+      });
+      setActiveIndex(bestIdx);
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(findActive);
+        ticking = true;
+      }
+    };
+    findActive();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", findActive);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", findActive);
+    };
+  }, []);
+
   return (
     <section id="timeline" className="py-20 sm:py-28 relative section-timeline-bg">
       <div className="section-glow absolute inset-0 pointer-events-none" />
@@ -191,7 +219,13 @@ const Timeline = () => {
                       : "md:ml-auto md:pl-12"
                   }`}
                 >
-                  <TimelineCard item={item} />
+                  <TimelineCard
+                    item={item}
+                    expanded={activeIndex === index}
+                    ref={(el) => {
+                      cardRefs.current[index] = el;
+                    }}
+                  />
                 </div>
               </motion.div>
             ))}

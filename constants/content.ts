@@ -290,7 +290,8 @@ export const PROJECTS = [
   {
     id: 2,
     title: "Personal Portfolio",
-    image: "/assets/projects/portfolio.png",
+    image: "/assets/projects/portfolio-light.png",
+    imageDark: "/assets/projects/portfolio-dark.png",
     description:
       "My personal portfolio website featuring interactive animations, modern UI components, and comprehensive information about my professional journey. Built with React, TypeScript, Framer Motion, and TailwindCSS.",
     tags: ["React", "TypeScript", "Framer Motion", "TailwindCSS", "Portfolio"],

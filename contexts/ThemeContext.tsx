@@ -41,16 +41,32 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   useEffect(() => {
     if (!isHydrated) return;
-    
+
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    
+
     // Save theme to localStorage
     localStorage.setItem('shivam-sabbarwal-theme', theme);
+
+    // Swap favicon to match theme
+    const faviconHref = theme === 'dark' ? '/icon-dark.svg' : '/icon-light.svg';
+    let link = document.querySelector<HTMLLinkElement>("link[rel='icon'][data-theme-managed]");
+    if (!link) {
+      // Remove any Next.js auto-generated icon links so ours takes over
+      document
+        .querySelectorAll<HTMLLinkElement>("link[rel='icon']")
+        .forEach((el) => el.parentElement?.removeChild(el));
+      link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/svg+xml';
+      link.dataset.themeManaged = 'true';
+      document.head.appendChild(link);
+    }
+    link.href = faviconHref;
   }, [theme, isHydrated]);
 
   const toggleTheme = () => {

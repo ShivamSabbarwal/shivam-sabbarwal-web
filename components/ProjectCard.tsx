@@ -5,12 +5,14 @@ import { useRef, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { LuExternalLink, LuGithub } from "react-icons/lu";
 import { Badge } from "@/components/ui/badge";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface ProjectCardProps {
   project: {
     id: number;
     title: string;
     image?: string;
+    imageDark?: string;
     description: string;
     tags: string[];
     liveUrl: string;
@@ -21,6 +23,11 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps) => {
+  const { theme, isHydrated } = useTheme();
+  const activeImage =
+    isHydrated && theme === "dark" && project.imageDark
+      ? project.imageDark
+      : project.image;
   const tiltRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -84,9 +91,9 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
 
           {/* Content area */}
           <div className="h-52 md:h-64 lg:h-72 relative overflow-hidden bg-muted">
-            {project.image ? (
+            {activeImage ? (
               <Image
-                src={project.image}
+                src={activeImage}
                 alt={project.title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

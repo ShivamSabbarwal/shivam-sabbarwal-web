@@ -73,7 +73,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased grain", outfit.variable, syne.variable, geistMono.variable)}
     >
-      <head />
+      <head>
+        <script src="/theme-init.js" />
+      </head>
       <body>
         <Providers>{children}</Providers>
         <SpeedInsights debug={false} />
