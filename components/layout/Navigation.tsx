@@ -2,8 +2,7 @@
 
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Sun03Icon, Moon02Icon, Menu01Icon, File01Icon } from "@hugeicons/core-free-icons";
+import { LuSun, LuMoon, LuMenu, LuFileText } from "react-icons/lu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
@@ -15,7 +14,6 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const { theme, isHydrated, toggleTheme } = useTheme();
   const isMobile = useIsMobile();
-
   const navItems = NAV_ITEMS;
 
   useEffect(() => {
@@ -62,12 +60,7 @@ const Navigation = () => {
 
   const openResume = () => {
     if (isMobile) {
-      const link = document.createElement('a');
-      link.href = '/assets/resume.pdf';
-      link.download = `Shivam_Sabbarwal_Resume_${new Date().getFullYear()}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      window.open('/resume?print=true', '_blank');
     } else {
       window.open('/resume', '_blank');
     }
@@ -103,9 +96,9 @@ const Navigation = () => {
             size="icon"
             onClick={openResume}
             className="w-8 h-8 sm:w-9 sm:h-9"
-            aria-label={isMobile ? "Download Resume PDF" : "Open Resume"}
+            aria-label={isMobile ? "Print Resume" : "Open Resume"}
           >
-            <HugeiconsIcon icon={File01Icon} className="w-4 h-4" />
+            <LuFileText className="w-4 h-4" />
           </Button>
 
           {/* Theme Toggle */}
@@ -119,9 +112,9 @@ const Navigation = () => {
             {!isHydrated ? (
               <span className="w-4 h-4" />
             ) : theme === 'light' ? (
-              <HugeiconsIcon icon={Moon02Icon} className="w-4 h-4" />
+              <LuMoon className="w-4 h-4" />
             ) : (
-              <HugeiconsIcon icon={Sun03Icon} className="w-4 h-4" />
+              <LuSun className="w-4 h-4" />
             )}
           </Button>
 
@@ -136,7 +129,7 @@ const Navigation = () => {
                 />
               }
             >
-              <HugeiconsIcon icon={Menu01Icon} className="w-4 h-4" />
+              <LuMenu className="w-4 h-4" />
             </SheetTrigger>
             <SheetContent
               side="right"

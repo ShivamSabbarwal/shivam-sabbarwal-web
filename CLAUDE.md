@@ -62,7 +62,7 @@ Personal portfolio site: **Next.js 16 App Router** · **React 19** · **Tailwind
 | UI primitives | `components/ui/` | shadcn/ui (badge, button, card, input, label, sheet, sonner, textarea) |
 | Server actions | `app/actions/contact.ts` | Contact form email via nodemailer + react-email |
 | Audio | `lib/audio/sounds.ts` | Web Audio API: playClick, playHover, playBounce |
-| Constants | `constants/index.ts` | NAV_ITEMS, SOCIAL_LINKS, PERFORMANCE config |
+| Constants | `constants/index.ts` | NAV_ITEMS, SOCIAL_ICONS, PERFORMANCE; re-exports `constants/content.ts` |
 | Theme | `contexts/ThemeContext.tsx` | Custom light/dark with localStorage persistence |
 
 ### Import Alias
@@ -76,8 +76,7 @@ Personal portfolio site: **Next.js 16 App Router** · **React 19** · **Tailwind
 - **React 19**: No `import React`. Use named imports (`useState`, `useEffect`, `type ReactNode`). No `React.FC`.
 - **Tailwind v4**: Use `bg-linear-to-br` not `bg-gradient-to-br`. CSS uses `@theme inline` and `@custom-variant`.
 - **Animations**: Use `motion` package. Import from `"motion/react"` (not `framer-motion`).
-- **Icons**: `@hugeicons/react` + `@hugeicons/core-free-icons`. Usage: `<HugeiconsIcon icon={SomeIcon} />`. Import `IconSvgElement` type for icon props.
-- **No lucide-react**: Removed. All icons are hugeicons.
+- **Icons**: `react-icons/lu` (Lucide) for UI icons, `react-icons/si` (Simple Icons) for brand/tech logos. Social icon map shared via `SOCIAL_ICONS` in `constants/index.ts`.
 - **Images**: Next.js `<Image>` with `fill`/`sizes`/`priority` — never raw `<img>`.
 - **Client components**: `"use client"` only where needed (hooks, browser APIs, motion).
 - **Resume styling**: Own system in `app/globals.css` resume section — separate from main site's cartoon/3D aesthetic.

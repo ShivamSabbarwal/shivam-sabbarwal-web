@@ -1,23 +1,5 @@
 import Tag from './Tag';
-
-interface EducationData {
-  degree: string;
-  school: string;
-  location: string;
-  graduationDate: string;
-  highlights: string[];
-}
-
-const EDUCATION_DATA: EducationData = {
-  degree: "Bachelor's in Software Engineering",
-  school: "University of New Brunswick",
-  location: "Fredericton NB",
-  graduationDate: "April 2020",
-  highlights: [
-    "Co-op Certification",
-    "Minor in Biomedical Engineering",
-  ],
-} as const;
+import { RESUME_EDUCATION } from '@/constants';
 
 const Education = () => {
   return (
@@ -26,18 +8,18 @@ const Education = () => {
       <div className="education-item space-y-2">
         <div className="flex justify-between items-baseline">
           <h3 className="job-title font-bold tracking-wide uppercase flex items-baseline gap-2 text-sm text-primary">
-            {EDUCATION_DATA.degree}
-            <span className="text-sm font-normal normal-case text-secondary">{EDUCATION_DATA.location}</span>
+            {RESUME_EDUCATION.degree}
+            <span className="text-sm font-normal normal-case text-secondary">{RESUME_EDUCATION.location}</span>
           </h3>
         </div>
         <div className="flex items-center gap-2">
-          <p className="company-name font-medium text-sm text-accent">{EDUCATION_DATA.school}</p>
-          <span className="text-sm text-secondary">•</span>
-          <span className="text-sm text-secondary">{EDUCATION_DATA.graduationDate}</span>
+          <p className="company-name font-medium text-sm text-accent">{RESUME_EDUCATION.school}</p>
+          <span className="text-sm text-secondary">&bull;</span>
+          <span className="text-sm text-secondary">{RESUME_EDUCATION.graduationDate}</span>
         </div>
-        {EDUCATION_DATA.highlights && (
+        {RESUME_EDUCATION.highlights && (
           <div className="flex flex-wrap gap-1.5 mt-2">
-            {EDUCATION_DATA.highlights.map((highlight) => (
+            {RESUME_EDUCATION.highlights.map((highlight) => (
               <Tag key={highlight}>{highlight}</Tag>
             ))}
           </div>

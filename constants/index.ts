@@ -7,26 +7,18 @@ export const NAV_ITEMS = [
   { name: "Contact", href: "#contact" },
 ] as const;
 
-// Social links constants
-export const SOCIAL_LINKS = [
-  {
-    name: "GitHub",
-    url: "https://github.com/ShivamSabbarwal",
-    color: "hover:text-gray-400",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/shivamsabbarwal",
-    color: "hover:text-blue-400",
-  },
-  {
-    name: "Instagram",
-    url: "https://instagram.com/shiv.sabb",
-    color: "hover:text-pink-400",
-  },
-] as const;
-
 // Performance constants
 export const PERFORMANCE = {
   FLOATING_BUBBLES_COUNT: 12,
 } as const;
+
+// Social icon map (shared by Hero + Footer)
+import { LuGithub, LuLinkedin, LuInstagram } from "react-icons/lu";
+export const SOCIAL_ICONS = {
+  GitHub: LuGithub,
+  LinkedIn: LuLinkedin,
+  Instagram: LuInstagram,
+} as const;
+
+// Re-export all site content
+export * from "./content";

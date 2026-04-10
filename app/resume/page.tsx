@@ -18,7 +18,7 @@ const jsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: "Resume - Shivam Sabbarwal",
+  title: { absolute: "Shivam Sabbarwal Resume" },
   description:
     "Download Shivam Sabbarwal's resume. Senior Software Engineer with 7+ years of experience in full-stack development, React, Node.js, TypeScript, and modern web technologies.",
   keywords: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "profile",
     url: RESUME_URL,
-    title: "Resume - Shivam Sabbarwal",
+    title: "Shivam Sabbarwal Resume",
     description:
       "Download Shivam Sabbarwal's resume. Senior Software Engineer with 7+ years of experience.",
   },

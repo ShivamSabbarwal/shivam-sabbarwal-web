@@ -1,9 +1,8 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowUp01Icon, GithubIcon, Linkedin01Icon, InstagramIcon } from "@hugeicons/core-free-icons";
+import { LuArrowUp } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import { NAV_ITEMS, SOCIAL_LINKS } from "@/constants";
+import { NAV_ITEMS, PERSONAL, SOCIAL_ICONS } from "@/constants";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -21,34 +20,32 @@ const Footer = () => {
     }
   };
 
-  const socialIcons = [GithubIcon, Linkedin01Icon, InstagramIcon];
-  const socialLinks = SOCIAL_LINKS.map((link, i) => ({
-    ...link,
-    icon: socialIcons[i],
-  }));
-
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" />
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Brand & Social */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <h3 className="text-lg font-normal tracking-tight">
-              Shivam Sabbarwal
+              {PERSONAL.name}
             </h3>
             <div className="flex gap-2">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg text-muted-foreground hover:text-primary transition-colors duration-200"
-                  aria-label={social.name}
-                >
-                  <HugeiconsIcon icon={social.icon} className="w-4 h-4" />
-                </a>
-              ))}
+              {PERSONAL.socials.map((social) => {
+                const Icon = SOCIAL_ICONS[social.name as keyof typeof SOCIAL_ICONS];
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-primary transition-colors duration-200"
+                    aria-label={social.name}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -73,14 +70,14 @@ const Footer = () => {
             className="w-8 h-8"
             aria-label="Scroll to top"
           >
-            <HugeiconsIcon icon={ArrowUp01Icon} className="w-4 h-4" />
+            <LuArrowUp className="w-4 h-4" />
           </Button>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-border mt-6 pt-4 text-center">
           <p className="text-muted-foreground text-xs">
-            &copy; {currentYear} Shivam Sabbarwal. Built with Next.js, TypeScript & Tailwind CSS.
+            &copy; {currentYear} {PERSONAL.name}. Built with Next.js, TypeScript & Tailwind CSS.
           </p>
         </div>
       </div>

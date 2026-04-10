@@ -1,54 +1,34 @@
 import Link from "next/link";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Home01Icon } from "@hugeicons/core-free-icons";
+import { LuHouse } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import Cursor from "@/components/interactive/Cursor";
-import FloatingBubbles from "@/components/interactive/FloatingBubbles";
-import { PERFORMANCE } from "@/constants";
 
 export default function NotFound() {
   return (
-    <>
-      <FloatingBubbles count={PERFORMANCE.FLOATING_BUBBLES_COUNT} />
-      <Cursor />
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-primary/5 via-background to-accent/5">
-        <div className="text-center space-y-8 px-4">
-          <div className="space-y-6">
-            <div className="relative">
-              <h1 className="text-6xl sm:text-8xl lg:text-9xl font-black text-primary/20 animate-bounce">
-                404
-              </h1>
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
-              Houston, we have a problem!
-            </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto px-2">
-              Looks like this page went on vacation without telling anyone!
-              🏖️ Maybe it&apos;s hiding behind the couch? Or perhaps it got
-              lost in the WiFi? 📶
-            </p>
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-primary/5 via-background to-accent/5 relative overflow-hidden">
+      {/* Ambient glows */}
+      <div className="hero-glow absolute w-[500px] h-[500px] top-[20%] left-[10%]" />
+      <div className="hero-glow absolute w-[400px] h-[400px] bottom-[15%] right-[10%] opacity-50" />
 
-          <div className="flex justify-center">
-            <Button
-              render={<Link href="/" />}
-              nativeButton={false}
-              size="lg"
-              className="font-semibold bg-linear-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 transition-all duration-300 transform hover:scale-105"
-            >
-              <HugeiconsIcon icon={Home01Icon} className="w-4 h-4 mr-2" />
-              Beam Me Home, Scotty!
-            </Button>
-          </div>
+      <div className="text-center space-y-8 px-4 relative">
+        <div className="space-y-6">
+          <h1 className="text-7xl sm:text-9xl font-normal tracking-tight text-primary/20">
+            404
+          </h1>
+          <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-foreground">
+            Page not found
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-md mx-auto">
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
+          </p>
+        </div>
 
-          <div className="text-sm text-muted-foreground/60 max-w-md mx-auto">
-            <p>
-              💡 <strong>Pro tip:</strong> Try not to break the internet next
-              time! 😄
-            </p>
-          </div>
+        <div className="flex justify-center">
+          <Button render={<Link href="/" />} nativeButton={false} size="lg">
+            <LuHouse className="w-4 h-4 mr-2" />
+            Back to Home
+          </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

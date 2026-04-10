@@ -1,71 +1,50 @@
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Mail01Icon, Call02Icon, GlobeIcon, Linkedin01Icon } from "@hugeicons/core-free-icons";
-
-interface Contact {
-  phone: string;
-  email: string;
-  location: string;
-  linkedin: string;
-  website: string;
-}
-
-interface HeaderData {
-  name: string;
-  title: string;
-  contact: Contact;
-}
-
-const HEADER_DATA: HeaderData = {
-  name: "SHIVAM SABBARWAL",
-  title: "Senior Software Engineer",
-  contact: {
-    phone: "+1 (506) 609-0423",
-    email: "shivam.sabb@gmail.com",
-    location: "Vancouver, BC",
-    linkedin: "linkedin.com/in/shivamsabbarwal",
-    website: "shivamsabbarwal.dev",
-  },
-} as const;
+import { LuMail, LuPhone, LuGlobe, LuLinkedin } from "react-icons/lu";
+import { RESUME_HEADER } from "@/constants";
 
 const Header = () => {
   return (
-    <header className="mb-4 flex items-center justify-between gap-4 space-y-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-4xl font-bold tracking-wide text-primary mb-2">
-          {HEADER_DATA.name}
-        </h1>
-        <p className="text-xl text-accent">{HEADER_DATA.title}</p>
-      </div>
+    <header className="mb-4">
+      <div className="flex justify-between items-start mb-3">
+        <div>
+          <h1 className="text-3xl font-bold tracking-wide text-primary">
+            {RESUME_HEADER.name}
+          </h1>
+          <p className="text-base text-accent mt-1">{RESUME_HEADER.title}</p>
+        </div>
 
-      {/* Contact Info Tags */}
-      <div className="contact-info flex flex-col flex-wrap justify-end gap-2">
-        <div
-          onClick={() => window.open(`tel:${HEADER_DATA.contact.phone}`, "_blank")}
-          className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
-        >
-          <HugeiconsIcon icon={Call02Icon} className="size-4 text-accent" />
-          <span className="text-sm text-secondary">{HEADER_DATA.contact.phone}</span>
-        </div>
-        <div
-          onClick={() => window.open(`mailto:${HEADER_DATA.contact.email}`, "_blank")}
-          className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
-        >
-          <HugeiconsIcon icon={Mail01Icon} className="size-4 text-accent" />
-          <span className="text-sm text-secondary">{HEADER_DATA.contact.email}</span>
-        </div>
-        <div
-          onClick={() => window.open(`https://${HEADER_DATA.contact.linkedin}`, "_blank")}
-          className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
-        >
-          <HugeiconsIcon icon={Linkedin01Icon} className="size-4 text-accent" />
-          <span className="text-sm text-secondary">{HEADER_DATA.contact.linkedin}</span>
-        </div>
-        <div
-          onClick={() => window.open(`https://${HEADER_DATA.contact.website}`, "_blank")}
-          className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
-        >
-          <HugeiconsIcon icon={GlobeIcon} className="size-4 text-accent" />
-          <span className="text-sm text-secondary">{HEADER_DATA.contact.website}</span>
+        <div className="contact-info flex flex-col items-end gap-0.5 text-sm">
+          <a
+            href={`tel:${RESUME_HEADER.contact.phone}`}
+            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
+          >
+            <span className="text-secondary">{RESUME_HEADER.contact.phone}</span>
+            <LuPhone className="size-3.5 text-accent" />
+          </a>
+          <a
+            href={`mailto:${RESUME_HEADER.contact.email}`}
+            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
+          >
+            <span className="text-secondary">{RESUME_HEADER.contact.email}</span>
+            <LuMail className="size-3.5 text-accent" />
+          </a>
+          <a
+            href={`https://${RESUME_HEADER.contact.linkedin}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
+          >
+            <span className="text-secondary">{RESUME_HEADER.contact.linkedin}</span>
+            <LuLinkedin className="size-3.5 text-accent" />
+          </a>
+          <a
+            href={`https://${RESUME_HEADER.contact.website}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
+          >
+            <span className="text-secondary">{RESUME_HEADER.contact.website}</span>
+            <LuGlobe className="size-3.5 text-accent" />
+          </a>
         </div>
       </div>
     </header>

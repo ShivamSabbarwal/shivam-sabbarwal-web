@@ -1,12 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Resume from "@/components/resume";
-import Cursor from "@/components/interactive/Cursor";
 
 export default function ResumeClient() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("print") === "true") {
+      const timeout = setTimeout(() => window.print(), 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [searchParams]);
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Cursor />
+    <div className="min-h-screen bg-white">
       <Resume />
     </div>
   );

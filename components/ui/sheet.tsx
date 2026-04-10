@@ -2,8 +2,7 @@
 
 import * as React from "react"
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { Cancel01Icon } from "@hugeicons/core-free-icons"
+import { LuX } from "react-icons/lu"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -79,7 +78,7 @@ function SheetContent({
               />
             }
           >
-            <HugeiconsIcon icon={Cancel01Icon} className="size-4" />
+            <LuX className="size-4" />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
         )}

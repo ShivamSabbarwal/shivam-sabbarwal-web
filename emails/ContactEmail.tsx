@@ -14,10 +14,11 @@ import {
 interface ContactEmailProps {
   name: string;
   email: string;
+  phone?: string;
   message: string;
 }
 
-export function ContactEmail({ name, email, message }: ContactEmailProps) {
+export function ContactEmail({ name, email, phone, message }: ContactEmailProps) {
   return (
     <Html>
       <Head />
@@ -38,6 +39,15 @@ export function ContactEmail({ name, email, message }: ContactEmailProps) {
               {email}
             </Link>
           </Section>
+
+          {phone && (
+            <Section style={section}>
+              <Text style={label}>Phone</Text>
+              <Link href={`tel:${phone}`} style={link}>
+                {phone}
+              </Link>
+            </Section>
+          )}
 
           <Hr style={hr} />
 

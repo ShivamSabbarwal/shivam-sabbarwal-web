@@ -2,18 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Mail01Icon,
-  MapPinIcon,
-  Call02Icon,
-  SentIcon,
-  Loading03Icon,
-  CheckmarkCircle02Icon,
-  GithubIcon,
-  Linkedin01Icon,
-  InstagramIcon,
-} from "@hugeicons/core-free-icons";
+import { LuMail, LuMapPin, LuPhone, LuSend, LuLoader, LuCircleCheck } from "react-icons/lu";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -23,20 +12,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { sendContactEmail } from "@/app/actions/contact";
+import { PERSONAL } from "@/constants";
 
 const schema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  firstName: z.string().min(2, "First name must be at least 2 characters"),
+  lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
+  phone: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type FormData = z.infer<typeof schema>;
-
-const socialLinks = [
-  { name: "GitHub", icon: GithubIcon, url: "https://github.com/ShivamSabbarwal" },
-  { name: "LinkedIn", icon: Linkedin01Icon, url: "https://linkedin.com/in/shivamsabbarwal" },
-  { name: "Instagram", icon: InstagramIcon, url: "https://instagram.com/shiv.sabb" },
-];
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -60,9 +46,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 relative">
-      <div className="section-glow absolute inset-0 pointer-events-none" />
-
+    <section id="contact" className="py-20 sm:py-28 relative section-tinted section-contact-bg">
       <div className="max-w-5xl mx-auto px-6 sm:px-8 relative">
         {/* Section Header */}
         <motion.div
@@ -73,91 +57,75 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
-            Let's <span className="text-primary italic">Connect</span>
+            Let&apos;s <span className="text-pop italic">Connect</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to bring your ideas to life? Let's collaborate and create
+            Ready to bring your ideas to life? Let&apos;s collaborate and create
             something amazing together.
           </p>
           <div className="accent-line w-24 mx-auto mt-6" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-8 items-start">
+        <div className="grid lg:grid-cols-5 gap-12 lg:gap-8 items-stretch">
           {/* Left: Contact Info — 2 cols */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2 flex flex-col"
           >
-            <div>
+            <div className="mb-6">
               <h3 className="text-2xl font-normal tracking-tight mb-3">
                 Get In Touch
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Whether you have a project in mind or just want to chat
-                about technology, I'd love to hear from you.
+                about technology, I&apos;d love to hear from you.
               </p>
             </div>
 
             {/* Contact Details */}
-            <div className="space-y-2">
+            <div className="space-y-2 flex-1 flex flex-col justify-center">
               <a
-                href="mailto:shivam.sabb@gmail.com"
+                href={`mailto:${PERSONAL.email}`}
                 className="group flex items-center gap-3 p-3.5 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/3 transition-all duration-200"
               >
                 <div className="p-2 rounded-lg bg-primary/8">
-                  <HugeiconsIcon icon={Mail01Icon} className="w-4 h-4 text-primary" />
+                  <LuMail className="w-4 h-4 text-primary" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-muted-foreground">Email</p>
                   <p className="text-sm group-hover:text-primary transition-colors truncate">
-                    shivam.sabb@gmail.com
+                    {PERSONAL.email}
                   </p>
                 </div>
               </a>
 
               <a
-                href="sms:+15066090423"
+                href={`sms:+${PERSONAL.phone.replace(/\D/g, "")}`}
                 className="group flex items-center gap-3 p-3.5 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/3 transition-all duration-200"
               >
                 <div className="p-2 rounded-lg bg-primary/8">
-                  <HugeiconsIcon icon={Call02Icon} className="w-4 h-4 text-primary" />
+                  <LuPhone className="w-4 h-4 text-primary" />
                 </div>
                 <div>
                   <p className="text-xs font-medium text-muted-foreground">Phone</p>
                   <p className="text-sm group-hover:text-primary transition-colors">
-                    +1 (506) 609-0423
+                    {PERSONAL.phone}
                   </p>
                 </div>
               </a>
 
               <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border">
                 <div className="p-2 rounded-lg bg-primary/8">
-                  <HugeiconsIcon icon={MapPinIcon} className="w-4 h-4 text-primary" />
+                  <LuMapPin className="w-4 h-4 text-primary" />
                 </div>
                 <div>
                   <p className="text-xs font-medium text-muted-foreground">Location</p>
-                  <p className="text-sm">Ontario, Canada</p>
+                  <p className="text-sm">{PERSONAL.location}</p>
                 </div>
               </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex gap-2">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/20 hover:bg-primary/3 transition-all duration-200"
-                >
-                  <HugeiconsIcon icon={social.icon} className="w-4 h-4" />
-                </a>
-              ))}
             </div>
           </motion.div>
 
@@ -169,7 +137,7 @@ const Contact = () => {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <div className="surface-card p-6 sm:p-8">
+            <div className="surface-card p-6 sm:p-8 h-full">
               <h4 className="text-lg font-semibold mb-6 font-sans">
                 Send a Message
               </h4>
@@ -181,11 +149,11 @@ const Contact = () => {
                   className="flex flex-col items-center justify-center py-12 text-center space-y-4"
                 >
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <HugeiconsIcon icon={CheckmarkCircle02Icon} className="w-6 h-6 text-primary" />
+                    <LuCircleCheck className="w-6 h-6 text-primary" />
                   </div>
                   <h5 className="text-lg font-semibold font-sans">Message sent!</h5>
                   <p className="text-muted-foreground text-sm">
-                    Thanks for reaching out. I'll get back to you soon.
+                    Thanks for reaching out. I&apos;ll get back to you soon.
                   </p>
                   <Button variant="outline" onClick={() => setSubmitted(false)} className="mt-2">
                     Send another
@@ -195,18 +163,33 @@ const Contact = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div className="space-y-1.5">
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="firstName">First Name</Label>
                       <Input
-                        id="name"
-                        placeholder="Your name"
-                        {...register("name")}
-                        className={errors.name ? "border-destructive" : ""}
+                        id="firstName"
+                        placeholder="First name"
+                        {...register("firstName")}
+                        className={errors.firstName ? "border-destructive" : ""}
                       />
-                      {errors.name && (
-                        <p className="text-destructive text-xs">{errors.name.message}</p>
+                      {errors.firstName && (
+                        <p className="text-destructive text-xs">{errors.firstName.message}</p>
                       )}
                     </div>
 
+                    <div className="space-y-1.5">
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <Input
+                        id="lastName"
+                        placeholder="Last name"
+                        {...register("lastName")}
+                        className={errors.lastName ? "border-destructive" : ""}
+                      />
+                      {errors.lastName && (
+                        <p className="text-destructive text-xs">{errors.lastName.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-5">
                     <div className="space-y-1.5">
                       <Label htmlFor="email">Email</Label>
                       <Input
@@ -219,6 +202,16 @@ const Contact = () => {
                       {errors.email && (
                         <p className="text-destructive text-xs">{errors.email.message}</p>
                       )}
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor="phone">Phone <span className="text-muted-foreground font-normal">(optional)</span></Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 123-4567"
+                        {...register("phone")}
+                      />
                     </div>
                   </div>
 
@@ -239,12 +232,12 @@ const Contact = () => {
                   <Button type="submit" disabled={isSubmitting} className="w-full">
                     {isSubmitting ? (
                       <>
-                        <HugeiconsIcon icon={Loading03Icon} className="w-4 h-4 mr-2 animate-spin" />
+                        <LuLoader className="w-4 h-4 mr-2 animate-spin" />
                         Sending...
                       </>
                     ) : (
                       <>
-                        <HugeiconsIcon icon={SentIcon} className="w-4 h-4 mr-2" />
+                        <LuSend className="w-4 h-4 mr-2" />
                         Send Message
                       </>
                     )}
