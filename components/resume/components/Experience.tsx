@@ -1,11 +1,17 @@
-import Tag from './Tag';
-import { RESUME_EXPERIENCE } from '@/constants';
+import Tag from "./Tag";
+import { RESUME_EXPERIENCE } from "@/constants";
 
 /** Bold key metrics (numbers, percentages, counts) so recruiters spot them instantly */
 function highlightMetrics(text: string) {
   const parts = text.split(/(\d+[,.]?\d*[+%]?(?:\s*(?:years?|countries|users|components))?)/gi);
   return parts.map((part, i) =>
-    /\d/.test(part) ? <strong key={i} className="text-primary font-bold">{part}</strong> : part
+    /\d/.test(part) ? (
+      <strong key={i} className="text-primary font-bold">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
   );
 }
 
@@ -25,7 +31,9 @@ const Experience = () => {
                 <span className="text-xs text-secondary">{job.location}</span>
               </div>
               <div className="flex items-center gap-2 mt-0.5">
-                <p className="company-name font-semibold text-sm tracking-tight text-accent">{job.company}</p>
+                <p className="company-name font-semibold text-sm tracking-tight text-accent">
+                  {job.company}
+                </p>
                 <span className="text-sm opacity-40 text-secondary">&bull;</span>
                 <span className="text-xs text-secondary whitespace-nowrap">{job.period}</span>
               </div>

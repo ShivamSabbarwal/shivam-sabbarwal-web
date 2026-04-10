@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import ResumeClient from "./ResumeClient";
+import Resume from "@/components/resume";
+import AutoPrint from "./AutoPrint";
 
 const RESUME_URL = "https://shivamsabbarwal.dev/resume";
 
@@ -50,8 +51,11 @@ export default function ResumePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Suspense fallback={null}>
-        <ResumeClient />
+        <AutoPrint />
       </Suspense>
+      <div className="min-h-screen bg-white">
+        <Resume />
+      </div>
     </>
   );
 }

@@ -25,9 +25,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps) => {
   const { theme, isHydrated } = useTheme();
   const activeImage =
-    isHydrated && theme === "dark" && project.imageDark
-      ? project.imageDark
-      : project.image;
+    isHydrated && theme === "dark" && project.imageDark ? project.imageDark : project.image;
   const tiltRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -38,7 +36,8 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
   const glareY = useTransform(mouseY, [0, 1], [0, 100]);
   const glareBackground = useTransform(
     [glareX, glareY],
-    ([x, y]) => `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.12) 0%, transparent 60%)`
+    ([x, y]) =>
+      `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
   );
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -118,9 +117,7 @@ const ProjectCard = ({ project, index, isAlternating = false }: ProjectCardProps
           transition={{ duration: 0.5, delay: 0.15 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl sm:text-3xl font-normal tracking-tight mb-3">
-            {project.title}
-          </h3>
+          <h3 className="text-2xl sm:text-3xl font-normal tracking-tight mb-3">{project.title}</h3>
           <div className="accent-line w-16 mb-4" />
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             {project.description}

@@ -2,9 +2,8 @@
 
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Resume from "@/components/resume";
 
-export default function ResumeClient() {
+export default function AutoPrint() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -14,9 +13,5 @@ export default function ResumeClient() {
     }
   }, [searchParams]);
 
-  return (
-    <div className="min-h-screen bg-white">
-      <Resume />
-    </div>
-  );
+  return null;
 }

@@ -1,5 +1,5 @@
-import Tag from './Tag';
-import { RESUME_EDUCATION } from '@/constants';
+import Tag from "./Tag";
+import { RESUME_EDUCATION } from "@/constants";
 
 const Education = () => {
   return (
@@ -9,7 +9,9 @@ const Education = () => {
         <div className="flex justify-between items-baseline">
           <h3 className="job-title font-bold tracking-wide uppercase flex items-baseline gap-2 text-sm text-primary">
             {RESUME_EDUCATION.degree}
-            <span className="text-sm font-normal normal-case text-secondary">{RESUME_EDUCATION.location}</span>
+            <span className="text-sm font-normal normal-case text-secondary">
+              {RESUME_EDUCATION.location}
+            </span>
           </h3>
         </div>
         <div className="flex items-center gap-2">

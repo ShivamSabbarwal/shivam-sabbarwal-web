@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  reactCompiler: true,
   experimental: {
     optimizeCss: true,
   },

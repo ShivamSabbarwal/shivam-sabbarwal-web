@@ -19,10 +19,7 @@ const jsonLd = {
     "Full-stack software engineer with over 7 years of experience building scalable web applications and innovative digital solutions",
   url: BASE_URL,
   image: `${BASE_URL}/assets/profile-pic.jpg`,
-  sameAs: [
-    "https://www.github.com/shivamsabbarwal",
-    "https://www.linkedin.com/in/shivamsabbarwal",
-  ],
+  sameAs: ["https://www.github.com/shivamsabbarwal", "https://www.linkedin.com/in/shivamsabbarwal"],
   knowsAbout: [
     "Software Engineering",
     "Full-Stack Development",
@@ -36,14 +33,12 @@ const jsonLd = {
   hasOccupation: {
     "@type": "Occupation",
     name: "Software Engineer",
-    description:
-      "Full-stack software engineer specializing in modern web technologies",
+    description: "Full-stack software engineer specializing in modern web technologies",
   },
 };
 
 export const metadata: Metadata = {
-  title:
-    "Shivam Sabbarwal - Senior Software Engineer & Full-Stack Developer",
+  title: "Shivam Sabbarwal - Senior Software Engineer & Full-Stack Developer",
   description:
     "Experienced full-stack software engineer with 7+ years building scalable web applications. Specialized in React, Node.js, TypeScript, and modern web technologies. Available for consulting and new opportunities.",
   keywords: [
@@ -60,8 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: BASE_URL,
-    title:
-      "Shivam Sabbarwal - Senior Software Engineer & Full-Stack Developer",
+    title: "Shivam Sabbarwal - Senior Software Engineer & Full-Stack Developer",
     description:
       "Experienced full-stack software engineer with 7+ years building scalable web applications.",
   },

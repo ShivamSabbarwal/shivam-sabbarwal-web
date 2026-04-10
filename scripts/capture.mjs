@@ -27,16 +27,16 @@
  *   bun scripts/capture.mjs --url https://example.com --out public/hero.png --selector "#hero" --full-page
  */
 
-import { chromium } from 'playwright';
+import { chromium } from "playwright";
 
 function parseArgs(argv) {
   const args = {};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (!a.startsWith('--')) continue;
+    if (!a.startsWith("--")) continue;
     const key = a.slice(2);
     const next = argv[i + 1];
-    if (next === undefined || next.startsWith('--')) {
+    if (next === undefined || next.startsWith("--")) {
       args[key] = true;
     } else {
       args[key] = next;
@@ -49,8 +49,8 @@ function parseArgs(argv) {
 const args = parseArgs(process.argv.slice(2));
 
 if (!args.url || !args.out) {
-  console.error('Missing required --url and/or --out arguments.');
-  console.error('Run with no args to see usage in the file header.');
+  console.error("Missing required --url and/or --out arguments.");
+  console.error("Run with no args to see usage in the file header.");
   process.exit(1);
 }
 
@@ -60,15 +60,15 @@ const viewport = {
 };
 const deviceScaleFactor = Number(args.scale ?? 2);
 const waitMs = Number(args.wait ?? 1200);
-const fullPage = Boolean(args['full-page']);
-const themeKey = args['theme-key'] ?? 'shivam-sabbarwal-theme';
+const fullPage = Boolean(args["full-page"]);
+const themeKey = args["theme-key"] ?? "shivam-sabbarwal-theme";
 
 const storageEntries = [];
 if (args.theme) storageEntries.push([themeKey, String(args.theme)]);
 if (args.storage) {
-  for (const pair of String(args.storage).split(',')) {
-    const [k, ...rest] = pair.split('=');
-    if (k) storageEntries.push([k.trim(), rest.join('=').trim()]);
+  for (const pair of String(args.storage).split(",")) {
+    const [k, ...rest] = pair.split("=");
+    if (k) storageEntries.push([k.trim(), rest.join("=").trim()]);
   }
 }
 
@@ -82,7 +82,7 @@ if (storageEntries.length > 0) {
   }, storageEntries);
 }
 
-await page.goto(String(args.url), { waitUntil: 'networkidle' });
+await page.goto(String(args.url), { waitUntil: "networkidle" });
 if (waitMs > 0) await page.waitForTimeout(waitMs);
 
 if (args.selector) {

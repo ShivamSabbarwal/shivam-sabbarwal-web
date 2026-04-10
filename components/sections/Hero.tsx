@@ -1,19 +1,68 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { LuArrowDown } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { PERSONAL, SOCIAL_ICONS } from "@/constants";
 
-const STICKERS: { label: string; cat: string; style: React.CSSProperties; rotate: number; duration: number; delay: number }[] = [
-  { label: "TECH LEAD", cat: "var(--primary)", style: { top: "4%", left: "0%" }, rotate: -6, duration: 6.5, delay: 0 },
-  { label: "REACT · TS", cat: "var(--color-frontend)", style: { top: "0%", right: "2%" }, rotate: 5, duration: 5.5, delay: 0.8 },
-  { label: "FINTECH", cat: "var(--color-backend)", style: { top: "44%", left: "-4%" }, rotate: -4, duration: 7, delay: 0.3 },
-  { label: "FULL-STACK", cat: "var(--accent)", style: { top: "40%", right: "-2%" }, rotate: 3, duration: 6, delay: 1.2 },
-  { label: "CLOUD · AWS", cat: "var(--color-cloud)", style: { bottom: "4%", left: "2%" }, rotate: 4, duration: 5.8, delay: 0.6 },
-  { label: `${PERSONAL.yearsExperience}+ YEARS`, cat: "var(--color-ai)", style: { bottom: "0%", right: "4%" }, rotate: -3, duration: 6.8, delay: 1.0 },
+const STICKERS: {
+  label: string;
+  cat: string;
+  style: React.CSSProperties;
+  rotate: number;
+  duration: number;
+  delay: number;
+}[] = [
+  {
+    label: "TECH LEAD",
+    cat: "var(--primary)",
+    style: { top: "4%", left: "0%" },
+    rotate: -6,
+    duration: 6.5,
+    delay: 0,
+  },
+  {
+    label: "REACT · TS",
+    cat: "var(--color-frontend)",
+    style: { top: "0%", right: "2%" },
+    rotate: 5,
+    duration: 5.5,
+    delay: 0.8,
+  },
+  {
+    label: "FINTECH",
+    cat: "var(--color-backend)",
+    style: { top: "44%", left: "-4%" },
+    rotate: -4,
+    duration: 7,
+    delay: 0.3,
+  },
+  {
+    label: "FULL-STACK",
+    cat: "var(--accent)",
+    style: { top: "40%", right: "-2%" },
+    rotate: 3,
+    duration: 6,
+    delay: 1.2,
+  },
+  {
+    label: "CLOUD · AWS",
+    cat: "var(--color-cloud)",
+    style: { bottom: "4%", left: "2%" },
+    rotate: 4,
+    duration: 5.8,
+    delay: 0.6,
+  },
+  {
+    label: `${PERSONAL.yearsExperience}+ YEARS`,
+    cat: "var(--color-ai)",
+    style: { bottom: "0%", right: "4%" },
+    rotate: -3,
+    duration: 6.8,
+    delay: 1.0,
+  },
 ];
 
 /* ── Magnetic button wrapper ── */
@@ -24,19 +73,19 @@ function MagneticButton({ children, className, ...props }: React.ComponentProps<
   const springX = useSpring(x, { stiffness: 300, damping: 20 });
   const springY = useSpring(y, { stiffness: 300, damping: 20 });
 
-  const handleMouse = useCallback((e: React.MouseEvent) => {
+  const handleMouse = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     x.set((e.clientX - centerX) * 0.15);
     y.set((e.clientY - centerY) * 0.15);
-  }, [x, y]);
+  };
 
-  const handleLeave = useCallback(() => {
+  const handleLeave = () => {
     x.set(0);
     y.set(0);
-  }, [x, y]);
+  };
 
   return (
     <motion.div
@@ -54,32 +103,45 @@ function MagneticButton({ children, className, ...props }: React.ComponentProps<
 
 const Hero = () => {
   const spotlightRef = useRef<HTMLDivElement>(null);
+  const spotlightFrame = useRef(0);
+  const spotlightCoords = useRef({ x: 0, y: 0 });
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    window.dispatchEvent(new CustomEvent("nav:scroll-start"));
-    el.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollToNext = () => scrollToSection("timeline");
   const scrollToContact = () => scrollToSection("contact");
 
+  const handleSpotlightMove = (e: React.MouseEvent) => {
+    spotlightCoords.current = { x: e.clientX, y: e.clientY };
+    if (spotlightFrame.current) return;
+    spotlightFrame.current = requestAnimationFrame(() => {
+      spotlightFrame.current = 0;
+      const el = spotlightRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const { x, y } = spotlightCoords.current;
+      el.style.setProperty("--spotlight-x", `${x - rect.left}px`);
+      el.style.setProperty("--spotlight-y", `${y - rect.top}px`);
+      el.style.opacity = "1";
+    });
+  };
+
+  const handleSpotlightLeave = () => {
+    if (spotlightFrame.current) {
+      cancelAnimationFrame(spotlightFrame.current);
+      spotlightFrame.current = 0;
+    }
+    if (spotlightRef.current) spotlightRef.current.style.opacity = "0";
+  };
+
   return (
     <section
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      onMouseMove={(e) => {
-        const el = spotlightRef.current;
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        el.style.setProperty("--spotlight-x", `${e.clientX - rect.left}px`);
-        el.style.setProperty("--spotlight-y", `${e.clientY - rect.top}px`);
-        el.style.opacity = "1";
-      }}
-      onMouseLeave={() => {
-        if (spotlightRef.current) spotlightRef.current.style.opacity = "0";
-      }}
+      onMouseMove={handleSpotlightMove}
+      onMouseLeave={handleSpotlightLeave}
     >
       {/* Spotlight cursor follower */}
       <div
@@ -138,7 +200,8 @@ const Hero = () => {
             <motion.div
               className="absolute -inset-3 rounded-3xl opacity-60"
               style={{
-                background: "linear-gradient(135deg, var(--primary), var(--accent), var(--primary))",
+                background:
+                  "linear-gradient(135deg, var(--primary), var(--accent), var(--primary))",
                 backgroundSize: "200% 200%",
               }}
               animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
@@ -176,8 +239,18 @@ const Hero = () => {
               transition={{
                 opacity: { duration: 0.4, delay: 0.8 + i * 0.15 },
                 scale: { duration: 0.4, delay: 0.8 + i * 0.15 },
-                y: { duration: sticker.duration, repeat: Infinity, ease: "easeInOut", delay: sticker.delay },
-                rotate: { duration: sticker.duration, repeat: Infinity, ease: "easeInOut", delay: sticker.delay },
+                y: {
+                  duration: sticker.duration,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: sticker.delay,
+                },
+                rotate: {
+                  duration: sticker.duration,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: sticker.delay,
+                },
               }}
               whileHover={{ scale: 1.1, rotate: 0 }}
             >
@@ -193,8 +266,8 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto leading-relaxed mb-10"
         >
-          Full-stack engineer with {PERSONAL.yearsExperience}+ years crafting scalable
-          web applications and leading technical teams across{" "}
+          Full-stack engineer with {PERSONAL.yearsExperience}+ years crafting scalable web
+          applications and leading technical teams across{" "}
           <span className="text-emphasis">fintech</span>,{" "}
           <span className="text-accent-emphasis">SaaS</span>, and{" "}
           <span className="text-highlight">enterprise platforms</span>.
@@ -238,7 +311,9 @@ const Hero = () => {
             );
           })}
           <span className="text-border mx-2">|</span>
-          <span className="text-xs text-muted-foreground tracking-wide">Based in {PERSONAL.location}</span>
+          <span className="text-xs text-muted-foreground tracking-wide">
+            Based in {PERSONAL.location}
+          </span>
         </motion.div>
       </div>
 

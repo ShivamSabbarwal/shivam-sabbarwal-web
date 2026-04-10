@@ -1,69 +1,42 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LuSun, LuMoon, LuMenu, LuFileText } from "react-icons/lu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { NAV_ITEMS } from "@/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useActiveSection } from "@/hooks/useActiveSection";
+
+const NAV_SECTION_IDS = NAV_ITEMS.map((item) => item.href.substring(1));
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
   const { theme, isHydrated, toggleTheme } = useTheme();
   const isMobile = useIsMobile();
-  const navItems = NAV_ITEMS;
-
-  useEffect(() => {
-    let ticking = false;
-
-    const updateActiveSection = () => {
-      const sections = navItems.map(item => item.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateActiveSection);
-        ticking = true;
-      }
-    };
-
-    updateActiveSection();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [navItems]);
+  const activeSection = useActiveSection(NAV_SECTION_IDS, "-100px 0px -60% 0px");
 
   const handleNavClick = (href: string) => {
-    if (href.startsWith('#')) {
-      const hash = href.substring(1);
-      setActiveSection(hash);
-      const element = document.getElementById(hash);
-      if (element) {
-        window.dispatchEvent(new CustomEvent("nav:scroll-start"));
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+    if (href.startsWith("#")) {
+      const element = document.getElementById(href.substring(1));
+      element?.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
   };
 
   const openResume = () => {
     if (isMobile) {
-      window.open('/resume?print=true', '_blank');
+      window.open("/resume?print=true", "_blank");
     } else {
-      window.open('/resume', '_blank');
+      window.open("/resume", "_blank");
     }
   };
 
@@ -78,7 +51,7 @@ const Navigation = () => {
         <div className="flex items-center gap-1 sm:gap-2">
           {/* Desktop nav items */}
           <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Button
                 key={item.name}
                 onClick={() => handleNavClick(item.href)}
@@ -112,7 +85,7 @@ const Navigation = () => {
           >
             {!isHydrated ? (
               <span className="w-4 h-4" />
-            ) : theme === 'light' ? (
+            ) : theme === "light" ? (
               <LuMoon className="w-4 h-4" />
             ) : (
               <LuSun className="w-4 h-4" />
@@ -123,19 +96,12 @@ const Navigation = () => {
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger
               render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="md:hidden w-8 h-8 sm:w-9 sm:h-9"
-                />
+                <Button variant="ghost" size="icon" className="md:hidden w-8 h-8 sm:w-9 sm:h-9" />
               }
             >
               <LuMenu className="w-4 h-4" />
             </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-[300px] sm:w-[340px] z-60"
-            >
+            <SheetContent side="right" className="w-[300px] sm:w-[340px] z-60">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <SheetDescription className="sr-only">
                 Navigate through different sections of the portfolio
@@ -147,7 +113,7 @@ const Navigation = () => {
                 </div>
 
                 <div className="space-y-1">
-                  {navItems.map((item) => (
+                  {NAV_ITEMS.map((item) => (
                     <Button
                       key={item.name}
                       onClick={() => handleNavClick(item.href)}

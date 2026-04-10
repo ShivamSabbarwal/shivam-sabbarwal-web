@@ -20,12 +20,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default:
-      "Shivam Sabbarwal - Senior Software Engineer & Tech Lead",
+    default: "Shivam Sabbarwal - Senior Software Engineer & Tech Lead",
     template: "%s | Shivam Sabbarwal",
   },
-  description:
-    `Experienced full-stack software engineer with ${new Date().getFullYear() - 2018}+ years building scalable web applications. Specialized in React, Node.js, TypeScript, and modern web technologies. Available for consulting and new opportunities.`,
+  description: `Experienced full-stack software engineer with ${new Date().getFullYear() - 2018}+ years building scalable web applications. Specialized in React, Node.js, TypeScript, and modern web technologies. Available for consulting and new opportunities.`,
   keywords: [
     "software engineer",
     "full-stack developer",
@@ -62,11 +60,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"

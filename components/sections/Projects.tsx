@@ -20,8 +20,7 @@ const CreativeProjects = () => {
             Featured <span className="text-pop italic">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Key projects showcasing expertise in full-stack development
-            and innovative solutions.
+            Key projects showcasing expertise in full-stack development and innovative solutions.
           </p>
           <div className="accent-line w-24 mx-auto mt-6" />
         </motion.div>

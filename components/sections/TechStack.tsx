@@ -21,12 +21,19 @@ function AnimatedCounter({ value, suffix = "+" }: { value: number; suffix?: stri
 
   return (
     <span ref={ref} className="text-3xl font-semibold text-primary font-sans tabular-nums">
-      {display}{suffix}
+      {display}
+      {suffix}
     </span>
   );
 }
 
-function BentoCard({ category, index }: { category: typeof TECH_CATEGORIES[number]; index: number }) {
+function BentoCard({
+  category,
+  index,
+}: {
+  category: (typeof TECH_CATEGORIES)[number];
+  index: number;
+}) {
   const SectionIcon = category.sectionIcon;
 
   return (
@@ -38,7 +45,9 @@ function BentoCard({ category, index }: { category: typeof TECH_CATEGORIES[numbe
       className="surface-card p-5 sm:p-6"
     >
       <div className="flex items-center gap-2.5 mb-4">
-        <div className={`${category.colorClass} cat-chip w-8 h-8 rounded-lg flex items-center justify-center`}>
+        <div
+          className={`${category.colorClass} cat-chip w-8 h-8 rounded-lg flex items-center justify-center`}
+        >
           <SectionIcon className="w-4 h-4" />
         </div>
         <h3 className="text-base font-semibold text-foreground">{category.title}</h3>

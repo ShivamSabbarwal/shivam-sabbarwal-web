@@ -26,14 +26,7 @@ import {
   SiFigma,
 } from "react-icons/si";
 import PlaywrightIcon from "@/components/PlaywrightIcon";
-import {
-  LuCode,
-  LuServer,
-  LuCloud,
-  LuCpu,
-  LuShield,
-  LuLayers,
-} from "react-icons/lu";
+import { LuCode, LuServer, LuCloud, LuCpu, LuShield, LuLayers } from "react-icons/lu";
 
 // ─── Personal Info ───────────────────────────────────────────
 export const PERSONAL = {
@@ -52,17 +45,6 @@ export const PERSONAL = {
     { name: "Instagram", url: "https://instagram.com/shiv.sabb" },
   ],
 } as const;
-
-// ─── Hero Terminal Lines ─────────────────────────────────────
-export const TERMINAL_LINES = [
-  { type: "command" as const, prompt: "$", keyword: "whoami", delay: 60 },
-  { type: "output" as const, text: "Senior Software Engineer & Tech Lead", className: "terminal-string", delay: 30 },
-  { type: "output" as const, text: `# ${new Date().getFullYear() - 2018}+ years · fintech · full-stack · cloud`, className: "terminal-comment", delay: 20 },
-  { type: "command" as const, prompt: "$", keyword: "cat stack.json", delay: 60 },
-  { type: "output" as const, text: "{ react, node, typescript, aws, postgres }", className: "terminal-string", delay: 30 },
-  { type: "command" as const, prompt: "$", keyword: "echo $STATUS", delay: 60 },
-  { type: "output" as const, text: "open to opportunities", className: "terminal-string", delay: 30 },
-];
 
 // ─── Timeline / Experience ───────────────────────────────────
 export const TIMELINE = [
@@ -193,10 +175,7 @@ export const TIMELINE = [
     year: "2014",
     description:
       "Comprehensive software engineering education with co-op certification and biomedical engineering minor.",
-    achievements: [
-      "Co-op Certification Program",
-      "Minor in Biomedical Engineering",
-    ],
+    achievements: ["Co-op Certification Program", "Minor in Biomedical Engineering"],
     type: "completed" as const,
     category: "education" as const,
   },
@@ -327,7 +306,16 @@ export const RESUME_EXPERIENCE = [
       "Introduced modern developer tooling standards by adopting oxlint and the oxc formatter for faster linting and formatting, and established TypeScript-first coding standards across the frontend codebase",
       "Currently driving core vector layer optimization for ArcGIS map rendering, profiling and re-architecting data pipelines to improve geospatial visualization performance",
     ],
-    skills: ["React 19", "TypeScript", "Redux Toolkit", "ESRI/ArcGIS", "PostHog", "Sentry", "Docker", "AWS"],
+    skills: [
+      "React 19",
+      "TypeScript",
+      "Redux Toolkit",
+      "ESRI/ArcGIS",
+      "PostHog",
+      "Sentry",
+      "Docker",
+      "AWS",
+    ],
   },
   {
     title: "Chief Technology Officer (CTO)",
@@ -342,7 +330,18 @@ export const RESUME_EXPERIENCE = [
       "Designed and implemented a GDPR-compliant user consent framework from architecture through production, establishing privacy-by-design patterns across all customer-facing applications",
       "Established engineering standards, CI/CD pipelines (Docker + Kubernetes), code review processes, and scalable deployment infrastructure that reduced property sale processing time by 60%",
     ],
-    skills: ["React", "Node.js", "PostgreSQL", "AWS", "Docker", "Kubernetes", "TypeScript", "Banking APIs", "System Design", "Compliance"],
+    skills: [
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "TypeScript",
+      "Banking APIs",
+      "System Design",
+      "Compliance",
+    ],
   },
   {
     title: "Senior Software Engineer",
@@ -356,7 +355,18 @@ export const RESUME_EXPERIENCE = [
       "Led the improvement and modernization of the internal UI component library, rebuilding it on Radix UI Primitives with TailwindCSS and establishing component standards adopted across all product teams",
       "Developed the Smart Customer Segments platform for real-time audience targeting, delivering a key feature that improved client engagement and acquisition metrics",
     ],
-    skills: ["React", "Redux", "Node.js", "AWS", "PostgreSQL", "WebSockets", "Python", "Django", "Express.js", "TailwindCSS"],
+    skills: [
+      "React",
+      "Redux",
+      "Node.js",
+      "AWS",
+      "PostgreSQL",
+      "WebSockets",
+      "Python",
+      "Django",
+      "Express.js",
+      "TailwindCSS",
+    ],
   },
   {
     title: "Full-Stack Developer",
@@ -369,12 +379,30 @@ export const RESUME_EXPERIENCE = [
       "Developed interactive financial dashboards using D3.js, Recharts, and Ant Design, giving clients real-time visibility into portfolio performance and analytics",
       "Optimized a financial analytics microservice by improving data processing pipelines, visualization performance, and reducing dashboard load times",
     ],
-    skills: ["React", "Node.js", "Python", "AWS", "WebRTC", "MongoDB", "Express.js", "Flask", "D3.js"],
+    skills: [
+      "React",
+      "Node.js",
+      "Python",
+      "AWS",
+      "WebRTC",
+      "MongoDB",
+      "Express.js",
+      "Flask",
+      "D3.js",
+    ],
   },
 ];
 
 export const RESUME_SKILLS: Record<string, string[]> = {
-  Frontend: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion", "Vite", "React Native"],
+  Frontend: [
+    "React",
+    "TypeScript",
+    "Next.js",
+    "Tailwind CSS",
+    "Framer Motion",
+    "Vite",
+    "React Native",
+  ],
   Backend: ["Node.js", "Python", "Go", "PostgreSQL", "MongoDB", "Redis", "Serverless"],
   "Cloud & DevOps": ["AWS", "Vercel", "Cloudflare", "Docker", "CI/CD", "Terraform", "Kubernetes"],
   "AI & Dev Tools": ["OpenAI API", "LangChain", "Vitest", "Jest", "Playwright", "Git", "Figma"],

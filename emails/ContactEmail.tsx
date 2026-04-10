@@ -57,9 +57,7 @@ export function ContactEmail({ name, email, phone, message }: ContactEmailProps)
           </Section>
 
           <Hr style={hr} />
-          <Text style={footer}>
-            Sent via the contact form at shivamsabbarwal.dev
-          </Text>
+          <Text style={footer}>Sent via the contact form at shivamsabbarwal.dev</Text>
         </Container>
       </Body>
     </Html>
@@ -68,8 +66,7 @@ export function ContactEmail({ name, email, phone, message }: ContactEmailProps)
 
 const body = {
   backgroundColor: "#f6f9fc",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
 };
 
 const container = {

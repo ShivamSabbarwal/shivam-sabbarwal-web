@@ -1,8 +1,4 @@
-"use client";
-
 import { LuPrinter } from "react-icons/lu";
-import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
 import "./resume.css";
 
 import Education from "./components/Education";
@@ -10,6 +6,7 @@ import Experience from "./components/Experience";
 import Header from "./components/Header";
 import ProfessionalSummary from "./components/ProfessionalSummary";
 import Skills from "./components/Skills";
+import { MobilePrintButton, FloatingPrintButton } from "./PrintButton";
 
 const Resume = () => (
   <>
@@ -25,10 +22,7 @@ const Resume = () => (
             For the best experience, view on a larger screen or save as a PDF.
           </p>
         </div>
-        <Button onClick={window.print} className="w-full">
-          <LuPrinter className="w-4 h-4 mr-2" />
-          Print / Save as PDF
-        </Button>
+        <MobilePrintButton />
       </div>
     </div>
 
@@ -45,23 +39,7 @@ const Resume = () => (
       </div>
     </div>
 
-    {/* Print button — desktop only */}
-    <div className="fixed bottom-8 right-8 print:hidden hidden sm:block">
-      <motion.div
-        whileHover={{ scale: 1.05, y: -3 }}
-        whileTap={{ scale: 0.95, y: 1 }}
-        transition={{ duration: 0.1, ease: "easeOut" }}
-      >
-        <Button
-          onClick={window.print}
-          className="px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg normal-case shadow-lg"
-          aria-label="Print resume"
-        >
-          <LuPrinter className="h-5 w-5" />
-          <span className="ml-2">Print Resume</span>
-        </Button>
-      </motion.div>
-    </div>
+    <FloatingPrintButton />
   </>
 );
 

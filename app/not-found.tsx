@@ -11,9 +11,7 @@ export default function NotFound() {
 
       <div className="text-center space-y-8 px-4 relative">
         <div className="space-y-6">
-          <h1 className="text-7xl sm:text-9xl font-normal tracking-tight text-primary/20">
-            404
-          </h1>
+          <h1 className="text-7xl sm:text-9xl font-normal tracking-tight text-primary/20">404</h1>
           <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-foreground">
             Page not found
           </h2>

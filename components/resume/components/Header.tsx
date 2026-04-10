@@ -6,9 +6,7 @@ const Header = () => {
     <header className="mb-4">
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-wide text-primary">
-            {RESUME_HEADER.name}
-          </h1>
+          <h1 className="text-3xl font-bold tracking-wide text-primary">{RESUME_HEADER.name}</h1>
           <p className="text-base text-accent mt-1">{RESUME_HEADER.title}</p>
         </div>
 

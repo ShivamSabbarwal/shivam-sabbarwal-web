@@ -1,16 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState, forwardRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { LuCalendar, LuMapPin, LuBuilding2, LuAward, LuGraduationCap, LuChevronDown } from "react-icons/lu";
+import {
+  LuCalendar,
+  LuMapPin,
+  LuBuilding2,
+  LuAward,
+  LuGraduationCap,
+  LuChevronDown,
+} from "react-icons/lu";
 import { Badge } from "@/components/ui/badge";
 import { TIMELINE } from "@/constants";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
-const TimelineCard = forwardRef<HTMLDivElement, { item: (typeof TIMELINE)[number]; expanded: boolean }>(
-  function TimelineCard({ item, expanded }, ref) {
+const TIMELINE_CARD_IDS = TIMELINE.map((item) => `timeline-card-${item.id}`);
+
+const TimelineCard = ({
+  item,
+  expanded,
+}: {
+  item: (typeof TIMELINE)[number];
+  expanded: boolean;
+}) => {
   return (
     <div
-      ref={ref}
       className={`surface-card p-5 sm:p-6 select-none ${
         item.type === "current"
           ? "border-l-3 border-l-primary"
@@ -39,10 +52,7 @@ const TimelineCard = forwardRef<HTMLDivElement, { item: (typeof TIMELINE)[number
               Current
             </Badge>
           )}
-          <motion.div
-            animate={{ rotate: expanded ? 180 : 0 }}
-            transition={{ duration: 0.25 }}
-          >
+          <motion.div animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
             <LuChevronDown className="w-4 h-4 text-muted-foreground" />
           </motion.div>
         </div>
@@ -91,71 +101,10 @@ const TimelineCard = forwardRef<HTMLDivElement, { item: (typeof TIMELINE)[number
       </AnimatePresence>
     </div>
   );
-});
+};
 
 const Timeline = () => {
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    let ticking = false;
-    let suppressed = false;
-    let suppressTimer: ReturnType<typeof setTimeout> | null = null;
-
-    const findActive = () => {
-      ticking = false;
-      if (suppressed) return;
-      const viewportCenter = window.innerHeight / 2;
-      let bestIdx = 0;
-      let bestDist = Infinity;
-      cardRefs.current.forEach((el, idx) => {
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const dist = Math.abs(center - viewportCenter);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIdx = idx;
-        }
-      });
-      setActiveIndex(bestIdx);
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(findActive);
-        ticking = true;
-      }
-    };
-    const release = () => {
-      suppressed = false;
-      if (suppressTimer) {
-        clearTimeout(suppressTimer);
-        suppressTimer = null;
-      }
-      window.removeEventListener("scrollend", release);
-      findActive();
-    };
-    const onNavStart = () => {
-      suppressed = true;
-      if (suppressTimer) clearTimeout(suppressTimer);
-      // Hold until smooth-scroll settles; scrollend fires when it does,
-      // and a safety timeout releases in case scrollend isn't supported.
-      window.addEventListener("scrollend", release, { once: true });
-      suppressTimer = setTimeout(release, 1500);
-    };
-
-    findActive();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", findActive);
-    window.addEventListener("nav:scroll-start", onNavStart);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", findActive);
-      window.removeEventListener("nav:scroll-start", onNavStart);
-      window.removeEventListener("scrollend", release);
-      if (suppressTimer) clearTimeout(suppressTimer);
-    };
-  }, []);
+  const activeId = useActiveSection(TIMELINE_CARD_IDS, "-50% 0px -50% 0px");
 
   return (
     <section id="timeline" className="py-20 sm:py-28 relative section-timeline-bg">
@@ -224,9 +173,7 @@ const Timeline = () => {
                           : "bg-background border border-border text-primary"
                     }`}
                   >
-                    <span className="text-xs font-bold font-sans tracking-wider">
-                      {item.year}
-                    </span>
+                    <span className="text-xs font-bold font-sans tracking-wider">{item.year}</span>
                   </motion.div>
                   {item.type === "current" && (
                     <motion.div
@@ -239,19 +186,12 @@ const Timeline = () => {
 
                 {/* Content Card */}
                 <div
+                  id={`timeline-card-${item.id}`}
                   className={`ml-24 flex-1 min-w-0 md:flex-none md:ml-0 md:w-[44%] ${
-                    index % 2 === 0
-                      ? "md:mr-auto md:pr-12"
-                      : "md:ml-auto md:pl-12"
+                    index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"
                   }`}
                 >
-                  <TimelineCard
-                    item={item}
-                    expanded={activeIndex === index}
-                    ref={(el) => {
-                      cardRefs.current[index] = el;
-                    }}
-                  />
+                  <TimelineCard item={item} expanded={activeId === `timeline-card-${item.id}`} />
                 </div>
               </motion.div>
             ))}

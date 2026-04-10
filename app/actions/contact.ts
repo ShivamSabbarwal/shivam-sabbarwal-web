@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 export async function sendContactEmail(data: ContactFormData) {
   const fullName = `${data.firstName} ${data.lastName}`;
   const html = await render(
-    ContactEmail({ name: fullName, email: data.email, phone: data.phone, message: data.message })
+    ContactEmail({ name: fullName, email: data.email, phone: data.phone, message: data.message }),
   );
 
   await transporter.sendMail({
