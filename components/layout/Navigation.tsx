@@ -13,7 +13,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NAV_ITEMS, PERSONAL } from "@/constants";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
 const NAV_SECTION_IDS = NAV_ITEMS.map((item) => item.href.substring(1));
@@ -21,7 +20,6 @@ const NAV_SECTION_IDS = NAV_ITEMS.map((item) => item.href.substring(1));
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, isHydrated, toggleTheme } = useTheme();
-  const isMobile = useIsMobile();
   const activeSection = useActiveSection(NAV_SECTION_IDS, "-100px 0px -60% 0px");
 
   const { scrollYProgress } = useScroll();
@@ -43,8 +41,10 @@ const Navigation = () => {
     }
   };
 
+  /* Deliberately no `?print=true` on mobile: firing the print dialog on arrival
+     leaves no chance to pick which resume version to print. */
   const openResume = () => {
-    window.open(isMobile ? "/resume?print=true" : "/resume", "_blank");
+    window.open("/resume", "_blank");
   };
 
   return (
@@ -96,7 +96,7 @@ const Navigation = () => {
             size="icon"
             onClick={openResume}
             className="h-11 w-11 xl:h-9 xl:w-9"
-            aria-label={isMobile ? "Print Resume" : "Open Resume"}
+            aria-label="Open resume"
           >
             <LuFileText className="h-4 w-4" />
           </Button>

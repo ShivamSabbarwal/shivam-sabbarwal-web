@@ -54,7 +54,7 @@ lib/utils.ts               # cn() helper
 | Route     | Purpose                                                              |
 | --------- | -------------------------------------------------------------------- |
 | `/`       | Main portfolio: Hero, Career, Capabilities, Work, Contact            |
-| `/resume` | Printable resume (`?print=true` auto-opens the browser print dialog) |
+| `/resume` | Printable resume; `?variant=leader` selects the leadership version and `?print=true` auto-opens the print dialog |
 
 ## Prerequisites
 
