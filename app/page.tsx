@@ -9,55 +9,57 @@ const CreativeProjects = dynamic(() => import("@/components/sections/Projects"))
 const Contact = dynamic(() => import("@/components/sections/Contact"));
 
 const BASE_URL = "https://shivamsabbarwal.dev";
+const YEARS = new Date().getFullYear() - 2018;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Shivam Sabbarwal",
   jobTitle: "Senior Software Engineer",
-  description:
-    "Full-stack software engineer with over 7 years of experience building scalable web applications and innovative digital solutions",
+  description: `Engineering leader with ${YEARS}+ years building production systems across fintech, SaaS, and enterprise platforms, including the architecture and delivery of a regulated cross-border payments platform used in four countries.`,
   url: BASE_URL,
   image: `${BASE_URL}/assets/profile-pic.jpg`,
   sameAs: ["https://www.github.com/shivamsabbarwal", "https://www.linkedin.com/in/shivamsabbarwal"],
   knowsAbout: [
-    "Software Engineering",
+    "Engineering Leadership",
+    "Software Architecture",
     "Full-Stack Development",
     "React",
     "Node.js",
     "TypeScript",
-    "JavaScript",
-    "Web Development",
-    "Software Architecture",
+    "System Design",
+    "Fintech",
   ],
   hasOccupation: {
     "@type": "Occupation",
-    name: "Software Engineer",
-    description: "Full-stack software engineer specializing in modern web technologies",
+    name: "Senior Software Engineer",
+    description:
+      "Engineering leader focused on system architecture, technical strategy, and product delivery",
+  },
+  worksFor: {
+    "@type": "Organization",
+    name: "Cardata",
   },
 };
 
 export const metadata: Metadata = {
-  title: "Shivam Sabbarwal - Senior Software Engineer & Full-Stack Developer",
-  description:
-    "Experienced full-stack software engineer with 7+ years building scalable web applications. Specialized in React, Node.js, TypeScript, and modern web technologies. Available for consulting and new opportunities.",
+  title: "Shivam Sabbarwal | Engineering Leader",
+  description: `Engineering leader with ${YEARS}+ years building production systems across fintech, SaaS, and enterprise platforms. Former CTO at Remittor AI, now a Senior Software Engineer at Cardata.`,
   keywords: [
-    "software engineer",
-    "full-stack developer",
-    "React",
-    "Node.js",
-    "TypeScript",
-    "web development",
-    "software consultant",
+    "engineering leader",
+    "engineering manager",
+    "VP of engineering",
+    "senior software engineer",
+    "software architecture",
+    "Cardata",
     "Shivam Sabbarwal",
     "portfolio",
   ],
   openGraph: {
     type: "website",
     url: BASE_URL,
-    title: "Shivam Sabbarwal - Senior Software Engineer & Full-Stack Developer",
-    description:
-      "Experienced full-stack software engineer with 7+ years building scalable web applications.",
+    title: "Shivam Sabbarwal | Engineering Leader",
+    description: `Builds the systems companies run on and the teams that keep them running. ${YEARS}+ years across fintech, SaaS, and enterprise platforms.`,
   },
   alternates: {
     canonical: BASE_URL,

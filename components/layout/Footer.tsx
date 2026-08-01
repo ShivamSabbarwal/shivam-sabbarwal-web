@@ -1,19 +1,43 @@
 import { LuArrowUp } from "react-icons/lu";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { NAV_ITEMS, PERSONAL, SOCIAL_ICONS } from "@/constants";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <h3 className="text-lg font-normal tracking-tight">{PERSONAL.name}</h3>
-            <div className="flex gap-2">
+    <footer className="slab scanlines relative overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-primary via-accent to-transparent" />
+
+      <div className="relative mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="hud-label mb-3 text-primary">Thanks for scrolling</p>
+            {/* A wordmark, not a heading: keeps the outline clean below Contact. */}
+            <p className="font-heading text-[clamp(2.25rem,7vw,4rem)] leading-[0.9] font-bold tracking-tight">
+              {PERSONAL.name.split(" ")[0]}
+              <br />
+              <span className="text-primary">{PERSONAL.name.split(" ")[1]}</span>
+            </p>
+            <p className="text-muted-foreground mt-4 max-w-xs text-[15px] leading-relaxed">
+              Engineering leadership that still opens the editor.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-8 lg:items-end">
+            <nav className="flex flex-wrap gap-x-5 gap-y-2.5 lg:justify-end">
+              {NAV_ITEMS.map((link, index) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-muted-foreground hover:text-primary font-mono text-[11px] font-semibold tracking-[0.16em] uppercase transition-colors"
+                >
+                  <span className="mr-1.5 opacity-50">{`0${index + 1}`}</span>
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex flex-wrap items-center gap-2 lg:justify-end">
               {PERSONAL.socials.map((social) => {
                 const Icon = SOCIAL_ICONS[social.name as keyof typeof SOCIAL_ICONS];
                 return (
@@ -22,41 +46,29 @@ const Footer = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg text-muted-foreground hover:text-primary transition-colors duration-200"
+                    className="border-bone/15 text-muted-foreground hover:border-primary hover:text-primary flex h-11 w-11 items-center justify-center rounded-lg border-[1.5px] transition-colors"
                     aria-label={social.name}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="h-4 w-4" />
                   </a>
                 );
               })}
+              <a
+                href="#home"
+                className="border-bone/15 text-muted-foreground hover:border-primary hover:text-primary ml-1 flex h-11 w-11 items-center justify-center rounded-lg border-[1.5px] transition-colors"
+                aria-label="Scroll to top"
+              >
+                <LuArrowUp className="h-4 w-4" />
+              </a>
             </div>
           </div>
-
-          <div className="flex flex-wrap justify-center gap-6">
-            {NAV_ITEMS.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-
-          <a
-            href="#home"
-            className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "w-8 h-8")}
-            aria-label="Scroll to top"
-          >
-            <LuArrowUp className="w-4 h-4" />
-          </a>
         </div>
 
-        <div className="border-t border-border mt-6 pt-4 text-center">
-          <p className="text-muted-foreground text-xs">
-            &copy; {currentYear} {PERSONAL.name}. Built with Next.js, TypeScript & Tailwind CSS.
+        <div className="border-bone/12 mt-12 flex flex-col gap-2 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="hud-label">
+            &copy; {currentYear} {PERSONAL.name}
           </p>
+          <p className="hud-label">Built by hand with Next.js and TypeScript</p>
         </div>
       </div>
     </footer>

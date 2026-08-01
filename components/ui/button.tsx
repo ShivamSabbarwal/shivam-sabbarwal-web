@@ -15,14 +15,14 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground rounded-xl hover:bg-secondary/80 transition-all duration-200 font-semibold",
         ghost:
-          "hover:bg-secondary/80 hover:text-foreground border border-transparent hover:border-border/50 rounded-lg transition-all duration-200",
+          "hover:bg-secondary/80 hover:text-foreground border border-transparent hover:border-border/50 rounded-xl transition-all duration-200",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-11 px-6 py-2.5 has-[>svg]:px-4",
-        sm: "h-9 rounded-lg gap-1.5 px-3.5 text-xs has-[>svg]:px-2.5",
+        sm: "h-9 rounded-xl gap-1.5 px-3.5 text-xs has-[>svg]:px-2.5",
         lg: "h-12 rounded-xl px-8 has-[>svg]:px-6 text-base",
-        icon: "size-10 rounded-lg",
+        icon: "size-10 rounded-xl",
       },
     },
     defaultVariants: {

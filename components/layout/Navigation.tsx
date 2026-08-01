@@ -1,18 +1,18 @@
 "use client";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { useState } from "react";
-import { LuSun, LuMoon, LuMenu, LuFileText } from "react-icons/lu";
+import { LuArrowRight, LuFileText, LuMenu, LuMoon, LuSun, LuX } from "react-icons/lu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetTrigger,
-  SheetTitle,
   SheetDescription,
+  SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
-import { NAV_ITEMS } from "@/constants";
+import { NAV_ITEMS, PERSONAL } from "@/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
@@ -24,111 +24,213 @@ const Navigation = () => {
   const isMobile = useIsMobile();
   const activeSection = useActiveSection(NAV_SECTION_IDS, "-100px 0px -60% 0px");
 
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 26, restDelta: 0.001 });
+
   const handleNavClick = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.getElementById(href.substring(1));
-      element?.scrollIntoView({ behavior: "smooth" });
-    }
+    const fromSheet = isMobileMenuOpen;
     setIsMobileMenuOpen(false);
+    if (!href.startsWith("#")) return;
+    const target = document.getElementById(href.substring(1));
+    if (!target) return;
+
+    // The sheet locks body scroll while open, so a jump fired from inside it
+    // has to wait for the close animation or it gets swallowed.
+    if (fromSheet) {
+      setTimeout(() => target.scrollIntoView({ behavior: "smooth" }), 260);
+    } else {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const openResume = () => {
-    if (isMobile) {
-      window.open("/resume?print=true", "_blank");
-    } else {
-      window.open("/resume", "_blank");
-    }
+    window.open(isMobile ? "/resume?print=true" : "/resume", "_blank");
   };
 
   return (
     <motion.nav
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed z-40 top-3 sm:top-4 left-1/2 -translate-x-1/2 w-auto max-w-fit rounded-xl sm:rounded-2xl nav-dock"
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className="nav-dock fixed top-3 left-1/2 z-40 w-auto max-w-[calc(100%-1.5rem)] -translate-x-1/2 overflow-hidden rounded-xl sm:top-4"
     >
-      <div className="px-3 sm:px-5 py-2 sm:py-2.5">
-        <div className="flex items-center gap-1 sm:gap-2">
-          {/* Desktop nav items */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <Button
-                key={item.name}
-                onClick={() => handleNavClick(item.href)}
-                variant={activeSection === item.href.substring(1) ? "default" : "ghost"}
-                size="sm"
-                className="text-xs font-medium px-3 py-1.5"
-              >
-                {item.name}
-              </Button>
-            ))}
+      <div className="px-2 py-1.5 sm:px-2.5 sm:py-2">
+        <div className="flex items-center gap-1 sm:gap-1.5">
+          <div className="hidden items-center gap-0.5 md:flex">
+            {NAV_ITEMS.map((item, index) => {
+              const active = activeSection === item.href.substring(1);
+              return (
+                <button
+                  key={item.name}
+                  type="button"
+                  onClick={() => handleNavClick(item.href)}
+                  aria-current={active ? "true" : undefined}
+                  className="relative flex min-h-11 items-center rounded-md px-3 py-2 transition-colors xl:min-h-9"
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      className="absolute inset-0 rounded-md bg-primary"
+                    />
+                  )}
+                  <span
+                    className={`relative font-mono text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors ${
+                      active
+                        ? "text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <span className="mr-1.5 opacity-50">{`0${index + 1}`}</span>
+                    {item.name}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Resume */}
+          <div className="mx-1 hidden h-6 w-px bg-border md:block" />
+
           <Button
             variant="ghost"
             size="icon"
             onClick={openResume}
-            className="w-8 h-8 sm:w-9 sm:h-9"
+            className="h-11 w-11 xl:h-9 xl:w-9"
             aria-label={isMobile ? "Print Resume" : "Open Resume"}
           >
-            <LuFileText className="w-4 h-4" />
+            <LuFileText className="h-4 w-4" />
           </Button>
 
-          {/* Theme Toggle */}
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="w-8 h-8 sm:w-9 sm:h-9"
+            className="h-11 w-11 xl:h-9 xl:w-9"
             aria-label="Toggle theme"
           >
             {!isHydrated ? (
-              <span className="w-4 h-4" />
+              <span className="h-4 w-4" />
             ) : theme === "light" ? (
-              <LuMoon className="w-4 h-4" />
+              <LuMoon className="h-4 w-4" />
             ) : (
-              <LuSun className="w-4 h-4" />
+              <LuSun className="h-4 w-4" />
             )}
           </Button>
 
-          {/* Mobile Menu */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger
-              render={
-                <Button variant="ghost" size="icon" className="md:hidden w-8 h-8 sm:w-9 sm:h-9" />
-              }
+              render={<Button variant="ghost" size="icon" className="h-11 w-11 md:hidden" />}
+              aria-label="Open menu"
             >
-              <LuMenu className="w-4 h-4" />
+              {isMobileMenuOpen ? <LuX className="h-5 w-5" /> : <LuMenu className="h-5 w-5" />}
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[340px] z-60">
+            <SheetContent
+              side="bottom"
+              showCloseButton={false}
+              className="mobile-menu-mesh slab inset-0 z-60 h-[100dvh] max-h-[100dvh] w-full max-w-none border-0 p-0 data-ending-style:translate-y-4 data-starting-style:translate-y-4"
+            >
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <SheetDescription className="sr-only">
-                Navigate through different sections of the portfolio
+                Jump to any section of the site
               </SheetDescription>
 
-              <div className="mt-12 mx-2 space-y-6">
-                <div className="pb-6 border-b border-border">
-                  <h2 className="text-2xl font-normal tracking-tight">Navigation</h2>
+              <div className="flex h-full flex-col px-5 pt-5 pb-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="hud-label mb-2 text-primary">Jump to</p>
+                    <h2 className="font-heading text-[2rem] leading-[0.95] tracking-tight">
+                      Where to <span className="text-primary italic">next?</span>
+                    </h2>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-12 w-12 shrink-0"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label="Close menu"
+                  >
+                    <LuX className="h-5 w-5" />
+                  </Button>
                 </div>
 
-                <div className="space-y-1">
-                  {NAV_ITEMS.map((item) => (
+                <nav className="flex flex-1 flex-col justify-center gap-1.5 py-6">
+                  <AnimatePresence>
+                    {isMobileMenuOpen &&
+                      NAV_ITEMS.map((item, index) => {
+                        const active = activeSection === item.href.substring(1);
+                        return (
+                          <motion.button
+                            key={item.name}
+                            type="button"
+                            initial={{ opacity: 0, x: -28 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 12 }}
+                            transition={{
+                              duration: 0.35,
+                              delay: 0.04 + index * 0.055,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                            onClick={() => handleNavClick(item.href)}
+                            className={`group flex min-h-[60px] items-center gap-4 rounded-lg border-[1.5px] px-4 py-3 text-left transition-colors ${
+                              active
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : "border-bone/15 bg-bone/[0.04] active:border-primary/60"
+                            }`}
+                          >
+                            <span
+                              className={`font-mono text-xs font-bold tracking-[0.2em] ${
+                                active ? "text-primary-foreground/60" : "text-primary"
+                              }`}
+                            >
+                              {`0${index + 1}`}
+                            </span>
+                            <span className="font-heading flex-1 text-[1.65rem] leading-none tracking-tight">
+                              {item.name}
+                            </span>
+                            <LuArrowRight
+                              className={`h-5 w-5 shrink-0 transition-transform group-active:translate-x-1 ${
+                                active ? "opacity-70" : "opacity-40"
+                              }`}
+                            />
+                          </motion.button>
+                        );
+                      })}
+                  </AnimatePresence>
+                </nav>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.36 }}
+                >
+                  <p className="hud-label mb-3">{PERSONAL.location} · Open to work</p>
+                  <div className="grid grid-cols-2 gap-2.5">
                     <Button
-                      key={item.name}
-                      onClick={() => handleNavClick(item.href)}
-                      variant={activeSection === item.href.substring(1) ? "default" : "ghost"}
-                      className="w-full justify-start text-left text-base py-3 px-4"
+                      variant="outline"
+                      className="h-12"
+                      onClick={() => {
+                        openResume();
+                        setIsMobileMenuOpen(false);
+                      }}
                     >
-                      {item.name}
+                      Resume
                     </Button>
-                  ))}
-                </div>
+                    <Button className="h-12" onClick={() => handleNavClick("#contact")}>
+                      Contact
+                    </Button>
+                  </div>
+                </motion.div>
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
+
+      <motion.div
+        style={{ scaleX: progress }}
+        className="absolute inset-x-0 bottom-0 h-[3px] origin-left bg-primary"
+        aria-hidden
+      />
     </motion.nav>
   );
 };

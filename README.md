@@ -1,6 +1,6 @@
-# Shivam Sabbarwal — Portfolio
+# Shivam Sabbarwal Portfolio
 
-Personal portfolio site at [shivamsabbarwal.dev](https://shivamsabbarwal.dev). Senior Software Engineer, Tech Lead, and former CTO with 7+ years across fintech, SaaS, and enterprise platforms.
+Personal portfolio site at [shivamsabbarwal.dev](https://shivamsabbarwal.dev). Engineering leader and former CTO, currently Senior Software Engineer at Cardata, with 8+ years across fintech, SaaS, geospatial, and enterprise platforms.
 
 ## Stack
 
@@ -53,7 +53,7 @@ lib/utils.ts               # cn() helper
 
 | Route     | Purpose                                                              |
 | --------- | -------------------------------------------------------------------- |
-| `/`       | Main portfolio: Hero, Timeline, TechStack, Projects, Contact         |
+| `/`       | Main portfolio: Hero, Career, Capabilities, Work, Contact            |
 | `/resume` | Printable resume (`?print=true` auto-opens the browser print dialog) |
 
 ## Prerequisites
@@ -88,9 +88,12 @@ Generate an app password at [myaccount.google.com/apppasswords](https://myaccoun
 ## Architecture notes
 
 - **Server-first.** Layouts and static sections are React Server Components wherever possible; `"use client"` is reserved for hooks, browser APIs, Motion, and form state.
-- **React Compiler.** Enabled in `next.config.ts` — no manual `useMemo`/`useCallback`/`React.memo` anywhere in the codebase; the compiler handles memoization.
+- **React Compiler.** Enabled in `next.config.ts`, so there is no manual `useMemo`/`useCallback`/`React.memo` anywhere in the codebase; the compiler handles memoization.
 - **No external theme library.** `contexts/ThemeContext.tsx` manages light/dark, persists to `localStorage`, and swaps the favicon on theme change.
 - **Content is data.** All timeline entries, projects, tech categories, and resume data live in `constants/content.ts` and are imported directly by the components that render them.
+- **Visual system.** VOLTWORKS studio pop: Bricolage Grotesque + Schibsted Grotesk, acid lime and electric magenta on bone paper over green-graphite ink. Interactive hero, scroll-expanding timeline, parallax employer marquee, full-screen mobile menu. The playful, game-like feel is carried entirely by motion, layout, and interaction; the copy stays plain professional English.
+- **Career numbers live once.** The real metrics sit inside the timeline entry for the role that produced them, rather than being repeated across sections.
+- **Same experience at every size.** Content and signature effects are adapted through scale, count, and reflow rather than hidden behind breakpoints. Motion timing is centralized in `lib/motion.ts`, and every heavier effect is gated on `prefers-reduced-motion`.
 - **Sections are dynamically imported** via `next/dynamic` on the home page to keep the initial bundle lean.
 
 ## Deployment
@@ -99,7 +102,7 @@ Deployed on [Vercel](https://vercel.com). Build command: `bun run build`. Output
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
 
 ## Contact
 

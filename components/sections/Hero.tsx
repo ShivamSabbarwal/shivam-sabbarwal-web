@@ -1,98 +1,93 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties, ComponentProps, MouseEvent, ReactNode } from "react";
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { LuArrowDown } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { PERSONAL, SOCIAL_ICONS } from "@/constants";
+import { DURATION, EASE_OUT, EASE_REVEAL } from "@/lib/motion";
 
 const STICKERS: {
   label: string;
   cat: string;
-  style: React.CSSProperties;
+  style: CSSProperties;
   rotate: number;
   duration: number;
   delay: number;
 }[] = [
   {
-    label: "TECH LEAD",
-    cat: "var(--primary)",
-    style: { top: "4%", left: "0%" },
-    rotate: -6,
-    duration: 6.5,
+    label: "0 TO 1",
+    cat: "cat-frontend",
+    style: { top: "-3%", left: "-8%" },
+    rotate: -8,
+    duration: 6.2,
     delay: 0,
   },
   {
-    label: "REACT · TS",
-    cat: "var(--color-frontend)",
-    style: { top: "0%", right: "2%" },
-    rotate: 5,
-    duration: 5.5,
-    delay: 0.8,
-  },
-  {
     label: "FINTECH",
-    cat: "var(--color-backend)",
-    style: { top: "44%", left: "-4%" },
-    rotate: -4,
-    duration: 7,
-    delay: 0.3,
+    cat: "cat-backend",
+    style: { top: "8%", right: "-9%" },
+    rotate: 7,
+    duration: 5.4,
+    delay: 0.7,
   },
   {
-    label: "FULL-STACK",
-    cat: "var(--accent)",
-    style: { top: "40%", right: "-2%" },
-    rotate: 3,
-    duration: 6,
-    delay: 1.2,
-  },
-  {
-    label: "CLOUD · AWS",
-    cat: "var(--color-cloud)",
-    style: { bottom: "4%", left: "2%" },
-    rotate: 4,
-    duration: 5.8,
-    delay: 0.6,
-  },
-  {
-    label: `${PERSONAL.yearsExperience}+ YEARS`,
-    cat: "var(--color-ai)",
-    style: { bottom: "0%", right: "4%" },
-    rotate: -3,
+    label: "PLATFORMS",
+    cat: "cat-cloud",
+    style: { top: "44%", left: "-11%" },
+    rotate: -5,
     duration: 6.8,
-    delay: 1.0,
+    delay: 0.35,
+  },
+  {
+    label: "TEAMS",
+    cat: "cat-ai",
+    style: { bottom: "34%", right: "-10%" },
+    rotate: 4,
+    duration: 7,
+    delay: 1.1,
   },
 ];
 
-/* ── Magnetic button wrapper ── */
-function MagneticButton({ children, className, ...props }: React.ComponentProps<typeof Button>) {
+function MagneticButton({
+  children,
+  className,
+  wrapperClassName,
+  ...props
+}: ComponentProps<typeof Button> & { wrapperClassName?: string }) {
   const ref = useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 20 });
-  const springY = useSpring(y, { stiffness: 300, damping: 20 });
+  const springX = useSpring(x, { stiffness: 280, damping: 18 });
+  const springY = useSpring(y, { stiffness: 280, damping: 18 });
 
-  const handleMouse = (e: React.MouseEvent) => {
+  const handleMouse = (e: MouseEvent) => {
+    if (reduceMotion) return;
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * 0.15);
-    y.set((e.clientY - centerY) * 0.15);
-  };
-
-  const handleLeave = () => {
-    x.set(0);
-    y.set(0);
+    x.set((e.clientX - (rect.left + rect.width / 2)) * 0.18);
+    y.set((e.clientY - (rect.top + rect.height / 2)) * 0.18);
   };
 
   return (
     <motion.div
-      style={{ x: springX, y: springY }}
+      style={reduceMotion ? undefined : { x: springX, y: springY }}
       onMouseMove={handleMouse}
-      onMouseLeave={handleLeave}
-      className="inline-block"
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
+      className={wrapperClassName ?? "inline-block"}
     >
       <Button ref={ref} className={className} {...props}>
         {children}
@@ -101,19 +96,57 @@ function MagneticButton({ children, className, ...props }: React.ComponentProps<
   );
 }
 
+/** Masked line reveal: the hero's entrance signature. */
+function RevealLine({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <span className="block overflow-hidden pb-[0.08em]">
+      <motion.span
+        initial={reduceMotion ? false : { y: "105%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: DURATION.hero, delay, ease: EASE_REVEAL }}
+        className="block"
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
 const Hero = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const spotlightFrame = useRef(0);
   const spotlightCoords = useRef({ x: 0, y: 0 });
+  const reduceMotion = useReducedMotion();
+
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [9, -9]), {
+    stiffness: 180,
+    damping: 22,
+  });
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-9, 9]), {
+    stiffness: 180,
+    damping: 22,
+  });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 130]);
+  const parallaxScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 55]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.78], [1, 0.12]);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollToNext = () => scrollToSection("timeline");
-  const scrollToContact = () => scrollToSection("contact");
-
-  const handleSpotlightMove = (e: React.MouseEvent) => {
+  const handleSpotlightMove = (e: MouseEvent) => {
     spotlightCoords.current = { x: e.clientX, y: e.clientY };
     if (spotlightFrame.current) return;
     spotlightFrame.current = requestAnimationFrame(() => {
@@ -128,212 +161,241 @@ const Hero = () => {
     });
   };
 
-  const handleSpotlightLeave = () => {
-    if (spotlightFrame.current) {
-      cancelAnimationFrame(spotlightFrame.current);
-      spotlightFrame.current = 0;
-    }
-    if (spotlightRef.current) spotlightRef.current.style.opacity = "0";
+  const handleTiltMove = (e: MouseEvent) => {
+    if (reduceMotion) return;
+    const rect = tiltRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
   };
 
   return (
     <section
+      ref={sectionRef}
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="relative min-h-[100svh] overflow-hidden"
       onMouseMove={handleSpotlightMove}
-      onMouseLeave={handleSpotlightLeave}
+      onMouseLeave={() => {
+        if (spotlightFrame.current) {
+          cancelAnimationFrame(spotlightFrame.current);
+          spotlightFrame.current = 0;
+        }
+        if (spotlightRef.current) spotlightRef.current.style.opacity = "0";
+      }}
     >
-      {/* Spotlight cursor follower */}
       <div
         ref={spotlightRef}
         className="spotlight pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500"
         style={{ opacity: 0 }}
       />
 
-      {/* Ambient background glows */}
-      <div className="hero-glow absolute w-[700px] h-[700px] top-[10%] left-[5%]" />
-      <div className="hero-glow absolute w-[500px] h-[500px] bottom-[10%] right-[5%] opacity-60" />
-
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 py-14 sm:py-20 text-center">
-        {/* Role label */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[10px] sm:text-sm font-semibold tracking-widest sm:tracking-[0.2em] uppercase text-primary mb-6 text-balance [word-break:keep-all]"
-        >
-          {PERSONAL.title}
-        </motion.p>
-
-        {/* Name */}
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-normal leading-[0.9] tracking-tight mb-6"
-        >
-          <span className="block">Shivam</span>
-          <span className="block text-pop italic">Sabbarwal</span>
-        </motion.h1>
-
-        {/* Accent gradient line */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8"
-        >
-          <div className="accent-line w-32 sm:w-48 mx-auto" />
-        </motion.div>
-
-        {/* Portrait with floating stickers + manga speed lines */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-2xl py-8 md:py-16 my-2 md:my-8"
-        >
-          {/* Speed lines behind portrait */}
-          <div className="speed-lines absolute inset-0 z-0" />
-          {/* Portrait */}
-          <div className="relative mx-auto w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 group">
-            <motion.div
-              className="absolute -inset-3 rounded-3xl opacity-60"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--primary), var(--accent), var(--primary))",
-                backgroundSize: "200% 200%",
-              }}
-              animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <div
-              className="absolute -inset-3 rounded-3xl blur-xl opacity-25"
-              style={{ background: "linear-gradient(135deg, var(--primary), var(--accent))" }}
-            />
-            <div className="relative w-full h-full rounded-2xl overflow-hidden ring-2 ring-background">
-              <Image
-                src="/assets/profile-pic.jpg"
-                alt={`${PERSONAL.name} - ${PERSONAL.title}`}
-                fill
-                sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
-                className="object-cover scale-110 grayscale group-hover:grayscale-0 group-hover:scale-125 transition-all duration-500"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Floating stickers */}
-          {STICKERS.map((sticker, i) => (
-            <motion.div
-              key={sticker.label}
-              className="absolute flex items-center cat-chip px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-[9px] sm:text-[11px] font-semibold tracking-wider uppercase select-none shadow-sm cursor-default will-change-transform"
-              style={{ ...sticker.style, "--cat": sticker.cat } as React.CSSProperties}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: [0, -10, 0],
-                rotate: [sticker.rotate, sticker.rotate + 2, sticker.rotate],
-              }}
-              transition={{
-                opacity: { duration: 0.4, delay: 0.8 + i * 0.15 },
-                scale: { duration: 0.4, delay: 0.8 + i * 0.15 },
-                y: {
-                  duration: sticker.duration,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: sticker.delay,
-                },
-                rotate: {
-                  duration: sticker.duration,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: sticker.delay,
-                },
-              }}
-              whileHover={{ scale: 1.1, rotate: 0 }}
-            >
-              {sticker.label}
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto leading-relaxed mb-10"
-        >
-          Full-stack engineer with {PERSONAL.yearsExperience}+ years crafting scalable web
-          applications and leading technical teams across{" "}
-          <span className="text-emphasis">fintech</span>,{" "}
-          <span className="text-accent-emphasis">SaaS</span>, and{" "}
-          <span className="text-highlight">enterprise platforms</span>.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
-        >
-          <MagneticButton onClick={scrollToNext} size="lg">
-            View My Work
-          </MagneticButton>
-          <MagneticButton variant="outline" onClick={scrollToContact} size="lg">
-            Get In Touch
-          </MagneticButton>
-        </motion.div>
-
-        {/* Social links */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.95 }}
-          className="flex items-center gap-1 justify-center"
-        >
-          {PERSONAL.socials.map((social) => {
-            const Icon = SOCIAL_ICONS[social.name as keyof typeof SOCIAL_ICONS];
-            return (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className="p-2.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200"
-              >
-                <Icon className="w-[18px] h-[18px]" />
-              </a>
-            );
-          })}
-          <span className="text-border mx-2">|</span>
-          <span className="text-xs text-muted-foreground tracking-wide">
-            Based in {PERSONAL.location}
-          </span>
-        </motion.div>
-      </div>
-
-      {/* Scroll Indicator */}
       <motion.div
+        className="hero-glow absolute inset-0"
+        style={reduceMotion ? undefined : { y: parallaxY, scale: parallaxScale }}
+      />
+
+      <div className="dot-field pointer-events-none absolute inset-0" />
+
+      <motion.div
+        style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+        className="relative z-20 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-5 pt-20 pb-10 sm:px-8 sm:pb-14 md:pt-24 lg:pt-28 lg:pb-20"
+      >
+        <div className="grid items-center gap-5 sm:gap-7 md:grid-cols-[1.05fr_0.95fr] md:gap-8 lg:gap-12">
+          {/* ── Portrait: leads the stack on mobile, sits right from md up ── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: DURATION.hero, delay: 0.2, ease: EASE_OUT }}
+            className="relative order-1 mx-auto w-full max-w-[13rem] sm:max-w-[15rem] md:order-2 md:max-w-[17rem] lg:max-w-[19rem] xl:max-w-[21rem]"
+          >
+            <div className="speed-lines absolute inset-0 z-0" />
+
+            <motion.div
+              ref={tiltRef}
+              onMouseMove={handleTiltMove}
+              onMouseLeave={() => {
+                mouseX.set(0.5);
+                mouseY.set(0.5);
+              }}
+              style={reduceMotion ? undefined : { rotateX, rotateY, transformPerspective: 900 }}
+              className="panel corner-ticks relative z-10 mx-auto flex w-full flex-col overflow-hidden"
+            >
+              <div className="relative aspect-[3/2] w-full overflow-hidden sm:aspect-square">
+                <Image
+                  src="/assets/profile-pic.jpg"
+                  alt={`Portrait of ${PERSONAL.name}`}
+                  fill
+                  sizes="(max-width: 640px) 208px, (max-width: 768px) 240px, (max-width: 1024px) 272px, (max-width: 1280px) 304px, 336px"
+                  className="scale-105 object-cover transition-transform duration-700 hover:scale-110"
+                  priority
+                />
+                <div className="from-primary/25 pointer-events-none absolute inset-0 bg-linear-to-tr to-transparent mix-blend-multiply dark:mix-blend-screen" />
+              </div>
+
+              {/* Same three facts at every width: only the type scale moves. */}
+              <dl className="border-border grid grid-cols-3 gap-1.5 border-t-[1.5px] p-3 sm:gap-3 sm:p-5">
+                <div className="min-w-0">
+                  <dt className="hud-label">Now</dt>
+                  <dd className="mt-1 truncate text-[13px] font-bold sm:text-[15px]">Cardata</dd>
+                </div>
+                <div className="border-border/70 min-w-0 border-l pl-1.5 sm:pl-3">
+                  <dt className="hud-label">Years</dt>
+                  <dd className="hud-value mt-1 text-[13px] font-bold sm:text-[15px]">
+                    {PERSONAL.yearsExperience}
+                  </dd>
+                </div>
+                <div className="border-border/70 min-w-0 border-l pl-1.5 sm:pl-3">
+                  <dt className="hud-label">Status</dt>
+                  <dd className="mt-1 flex items-center gap-1 text-[13px] font-bold sm:gap-1.5 sm:text-[15px]">
+                    <motion.span
+                      animate={reduceMotion ? undefined : { opacity: [1, 0.25, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="bg-primary h-2 w-2 shrink-0 rounded-full"
+                    />
+                    <span className="text-emphasis truncate">Open</span>
+                  </dd>
+                </div>
+              </dl>
+            </motion.div>
+
+            {STICKERS.map((sticker, i) => (
+              <motion.div
+                key={sticker.label}
+                className={`float-sticker ${sticker.cat} absolute z-20 rounded-md px-2 py-1 text-[9px] tracking-wider uppercase select-none sm:px-2.5 sm:py-1.5 sm:text-[10px] lg:px-3 lg:text-[11px]`}
+                style={sticker.style}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={
+                  reduceMotion
+                    ? { opacity: 1, scale: 1, rotate: sticker.rotate }
+                    : {
+                        opacity: 1,
+                        scale: 1,
+                        y: [0, -10, 0],
+                        rotate: [sticker.rotate, sticker.rotate + 2, sticker.rotate],
+                      }
+                }
+                transition={{
+                  opacity: { duration: DURATION.fast, delay: 0.85 + i * 0.08 },
+                  scale: { duration: DURATION.fast, delay: 0.85 + i * 0.08 },
+                  y: {
+                    duration: sticker.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: sticker.delay,
+                  },
+                  rotate: {
+                    duration: sticker.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: sticker.delay,
+                  },
+                }}
+                whileHover={{ scale: 1.08, rotate: 0 }}
+              >
+                {sticker.label}
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* ── Identity ───────────────────────────────────────── */}
+          <div className="relative z-10 order-2 md:order-1">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 0.1 }}
+              className="eyebrow mb-3 sm:mb-4"
+            >
+              {PERSONAL.title}
+            </motion.p>
+
+            <h1 className="font-heading text-[clamp(2.75rem,8.5vw,6rem)] leading-[0.88] tracking-[-0.045em]">
+              <RevealLine delay={0.2}>Shivam</RevealLine>
+              <RevealLine delay={0.32}>
+                <span className="name-plate mt-1 -rotate-[1.5deg]">Sabbarwal</span>
+              </RevealLine>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 0.6 }}
+              className="text-muted-foreground mt-5 max-w-md text-base leading-relaxed sm:mt-7 sm:text-lg"
+            >
+              I build <span className="text-foreground font-semibold">software that holds up</span>
+              , and <span className="text-emphasis">teams that keep it that way</span>.{" "}
+              {PERSONAL.yearsExperience} years across fintech and enterprise platforms, including
+              one I took from an empty repo to 10,000 people in four countries.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 0.72 }}
+              className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:flex sm:flex-wrap sm:items-center"
+            >
+              <MagneticButton
+                onClick={() => scrollToSection("timeline")}
+                size="lg"
+                wrapperClassName="block sm:inline-block"
+                className="w-full px-4 sm:w-auto sm:px-8"
+              >
+                See my career
+              </MagneticButton>
+              <MagneticButton
+                variant="outline"
+                onClick={() => scrollToSection("contact")}
+                size="lg"
+                wrapperClassName="block sm:inline-block"
+                className="w-full px-4 sm:w-auto sm:px-8"
+              >
+                Let&apos;s talk
+              </MagneticButton>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: DURATION.slow, delay: 0.9 }}
+              className="mt-5 flex flex-wrap items-center gap-1.5 sm:mt-7"
+            >
+              {PERSONAL.socials.map((social) => {
+                const Icon = SOCIAL_ICONS[social.name as keyof typeof SOCIAL_ICONS];
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.name}
+                    className="text-muted-foreground hover:bg-primary/15 hover:text-foreground flex h-11 w-11 items-center justify-center rounded-lg transition-colors"
+                  >
+                    <Icon className="h-[18px] w-[18px]" />
+                  </a>
+                );
+              })}
+              <span className="hud-label ml-2">{PERSONAL.location}</span>
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        transition={{ delay: 1.2 }}
+        onClick={() => scrollToSection("timeline")}
+        className="text-muted-foreground hover:text-primary-strong absolute bottom-3 left-1/2 z-20 hidden min-h-11 -translate-x-1/2 flex-col items-center justify-center gap-1.5 px-4 transition-colors md:flex"
+        aria-label="Scroll to career timeline"
       >
-        <motion.button
-          onClick={scrollToNext}
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="text-muted-foreground/50 hover:text-primary transition-colors"
-          aria-label="Scroll down"
+        <span className="hud-label">Scroll</span>
+        <motion.span
+          animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          className="block"
         >
-          <LuArrowDown className="w-5 h-5" />
-        </motion.button>
-      </motion.div>
+          <LuArrowDown className="h-4 w-4" />
+        </motion.span>
+      </motion.button>
     </section>
   );
 };

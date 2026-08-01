@@ -1,19 +1,35 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef } from "react";
 import {
-  LuCalendar,
-  LuMapPin,
   LuBuilding2,
-  LuAward,
-  LuGraduationCap,
+  LuCalendar,
   LuChevronDown,
+  LuGraduationCap,
+  LuListChecks,
+  LuMapPin,
 } from "react-icons/lu";
-import { Badge } from "@/components/ui/badge";
 import { TIMELINE } from "@/constants";
-import { useActiveSection } from "@/hooks/useActiveSection";
+import { useNearestSection } from "@/hooks/useActiveSection";
+import { DURATION, EASE_OUT, VIEWPORT } from "@/lib/motion";
 
 const TIMELINE_CARD_IDS = TIMELINE.map((item) => `timeline-card-${item.id}`);
+
+/** The backdrop marquee reads the same employers the rail below enumerates. */
+const EMPLOYERS = TIMELINE.filter((item) => item.category === "work")
+  .map((item) => item.company.replace(/\s*\(.*\)$/, ""))
+  .join(" · ");
+
+/** Derived from the existing job title, so it makes no new claims. */
+function scopeOf(item: (typeof TIMELINE)[number]) {
+  if (item.category === "education") return "Education";
+  const title = item.title.toLowerCase();
+  if (title.includes("chief")) return "Executive";
+  if (title.includes("senior")) return "Senior";
+  if (title.includes("co-op")) return "Co-op";
+  return "Engineer";
+}
 
 const TimelineCard = ({
   item,
@@ -22,49 +38,54 @@ const TimelineCard = ({
   item: (typeof TIMELINE)[number];
   expanded: boolean;
 }) => {
+  const reduceMotion = useReducedMotion();
+  const isEducation = item.category === "education";
+
   return (
-    <div
-      className={`surface-card p-5 sm:p-6 select-none ${
-        item.type === "current"
-          ? "border-l-3 border-l-primary"
-          : item.category === "education"
-            ? "border-l-3 border-l-accent/50"
-            : ""
-      }`}
-    >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div>
-          <h3 className="text-base sm:text-lg font-semibold text-foreground font-sans leading-snug">
-            {item.title}
-          </h3>
-          <div className="flex items-center gap-1.5 text-muted-foreground mt-1">
-            {item.category === "education" ? (
-              <LuGraduationCap className="w-3.5 h-3.5" />
-            ) : (
-              <LuBuilding2 className="w-3.5 h-3.5" />
-            )}
-            <span className="text-sm font-medium">{item.company}</span>
-          </div>
+    <div className={`panel p-5 select-none sm:p-6 ${expanded ? "panel-live corner-ticks" : ""}`}>
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <span className="hud-label text-primary-strong shrink-0 truncate">{scopeOf(item)}</span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex shrink-0 items-center gap-2">
           {item.type === "current" && (
-            <Badge variant="default" className="text-[10px]">
-              Current
-            </Badge>
+            <span className="bg-primary text-primary-foreground flex items-center gap-1.5 rounded-sm px-2 py-0.5">
+              <motion.span
+                animate={reduceMotion ? undefined : { opacity: [1, 0.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="bg-primary-foreground h-1.5 w-1.5 rounded-full"
+              />
+              <span className="hud-label text-primary-foreground">Current</span>
+            </span>
           )}
-          <motion.div animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
-            <LuChevronDown className="w-4 h-4 text-muted-foreground" />
+          <motion.div
+            animate={{ rotate: expanded ? 180 : 0 }}
+            transition={{ duration: DURATION.fast }}
+          >
+            <LuChevronDown className="text-muted-foreground h-4 w-4" />
           </motion.div>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mb-1">
-        <span className="flex items-center gap-1">
-          <LuCalendar className="w-3 h-3" />
+      <h3 className="font-heading text-foreground text-lg leading-snug font-bold tracking-tight sm:text-xl">
+        {item.title}
+      </h3>
+      <div className="text-muted-foreground mt-1.5 flex items-center gap-1.5">
+        {isEducation ? (
+          <LuGraduationCap className="h-3.5 w-3.5 shrink-0" />
+        ) : (
+          <LuBuilding2 className="h-3.5 w-3.5 shrink-0" />
+        )}
+        <span className="text-[15px] font-semibold">{item.company}</span>
+      </div>
+
+      <div className="text-muted-foreground mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+        <span className="hud-label flex items-center gap-1.5">
+          <LuCalendar className="h-3 w-3" />
           {item.period}
         </span>
-        <span className="flex items-center gap-1">
-          <LuMapPin className="w-3 h-3" />
+        <span className="hud-label flex items-center gap-1.5">
+          <LuMapPin className="h-3 w-3" />
           {item.location}
         </span>
       </div>
@@ -75,24 +96,33 @@ const TimelineCard = ({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: reduceMotion ? 0 : DURATION.fast, ease: EASE_OUT }}
             className="overflow-hidden"
           >
-            <p className="text-sm text-muted-foreground mt-3 mb-4 leading-relaxed">
+            <p className="text-muted-foreground mt-4 mb-4 text-[15px] leading-relaxed sm:text-base">
               {item.description}
             </p>
-
-            <div>
-              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-primary/70 mb-2 flex items-center gap-1">
-                <LuAward className="w-3 h-3" />
-                {item.category === "education" ? "Highlights" : "Achievements"}
+            <div className="border-border border-t pt-3.5">
+              <h4 className="hud-label text-primary-strong mb-2.5 flex items-center gap-1.5">
+                <LuListChecks className="h-3 w-3" />
+                {isEducation ? "Highlights" : "What I did"}
               </h4>
-              <ul className="space-y-1.5">
-                {item.achievements.map((achievement, idx) => (
-                  <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
-                    <span className="w-1 h-1 bg-primary/40 rounded-full mt-1.5 shrink-0" />
+              <ul className="space-y-2">
+                {item.achievements.map((achievement, i) => (
+                  <motion.li
+                    key={achievement}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={
+                      reduceMotion
+                        ? { duration: 0 }
+                        : { duration: DURATION.fast, delay: 0.06 + i * 0.05 }
+                    }
+                    className="text-muted-foreground flex items-start gap-2.5 text-[15px] leading-relaxed"
+                  >
+                    <span className="bg-primary mt-[0.5rem] h-1.5 w-1.5 shrink-0 rotate-45" />
                     {achievement}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>
@@ -104,97 +134,135 @@ const TimelineCard = ({
 };
 
 const Timeline = () => {
-  const activeId = useActiveSection(TIMELINE_CARD_IDS, "-50% 0px -50% 0px");
+  const activeId = useNearestSection(TIMELINE_CARD_IDS);
+  const sectionRef = useRef<HTMLElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: railRef,
+    offset: ["start 65%", "end 65%"],
+  });
+  const railProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 28,
+    restDelta: 0.001,
+  });
+
+  // Parallax backdrop: the employer wordmark drifts sideways across the whole
+  // career scroll, so the names move past you as the rail advances.
+  const { scrollYProgress: sectionProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const marqueeX = useTransform(sectionProgress, [0, 1], ["4%", "-38%"]);
 
   return (
-    <section id="timeline" className="py-20 sm:py-28 relative section-timeline-bg">
-      <div className="section-glow absolute inset-0 pointer-events-none" />
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 relative">
-        {/* Section Header */}
+    <section
+      ref={sectionRef}
+      id="timeline"
+      className="relative overflow-x-clip py-20 sm:py-28"
+    >
+      <div className="section-glow pointer-events-none absolute inset-0" />
+
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+        <div className="sticky top-1/2 -translate-y-1/2">
+          <motion.p
+            style={reduceMotion ? undefined : { x: marqueeX }}
+            className="font-heading text-foreground/[0.055] dark:text-primary/[0.07] text-[clamp(3.5rem,11vw,7rem)] leading-none font-bold tracking-tight whitespace-nowrap"
+          >
+            {EMPLOYERS} · {EMPLOYERS} ·
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-5xl px-5 sm:px-8">
         <motion.header
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          viewport={{ once: true }}
-          className="text-center mb-16 sm:mb-20"
+          transition={{ duration: DURATION.slow, ease: EASE_OUT }}
+          viewport={VIEWPORT}
+          className="mb-14 text-center sm:mb-20"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
-            My <span className="text-pop italic">Timeline</span>
+          <p className="eyebrow mb-3">Career · {TIMELINE.length} stops</p>
+          <h2 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
+            Where I&apos;ve <span className="text-pop italic">Been</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From education through to CTO — a decade of building and leading.
+          <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
+            Newest first, back to the very first co-op. Each role opens as you reach it.
           </p>
-          <div className="accent-line w-24 mx-auto mt-6" />
+          <div className="accent-line mx-auto mt-6 w-24" />
         </motion.header>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-px">
-            <div className="w-full h-full timeline-line" />
+        <div ref={railRef} className="relative">
+          <div className="absolute top-0 bottom-0 left-6 w-[2px] sm:left-8 lg:left-1/2 lg:-translate-x-[1px]">
+            <div className="timeline-line h-full w-full" />
             <motion.div
-              className="absolute top-0 left-0 w-full timeline-progress"
-              initial={{ height: "0%" }}
-              whileInView={{ height: "100%" }}
-              transition={{ duration: 2, ease: "easeOut" }}
-              viewport={{ once: true }}
+              className="timeline-progress absolute top-0 left-0 h-full w-full"
+              style={{ scaleY: reduceMotion ? 1 : railProgress }}
             />
           </div>
 
-          {/* Timeline Items */}
-          <div className="space-y-2">
-            {TIMELINE.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.04,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                viewport={{ once: true }}
-                className={`relative flex items-start ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
-              >
-                {/* Year marker */}
-                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10 flex flex-col items-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.04 + 0.1 }}
-                    viewport={{ once: true }}
-                    className={`w-16 h-8 rounded-full flex items-center justify-center ${
-                      item.type === "current"
-                        ? "bg-primary text-primary-foreground shadow-md shadow-primary/25"
-                        : item.category === "education"
-                          ? "bg-background border border-accent/40 text-accent"
-                          : "bg-background border border-border text-primary"
-                    }`}
-                  >
-                    <span className="text-xs font-bold font-sans tracking-wider">{item.year}</span>
-                  </motion.div>
-                  {item.type === "current" && (
-                    <motion.div
-                      className="absolute inset-0 w-16 h-8 rounded-full border border-primary/40"
-                      animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }}
-                      transition={{ duration: 2.5, repeat: Infinity }}
-                    />
-                  )}
-                </div>
+          <div className="space-y-3">
+            {TIMELINE.map((item, index) => {
+              const expanded = activeId === `timeline-card-${item.id}`;
 
-                {/* Content Card */}
-                <div
-                  id={`timeline-card-${item.id}`}
-                  className={`ml-24 flex-1 min-w-0 md:flex-none md:ml-0 md:w-[44%] ${
-                    index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: DURATION.slow, delay: index * 0.03, ease: EASE_OUT }}
+                  viewport={VIEWPORT}
+                  className={`relative flex items-start ${
+                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
                   }`}
                 >
-                  <TimelineCard item={item} expanded={activeId === `timeline-card-${item.id}`} />
-                </div>
-              </motion.div>
-            ))}
+                  <div className="absolute left-0 z-10 flex flex-col items-center lg:left-1/2 lg:-translate-x-1/2">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: DURATION.fast, delay: index * 0.03 + 0.1 }}
+                      viewport={VIEWPORT}
+                      className={`flex h-8 w-[52px] items-center justify-center rounded-md border-[1.5px] transition-colors duration-300 sm:w-16 ${
+                        expanded || item.type === "current"
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-background text-muted-foreground"
+                      }`}
+                    >
+                      <span className="font-mono text-xs font-bold tracking-wider">
+                        {item.year}
+                      </span>
+                    </motion.div>
+                    {item.type === "current" && !reduceMotion && (
+                      <motion.div
+                        className="border-primary/50 absolute inset-0 h-8 w-[52px] rounded-md border sm:w-16"
+                        animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 2.5, repeat: Infinity }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Connector tick: bridges the year marker to the live card */}
+                  <motion.div
+                    animate={{ opacity: expanded ? 1 : 0 }}
+                    transition={{ duration: DURATION.fast }}
+                    className={`bg-primary absolute top-[15px] hidden h-[2px] w-6 lg:block ${
+                      index % 2 === 0 ? "lg:right-1/2 lg:mr-8" : "lg:left-1/2 lg:ml-8"
+                    }`}
+                  />
+
+                  <div
+                    id={`timeline-card-${item.id}`}
+                    className={`ml-[68px] min-w-0 flex-1 sm:ml-24 lg:ml-0 lg:w-[46%] lg:flex-none ${
+                      index % 2 === 0 ? "lg:mr-auto lg:pr-14" : "lg:ml-auto lg:pl-14"
+                    }`}
+                  >
+                    <TimelineCard item={item} expanded={expanded} />
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

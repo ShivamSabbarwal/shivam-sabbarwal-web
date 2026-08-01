@@ -10,7 +10,7 @@ import { MobilePrintButton, FloatingPrintButton } from "./PrintButton";
 
 const Resume = () => (
   <>
-    {/* Mobile prompt — visible on small screens only */}
+    {/* Mobile prompt: visible on small screens only */}
     <div className="flex sm:hidden min-h-screen items-center justify-center p-6 print:hidden">
       <div className="text-center space-y-6 max-w-xs">
         <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
@@ -26,7 +26,7 @@ const Resume = () => (
       </div>
     </div>
 
-    {/* Full resume — hidden on mobile, visible on desktop + print */}
+    {/* Full resume: hidden on mobile, visible on desktop + print */}
     <div className="resume-container hidden sm:block">
       <div className="mx-auto w-[8.5in] bg-white">
         <div className="w-full space-y-3 px-[0.25in] py-[0.4in]">

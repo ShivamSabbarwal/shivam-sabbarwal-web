@@ -3,30 +3,30 @@
 import { motion } from "motion/react";
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/constants";
+import { DURATION, EASE_OUT, VIEWPORT } from "@/lib/motion";
 
 const CreativeProjects = () => {
   return (
-    <section id="projects" className="py-20 sm:py-28 relative section-tinted section-projects-bg">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 relative">
-        {/* Section Header */}
+    <section id="projects" className="relative py-20 sm:py-28">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: DURATION.slow, ease: EASE_OUT }}
+          viewport={VIEWPORT}
+          className="mb-14 text-center"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight mb-4">
-            Featured <span className="text-pop italic">Projects</span>
+          <p className="eyebrow mb-3">Side projects · {PROJECTS.length} live</p>
+          <h2 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
+            Things I <span className="text-pop italic">Built</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Key projects showcasing expertise in full-stack development and innovative solutions.
+          <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
+            Built outside work hours. Both are live, and both have people using them.
           </p>
-          <div className="accent-line w-24 mx-auto mt-6" />
+          <div className="accent-line mx-auto mt-6 w-24" />
         </motion.div>
 
-        {/* Projects */}
-        <div className="space-y-20 sm:space-y-28">
+        <div className="space-y-16 sm:space-y-24">
           {PROJECTS.map((project, index) => (
             <ProjectCard
               key={project.id}
