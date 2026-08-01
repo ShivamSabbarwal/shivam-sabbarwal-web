@@ -23,7 +23,7 @@ export default function NotFound() {
         <div className="flex justify-center">
           <Button render={<Link href="/" />} nativeButton={false} size="lg">
             <LuHouse className="w-4 h-4 mr-2" />
-            Back to Home
+            Back to home
           </Button>
         </div>
       </div>

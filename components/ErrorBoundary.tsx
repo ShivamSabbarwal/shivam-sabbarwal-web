@@ -33,16 +33,16 @@ class ErrorBoundary extends Component<Props, State> {
           <div className="min-h-screen flex items-center justify-center bg-background">
             <div className="text-center p-8">
               <h1 className="text-2xl font-bold text-foreground mb-4">
-                Oops! Something went wrong
+                Something went wrong
               </h1>
               <p className="text-muted-foreground mb-6">
-                We're sorry, but something unexpected happened. Please try refreshing the page.
+                The page hit an unexpected error. Refresh it to try again.
               </p>
               <button
                 onClick={() => window.location.reload()}
                 className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
               >
-                Refresh Page
+                Refresh page
               </button>
             </div>
           </div>

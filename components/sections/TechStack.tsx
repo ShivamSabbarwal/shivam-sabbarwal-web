@@ -76,6 +76,10 @@ function SkillGroup({
           </p>
         </div>
 
+        <p className="text-muted-foreground mb-4 text-[15px] leading-relaxed">
+          {category.description}
+        </p>
+
         <div className="flex flex-wrap gap-2">
           {category.technologies.map((tech) => {
             const Icon = tech.icon;
@@ -110,12 +114,12 @@ const TechStack = () => {
           viewport={VIEWPORT}
           className="mb-14 text-center"
         >
-          <p className="eyebrow mb-3">Skills · {TECH_CATEGORIES.length} areas</p>
+          <p className="eyebrow mb-3">Capabilities · {TECH_CATEGORIES.length} areas</p>
           <h2 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
-            Tools I <span className="text-pop italic">Reach</span> For
+            What I Work <span className="text-pop italic">On</span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
-            Everything here has run in production. None of it is a wishlist.
+            Four recurring engineering problems, with tools chosen for the work.
           </p>
           <div className="accent-line mx-auto mt-6 w-24" />
         </motion.div>

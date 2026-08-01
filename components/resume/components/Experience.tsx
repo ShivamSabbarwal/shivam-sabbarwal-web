@@ -1,58 +1,52 @@
-import Tag from "./Tag";
-import { RESUME_EXPERIENCE } from "@/constants";
+import type { ResumeRole } from "@/constants";
 
-/** Bold key metrics (numbers, percentages, counts) so recruiters spot them instantly */
+/* Bold only real outcome figures: percentages and counts written with a "+".
+   A looser rule caught version numbers and library names too, so bullets ended
+   up with "React 17 to 19" and "D3.js" emphasised for no reason.
+   The split pattern is global and the test pattern deliberately is not, since
+   `RegExp.test` on a global regex carries `lastIndex` between calls. */
+const METRIC_SPLIT = /(\d[\d,]*(?:\+|%))/g;
+const IS_METRIC = /^\d[\d,]*(?:\+|%)$/;
+
 function highlightMetrics(text: string) {
-  const parts = text.split(/(\d+[,.]?\d*[+%]?(?:\s*(?:years?|countries|users|components))?)/gi);
-  return parts.map((part, i) =>
-    /\d/.test(part) ? (
-      <strong key={i} className="text-primary font-bold">
-        {part}
-      </strong>
-    ) : (
-      part
-    ),
-  );
+  return text
+    .split(METRIC_SPLIT)
+    .map((part, i) => (IS_METRIC.test(part) ? <strong key={i}>{part}</strong> : part));
 }
 
-const Experience = () => {
+const Experience = ({ roles }: { roles: ResumeRole[] }) => {
   return (
-    <section>
-      <h2 className="section-header text-lg font-bold mb-6 tracking-wide">EXPERIENCE</h2>
-      <div className="space-y-6">
-        {RESUME_EXPERIENCE.map((job) => (
-          <div key={job.company} className="space-y-2">
-            <div className="job-header">
-              <div className="flex items-baseline gap-2">
-                <h3 className="job-title font-bold tracking-tight uppercase text-sm text-primary">
-                  {job.title}
-                </h3>
-                <span className="text-sm opacity-40 text-secondary">&bull;</span>
-                <span className="text-xs text-secondary">{job.location}</span>
-              </div>
-              <div className="flex items-center gap-2 mt-0.5">
-                <p className="company-name font-semibold text-sm tracking-tight text-accent">
-                  {job.company}
-                </p>
-                <span className="text-sm opacity-40 text-secondary">&bull;</span>
-                <span className="text-xs text-secondary whitespace-nowrap">{job.period}</span>
-              </div>
-            </div>
-            {job.skills && (
-              <div className="flex flex-wrap gap-1">
-                {job.skills.map((skill) => (
-                  <Tag key={skill}>{skill}</Tag>
-                ))}
-              </div>
-            )}
-            <ul className="achievement-list text-sm leading-relaxed text-secondary">
-              {job.achievements.map((achievement, i) => (
-                <li key={i}>{highlightMetrics(achievement)}</li>
-              ))}
-            </ul>
+    <section className="resume-section">
+      <h2 className="resume-section-title">Experience</h2>
+      {roles.map((job) => (
+        <article key={job.company} className="resume-job">
+          <div className="resume-job-head">
+            <h3 className="resume-job-title">{job.title}</h3>
+            <span className="resume-job-dates">{job.period}</span>
           </div>
-        ))}
-      </div>
+          <p className="resume-job-meta">
+            <span className="resume-company">{job.company}</span>
+            <span className="resume-sep"> | </span>
+            <span>{job.location}</span>
+          </p>
+          {job.skills.length > 0 && (
+            <p className="resume-tech">
+              <span className="resume-tech-label">Tech</span>
+              {job.skills.join(", ")}
+            </p>
+          )}
+          <ul className="resume-bullets">
+            {job.achievements.map((achievement) => (
+              <li key={achievement}>
+                <span className="resume-bullet" aria-hidden="true">
+                  ▪
+                </span>
+                <span>{highlightMetrics(achievement)}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
     </section>
   );
 };

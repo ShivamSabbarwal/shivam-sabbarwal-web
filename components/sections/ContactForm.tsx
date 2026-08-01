@@ -18,7 +18,7 @@ const schema = z.object({
   lastName: z.string().min(2, "Please enter your last name"),
   email: z.string().email("That email address doesn't look right"),
   phone: z.string().optional(),
-  message: z.string().min(10, "A little more detail would help"),
+  message: z.string().min(10, "Please add a little more detail"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -40,7 +40,7 @@ const ContactForm = () => {
       reset();
       toast.success("Message sent. I'll get back to you soon.");
     } catch {
-      toast.error("That didn't send. Mind trying again?");
+      toast.error("That didn't send. Please try again.");
     }
   };
 
@@ -57,7 +57,7 @@ const ContactForm = () => {
         <p className="hud-label text-primary-strong">Message received</p>
         <h5 className="font-heading text-2xl tracking-tight">Thanks for reaching out</h5>
         <p className="text-muted-foreground text-[15px]">
-          I read everything that lands here, and I&apos;ll get back to you soon.
+          I&apos;ll read your message and get back to you soon.
         </p>
         <Button variant="outline" onClick={() => setSubmitted(false)} className="mt-2">
           Send another
@@ -119,7 +119,7 @@ const ContactForm = () => {
         <Label htmlFor="message">Message</Label>
         <Textarea
           id="message"
-          placeholder="Tell me what you're working on, or just say hi"
+          placeholder="What are you working through?"
           rows={5}
           {...register("message")}
           className={errors.message ? "border-destructive" : ""}

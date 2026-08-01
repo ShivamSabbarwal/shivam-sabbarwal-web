@@ -57,12 +57,11 @@ export const TIMELINE = [
     period: "Jul 2026 to Present",
     year: "2026",
     description:
-      "Building Cardata’s vehicle reimbursement platform: the system enterprises run their mileage, payments, and fleet programs on.",
+      "Working on Cardata Cloud and driver apps for managed vehicle reimbursement.",
     achievements: [
-      "Joined to strengthen full-stack delivery across Cardata Cloud and the driver apps behind IRS-compliant programs (FAVR, CPM, TFCA)",
-      "Working in React, Next.js, NestJS, and PostgreSQL on mileage capture, admin operations, and enterprise reporting",
-      "Turning fleet compliance rules into software that survives the next rule change",
-      "Holding the bar through code review, testing discipline, and AI-assisted development",
+      "Building features for FAVR, CPM, and TFCA reimbursement programs",
+      "Working across mileage capture, reimbursement administration, and enterprise reporting",
+      "Turning fleet policy and compliance requirements into tested product behavior",
     ],
     type: "current" as const,
     category: "work" as const,
@@ -75,13 +74,13 @@ export const TIMELINE = [
     period: "Jul 2025 to Jul 2026",
     year: "2025",
     description:
-      "Ran observability and platform modernization across the Motionary and Agora geospatial products, from the first analytics event to a full React upgrade.",
+      "Modernized Motionary and Agora across observability, privacy, TypeScript, and map performance.",
     achievements: [
-      "Built PostHog analytics and Sentry error tracking from nothing, then kept both production platforms instrumented",
-      "Led the React 17 to 19 upgrade: 120+ components moved to TypeScript, charting stack reworked, systemic rendering bugs gone",
-      "Designed a GDPR consent system for both products and carried it from privacy architecture to production rollout",
-      "Profiled and re-cut the ArcGIS vector-layer pipeline so heavy geospatial scenes stopped stalling the map",
-      "Set the frontend standard with oxlint/oxc tooling and TypeScript-first conventions the codebase still follows",
+      "Established PostHog analytics and Sentry error tracking across both production platforms",
+      "Led the React 17 to 19 upgrade, migrating 120+ components to TypeScript and reworking the charting stack to resolve rendering failures",
+      "Designed and shipped a GDPR consent system across both products, from privacy architecture through production rollout",
+      "Profiled and reworked the ArcGIS vector-layer pipeline to improve performance in data-heavy map views",
+      "Introduced oxlint, oxc, and TypeScript-first conventions for faster, more consistent feedback",
     ],
     type: "previous" as const,
     category: "work" as const,
@@ -94,13 +93,13 @@ export const TIMELINE = [
     period: "Dec 2023 to Nov 2025",
     year: "2023",
     description:
-      "Built the engineering function from zero for a cross-border fintech serving 10,000+ users in four countries, and answered for all of it: architecture, delivery, compliance, and standards.",
+      "Led technology for a regulated cross-border fintech serving 10,000+ users in four countries.",
     achievements: [
-      "Stood up the whole product suite: transaction engine, admin portal, client portal, real-time dashboards, and marketing site",
-      "Architected multi-jurisdiction compliance and data residency for international money transfers and overseas property sales",
+      "Shipped the transaction engine, admin and client portals, real-time dashboards, and marketing site",
+      "Designed compliance and data residency controls for international transfers and overseas property sales",
       "Integrated ICICI Bank and HDFC Bank APIs to move regulated money across borders in production",
-      "Made privacy by design the default, from the consent framework to where financial data was allowed to live",
-      "Put CI/CD (Docker and Kubernetes), code review, and deploy standards in place, cutting property-sale processing time by 60%",
+      "Set hiring, code review, CI/CD, and deployment standards",
+      "Shipped automation that reduced property-sale processing time by 60%",
     ],
     type: "previous" as const,
     category: "work" as const,
@@ -113,12 +112,12 @@ export const TIMELINE = [
     period: "Jan 2022 to Jul 2025",
     year: "2022",
     description:
-      "Owned the pieces the platform could not run without: the microservices migration, data ingestion, and the frontend standard every product team built on.",
+      "Reworked the platform’s services, data ingestion, and shared UI foundations.",
     achievements: [
-      "Led the monolith to microservices migration, from service boundaries and data contracts through cutover, cutting data acquisition cost by 65%",
-      "Built the File Mapper and ETL ingestion platform, which opened up multi-source integration and helped double client acquisition",
-      "Ran the vehicle decoding services the rest of the product depended on",
-      "Rebuilt the internal UI component library on Radix and Tailwind, and every product team adopted it",
+      "Led the monolith to microservices migration, cutting data acquisition costs by 65%",
+      "Built the File Mapper and ETL ingestion platform, helping double client acquisition",
+      "Owned vehicle decoding services that supported core workflows across the platform",
+      "Rebuilt the shared UI library on Radix and Tailwind",
       "Shipped Smart Customer Segments for real-time audience targeting",
     ],
     type: "previous" as const,
@@ -132,12 +131,12 @@ export const TIMELINE = [
     period: "Jul 2020 to Jan 2022",
     year: "2020",
     description:
-      "Delivered a fintech CRM with live video and portfolio analytics, the screens advisors sat in all day.",
+      "Built CRM features for financial advisors, including live meetings and portfolio analytics.",
     achievements: [
-      "Built a MERN CRM that automated financial advisory workflows end to end",
+      "Built core workflows for a MERN-based financial-advisory CRM",
       "Integrated WebRTC and AWS Chime so advisors and clients could meet inside the product",
-      "Shipped interactive portfolio dashboards with D3.js and Recharts for live performance analytics",
-      "Optimized a financial analytics microservice for higher throughput and faster dashboard loads",
+      "Shipped portfolio dashboards with D3.js and Recharts",
+      "Optimized a financial analytics microservice to improve data processing and dashboard response times",
     ],
     type: "previous" as const,
     category: "work" as const,
@@ -150,10 +149,10 @@ export const TIMELINE = [
     period: "May 2019 to Aug 2019",
     year: "2019",
     description:
-      "Built a web CRM on the MERN stack for the financial and operational processes behind an innovation ecosystem.",
+      "Created a web CRM for New Brunswick’s innovation foundation.",
     achievements: [
-      "Built the CRM platform from scratch on the MERN stack",
-      "Integrated third-party APIs for the trickier product features",
+      "Built the CRM platform from the ground up on the MERN stack",
+      "Integrated third-party services into core product workflows",
     ],
     type: "previous" as const,
     category: "work" as const,
@@ -166,10 +165,10 @@ export const TIMELINE = [
     period: "Jan 2018 to Aug 2018",
     year: "2018",
     description:
-      "Rebuilt enterprise product modules and the dated interfaces around them in ASP.NET and C#.",
+      "Modernized enterprise application modules with ASP.NET and C#.",
     achievements: [
-      "Developed application modules that replaced outdated user interfaces",
-      "Authored SQL queries and stored procedures on SQL Server 2016",
+      "Replaced outdated user interfaces with maintainable application modules",
+      "Built SQL queries and stored procedures on SQL Server 2016 to support product workflows",
     ],
     type: "previous" as const,
     category: "work" as const,
@@ -182,10 +181,10 @@ export const TIMELINE = [
     period: "2016 to 2017",
     year: "2016",
     description:
-      "First run at cross-functional delivery as Assistant Project Manager and QA/BI Analyst, coordinating operations, corrective plans, and test strategy.",
+      "Worked across project coordination, QA, and business intelligence.",
     achievements: [
       "Coordinated day-to-day operations across technical and management stakeholders",
-      "Developed QA strategies that improved product reliability",
+      "Developed test strategies and corrective plans to improve product reliability",
     ],
     type: "previous" as const,
     category: "work" as const,
@@ -198,7 +197,7 @@ export const TIMELINE = [
     period: "Sep 2014 to Apr 2020",
     year: "2014",
     description:
-      "Software engineering degree taken alongside co-op placements, with a biomedical engineering minor on the side.",
+      "Completed a software engineering degree alongside co-op placements and a minor in biomedical engineering.",
     achievements: ["Co-op education program", "Minor in Biomedical Engineering"],
     type: "completed" as const,
     category: "education" as const,
@@ -208,6 +207,7 @@ export const TIMELINE = [
 // ─── Tech Stack ──────────────────────────────────────────────
 export interface TechCategory {
   title: string;
+  description: string;
   sectionIcon: IconType;
   colorClass: string;
   technologies: { name: string; icon: IconType; color: string }[];
@@ -215,7 +215,8 @@ export interface TechCategory {
 
 export const TECH_CATEGORIES: TechCategory[] = [
   {
-    title: "Frontend",
+    title: "Product interfaces",
+    description: "Keep complex interfaces clear and maintainable as requirements change.",
     sectionIcon: LuCode,
     colorClass: "cat-frontend",
     technologies: [
@@ -223,13 +224,14 @@ export const TECH_CATEGORIES: TechCategory[] = [
       { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
       { name: "Next.js", icon: SiNextdotjs, color: "" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "Framer Motion", icon: SiFramer, color: "#0055FF" },
+      { name: "Motion", icon: SiFramer, color: "#0055FF" },
       { name: "Vite", icon: SiVite, color: "#646CFF" },
       { name: "React Native", icon: SiReact, color: "#61DAFB" },
     ],
   },
   {
-    title: "Backend",
+    title: "Services and data",
+    description: "Turn business rules into reliable APIs, services, and data flows.",
     sectionIcon: LuServer,
     colorClass: "cat-backend",
     technologies: [
@@ -243,7 +245,8 @@ export const TECH_CATEGORIES: TechCategory[] = [
     ],
   },
   {
-    title: "Cloud & DevOps",
+    title: "Delivery and infrastructure",
+    description: "Make deployments repeatable and production systems easier to operate.",
     sectionIcon: LuCloud,
     colorClass: "cat-cloud",
     technologies: [
@@ -257,7 +260,8 @@ export const TECH_CATEGORIES: TechCategory[] = [
     ],
   },
   {
-    title: "AI & Dev Tools",
+    title: "Engineering practice",
+    description: "Shorten feedback loops with testing, tooling, and practical AI integrations.",
     sectionIcon: LuCpu,
     colorClass: "cat-ai",
     technologies: [
@@ -274,8 +278,8 @@ export const TECH_CATEGORIES: TechCategory[] = [
 export const TECH_STATS = [
   { icon: LuCode, label: "Languages", value: 4 },
   { icon: LuLayers, label: "Frameworks", value: 15 },
-  { icon: LuCloud, label: "Cloud Services", value: 10 },
-  { icon: LuShield, label: "Years Exp.", value: new Date().getFullYear() - 2018 },
+  { icon: LuCloud, label: "Cloud services", value: 10 },
+  { icon: LuShield, label: "Years building", value: new Date().getFullYear() - 2018 },
 ];
 
 // ─── Projects ────────────────────────────────────────────────
@@ -285,8 +289,8 @@ export const PROJECTS = [
     title: "Regent Motel",
     image: "/assets/projects/regent-motel.png",
     description:
-      "Booking and operations platform for a working motel. Guests reserve rooms, staff manage rates and content, and the whole thing runs without a support team behind it.",
-    tags: ["React", "TypeScript", "Vite", "Hotel Management", "Booking System"],
+      "A production website for a working motel. Room details and direct reservations stay clear across devices, backed by a typed React component system.",
+    tags: ["React", "TypeScript", "Vite", "Responsive UI", "Motel Website"],
     liveUrl: "https://regentmotel.ca",
     githubUrl: "https://github.com/ShivamSabbarwal/regent-motel",
   },
@@ -296,7 +300,7 @@ export const PROJECTS = [
     image: "/assets/projects/portfolio-light.png",
     imageDark: "/assets/projects/portfolio-dark.png",
     description:
-      "This site. Next.js 16, React 19, and a motion system written by hand, on the theory that a portfolio should demonstrate the craft instead of describing it.",
+      "A server-first Next.js portfolio with focused client boundaries and shared motion tokens. Its layout and interactions adapt across devices.",
     tags: ["Next.js", "TypeScript", "Motion", "Tailwind CSS", "Portfolio"],
     liveUrl: "https://shivamsabbarwal.dev",
     githubUrl: "https://github.com/ShivamSabbarwal/shivam-sabbarwal-web",
@@ -304,9 +308,14 @@ export const PROJECTS = [
 ];
 
 // ─── Resume Data ─────────────────────────────────────────────
+// Two variants of the same career, aimed at two different hiring bars. The
+// facts, employers, dates, and metrics are identical; only emphasis and
+// ordering change. `engineer` leads with systems depth, `leader` leads with
+// ownership and delivery.
+const YEARS_EXPERIENCE = new Date().getFullYear() - 2018;
+
 export const RESUME_HEADER = {
   name: "SHIVAM SABBARWAL",
-  title: "Engineering Leader | Senior Software Engineer",
   contact: {
     phone: PERSONAL.phone,
     email: PERSONAL.email,
@@ -315,155 +324,257 @@ export const RESUME_HEADER = {
   },
 };
 
-export const RESUME_SUMMARY = `Engineering leader and senior software engineer with ${new Date().getFullYear() - 2018}+ years building systems that hold up in production across fintech, geospatial, fleet SaaS, and enterprise platforms. Built an engineering function from zero and answered for the whole stack behind a regulated cross-border payments platform serving 10,000+ users in four countries: architecture, delivery, compliance, observability, and the standards that keep a team fast. Helped double client acquisition, cut data acquisition cost by 65%, and reduced critical processing time by 60%. Currently a Senior Software Engineer at Cardata on an enterprise vehicle reimbursement platform, and targeting Engineering Manager or VP of Engineering scope: growing teams, raising the quality bar, and tying technical strategy to business results.`;
-
-export const RESUME_EXPERIENCE = [
-  {
-    title: "Senior Software Engineer",
-    company: "Cardata",
-    location: "Canada (Remote)",
-    period: "Jul 2026 to Present",
-    achievements: [
-      "Building full-stack product capabilities on Cardata’s managed vehicle reimbursement platform, supporting IRS-compliant programs (FAVR, CPM, TFCA) used by enterprises with mobile workforces",
-      "Contributing across React, Next.js, NestJS, and PostgreSQL to deliver reliable admin, driver, and reporting workflows for mileage capture, reimbursements, and program operations",
-      "Working with product, design, and subject-matter experts to turn fleet compliance and operational complexity into maintainable, production-ready software",
-      "Strengthening engineering practice through thoughtful code review, testing, and modern AI-assisted development",
-    ],
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "NestJS",
-      "PostgreSQL",
-      "Node.js",
-      "System Design",
-    ],
-  },
-  {
-    title: "Software Engineer",
-    company: "3vGeomatics (Orica Digital Solutions)",
-    location: "Vancouver, BC",
-    period: "Jul 2025 to Jul 2026",
-    achievements: [
-      "Owned observability and analytics infrastructure, designing and implementing PostHog product analytics and Sentry error tracking from the ground up across Motionary and Agora",
-      "Led a platform-wide React 17 to 19 upgrade, migrating 120+ components to TypeScript, removing legacy code, and reworking the charting library to eliminate rendering failures",
-      "Designed and shipped a GDPR-compliant user consent management system end to end, from privacy architecture to production rollout",
-      "Introduced modern developer tooling (oxlint, oxc formatter) and TypeScript-first standards that improved frontend consistency and velocity",
-      "Drove ArcGIS vector-layer optimization by profiling and re-architecting geospatial data pipelines for faster map rendering",
-    ],
-    skills: [
-      "React 19",
-      "TypeScript",
-      "Redux Toolkit",
-      "ESRI/ArcGIS",
-      "PostHog",
-      "Sentry",
-      "Docker",
-      "AWS",
-    ],
-  },
-  {
-    title: "Chief Technology Officer (CTO)",
-    company: "Remittor AI",
-    location: "Surrey, BC",
-    period: "Dec 2023 to Nov 2025",
-    achievements: [
-      "Built the entire technology organization from zero, owning technical strategy, architecture, and delivery for a cross-border fintech serving 10,000+ NRIs across India, Canada, USA, and Australia",
-      "Designed and shipped the full product suite end-to-end: automated transaction engine, admin portal, client portal, real-time dashboards, and marketing website",
-      "Architected multi-jurisdiction compliance systems for international money transfers and overseas property sales, integrating ICICI Bank and HDFC Bank APIs",
-      "Owned data residency strategy so financial user data stayed in jurisdiction-appropriate infrastructure under sovereignty requirements",
-      "Established engineering standards, CI/CD (Docker + Kubernetes), and review culture that reduced property sale processing time by 60%",
-    ],
-    skills: [
-      "React",
-      "Node.js",
-      "PostgreSQL",
-      "AWS",
-      "Docker",
-      "Kubernetes",
-      "TypeScript",
-      "Banking APIs",
-      "System Design",
-      "Compliance",
-    ],
-  },
-  {
-    title: "Senior Software Engineer",
-    company: "Unleashd Technologies",
-    location: "Vancouver, BC",
-    period: "Jan 2022 to Jul 2025",
-    achievements: [
-      "Owned the monolith-to-microservices migration, covering service boundaries, data contracts, and migration strategy, which cut data acquisition costs by 65%",
-      "Owned the ETL / File Mapper platform, building unstructured CSV ingestion that enabled multi-source integration and helped double client acquisition",
-      "Owned vehicle decoding services that supported core product reliability across the platform",
-      "Led modernization of the internal UI component library on Radix UI + TailwindCSS, establishing standards adopted across all product teams",
-      "Delivered Smart Customer Segments for real-time audience targeting, improving client engagement and acquisition metrics",
-    ],
-    skills: [
-      "React",
-      "Redux",
-      "Node.js",
-      "AWS",
-      "PostgreSQL",
-      "WebSockets",
-      "Python",
-      "Django",
-      "Express.js",
-      "TailwindCSS",
-    ],
-  },
-  {
-    title: "Full-Stack Developer",
-    company: "Four Eyes Financial",
-    location: "Saint John, NB",
-    period: "Jul 2020 to Jan 2022",
-    achievements: [
-      "Built a full-featured MERN CRM that automated end-to-end financial advisory workflows",
-      "Integrated WebRTC and AWS Chime into the CRM so advisors and clients could meet inside the product",
-      "Developed interactive financial dashboards with D3.js, Recharts, and Ant Design for portfolio analytics",
-      "Optimized a financial analytics microservice to improve data processing and dashboard performance",
-    ],
-    skills: [
-      "React",
-      "Node.js",
-      "Python",
-      "AWS",
-      "WebRTC",
-      "MongoDB",
-      "Express.js",
-      "Flask",
-      "D3.js",
-    ],
-  },
-];
-
-export const RESUME_SKILLS: Record<string, string[]> = {
-  Frontend: [
-    "React",
-    "TypeScript",
-    "Next.js",
-    "Tailwind CSS",
-    "Framer Motion",
-    "Vite",
-    "React Native",
-  ],
-  Backend: ["Node.js", "NestJS", "Python", "Go", "PostgreSQL", "MongoDB", "Redis", "Serverless"],
-  "Cloud & DevOps": ["AWS", "Vercel", "Cloudflare", "Docker", "CI/CD", "Terraform", "Kubernetes"],
-  Leadership: [
-    "Org building",
-    "Technical strategy",
-    "Engineering standards",
-    "Cross-functional delivery",
-    "Mentorship",
-    "System design",
-  ],
-  "AI & Dev Tools": ["OpenAI API", "LangChain", "Vitest", "Jest", "Playwright", "Git", "Figma"],
-};
-
 export const RESUME_EDUCATION = {
   degree: "Bachelor's in Software Engineering",
   school: "University of New Brunswick",
   location: "Fredericton, NB",
   graduationDate: "Apr 2020",
   highlights: ["Co-op education program", "Minor in Biomedical Engineering"],
+};
+
+export interface ResumeRole {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  achievements: string[];
+  skills: string[];
+}
+
+export interface ResumeVariant {
+  label: string;
+  headline: string;
+  summary: string;
+  experience: ResumeRole[];
+  skills: Record<string, string[]>;
+}
+
+export type ResumeVariantKey = "engineer" | "leader";
+
+const ENGINEER: ResumeVariant = {
+  label: "Software engineer",
+  headline: "Senior Software Engineer | Platform and Product Systems",
+  summary: `Software engineer with ${YEARS_EXPERIENCE}+ years building and modernizing production systems across SaaS, fintech, geospatial, and enterprise products. Comfortable owning a feature from database schema to interface, and just as comfortable untangling a platform that has outgrown its original design: a 120+ component TypeScript migration, observability built from nothing, and a service migration that cut data acquisition costs by 65%. Previously CTO of a regulated cross-border fintech, where I designed and shipped the entire platform serving 10,000+ users in four countries.`,
+  experience: [
+    {
+      title: "Senior Software Engineer",
+      company: "Cardata",
+      location: "Canada (Remote)",
+      period: "Jul 2026 to Present",
+      achievements: [
+        "Building full-stack features across Cardata Cloud and the driver applications in React, Next.js, NestJS, and PostgreSQL, covering mileage capture, reimbursement administration, and enterprise reporting",
+        "Translating FAVR, CPM, and TFCA program rules into tested product behavior that holds up when the regulations change",
+        "Working with product, design, and domain experts to turn fleet compliance requirements into maintainable software",
+      ],
+      skills: ["React", "Next.js", "TypeScript", "NestJS", "PostgreSQL", "Node.js"],
+    },
+    {
+      title: "Software Engineer",
+      company: "3vGeomatics (Orica Digital Solutions)",
+      location: "Vancouver, BC",
+      period: "Jul 2025 to Jul 2026",
+      achievements: [
+        "Led the React 17 to 19 upgrade, migrating 120+ components to TypeScript, removing legacy code, and reworking the charting library and custom charts to eliminate rendering failures",
+        "Built observability from scratch with PostHog and Sentry, giving both products their first real visibility into user behavior and production errors",
+        "Profiled and re-architected ArcGIS vector-layer data flows to fix stalls in data-heavy map views",
+        "Designed and shipped GDPR consent management across both products, from data model through production rollout",
+        "Introduced oxlint, oxc formatting, and TypeScript-first standards that tightened the feedback loop for the whole frontend codebase",
+      ],
+      skills: [
+        "React 19",
+        "TypeScript",
+        "Redux Toolkit",
+        "ESRI/ArcGIS",
+        "PostHog",
+        "Sentry",
+        "Docker",
+        "AWS",
+      ],
+    },
+    {
+      title: "Chief Technology Officer (CTO)",
+      company: "Remittor AI",
+      location: "Surrey, BC",
+      period: "Dec 2023 to Nov 2025",
+      achievements: [
+        "Designed and built the full platform: transaction engine, admin and client portals, real-time dashboards, and marketing site, serving 10,000+ users across four countries",
+        "Integrated ICICI Bank and HDFC Bank APIs to move regulated money across borders in production",
+        "Built multi-jurisdiction compliance and data residency into the architecture so financial records stayed in the right infrastructure",
+        "Shipped automation that cut property-sale processing time by 60%",
+        "Set up CI/CD on Docker and Kubernetes along with the code review and deployment standards the team worked to",
+      ],
+      skills: [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "TypeScript",
+        "Banking APIs",
+      ],
+    },
+    {
+      title: "Senior Software Engineer",
+      company: "Unleashd Technologies",
+      location: "Vancouver, BC",
+      period: "Jan 2022 to Jul 2025",
+      achievements: [
+        "Led the monolith-to-microservices migration, defining service boundaries and data contracts, cutting data acquisition costs by 65%",
+        "Built the File Mapper and ETL ingestion platform for unstructured CSV data, enabling multi-source integrations that helped double client acquisition",
+        "Owned the vehicle decoding services and data pipelines behind core platform workflows",
+        "Rebuilt the shared UI library on Radix UI and Tailwind CSS, establishing patterns adopted across product teams",
+        "Shipped Smart Customer Segments for real-time audience targeting",
+      ],
+      skills: [
+        "React",
+        "Redux",
+        "Node.js",
+        "AWS",
+        "PostgreSQL",
+        "WebSockets",
+        "Python",
+        "Django",
+      ],
+    },
+    {
+      title: "Full-Stack Developer",
+      company: "Four Eyes Financial",
+      location: "Saint John, NB",
+      period: "Jul 2020 to Jan 2022",
+      achievements: [
+        "Built core workflows for a MERN CRM used daily by financial advisors",
+        "Integrated WebRTC and AWS Chime so advisors and clients could meet in real time inside the product",
+        "Built interactive portfolio analytics with D3.js and Recharts",
+        "Optimized a Python analytics microservice to speed up data processing and dashboard loads",
+      ],
+      skills: ["React", "Node.js", "Python", "AWS", "WebRTC", "MongoDB", "D3.js"],
+    },
+  ],
+  skills: {
+    Languages: ["TypeScript", "JavaScript", "Python", "Go", "SQL"],
+    Frontend: ["React", "Next.js", "Tailwind CSS", "Redux Toolkit", "React Native"],
+    "Backend and data": ["Node.js", "NestJS", "PostgreSQL", "MongoDB", "Redis", "REST APIs"],
+    Infrastructure: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Vercel"],
+    "Quality and tooling": ["Vitest", "Jest", "Playwright", "Git", "PostHog", "Sentry"],
+  },
+};
+
+const LEADER: ResumeVariant = {
+  label: "Engineering leader",
+  headline: "Engineering Leader | Architecture, Delivery, and Team Building",
+  summary: `Engineering leader with ${YEARS_EXPERIENCE}+ years building software and the teams and standards around it. Built and ran the technology function for a regulated cross-border fintech serving 10,000+ users in four countries, owning architecture, delivery, hiring, compliance, and deployment. Equally effective inside established products, where platform work cut data acquisition costs by 65%, helped double client acquisition, and reduced critical processing time by 60%. Still hands-on, because I lead best when I understand the system as well as the team does.`,
+  experience: [
+    {
+      title: "Senior Software Engineer",
+      company: "Cardata",
+      location: "Canada (Remote)",
+      period: "Jul 2026 to Present",
+      achievements: [
+        "Delivering full-stack product work across Cardata Cloud and the driver applications for FAVR, CPM, and TFCA reimbursement programs",
+        "Partnering with product, design, and domain experts to turn fleet policy and compliance requirements into shipped product behavior",
+        "Raising delivery quality through code review, testing practice, and pragmatic use of AI-assisted development",
+      ],
+      skills: ["React", "Next.js", "TypeScript", "NestJS", "PostgreSQL", "Cross-functional delivery"],
+    },
+    {
+      title: "Software Engineer",
+      company: "3vGeomatics (Orica Digital Solutions)",
+      location: "Vancouver, BC",
+      period: "Jul 2025 to Jul 2026",
+      achievements: [
+        "Led a platform-wide React 17 to 19 modernization across 120+ components, sequencing the migration alongside ongoing feature delivery",
+        "Established observability with PostHog and Sentry, giving the team shared visibility into user behavior and production failures",
+        "Owned GDPR consent management end to end, from privacy architecture through production rollout",
+        "Set frontend engineering standards with oxlint, oxc, and TypeScript-first conventions adopted across the codebase",
+        "Re-architected ArcGIS vector-layer data flows to remove a long-standing performance complaint from customers",
+      ],
+      skills: [
+        "Technical leadership",
+        "React 19",
+        "TypeScript",
+        "Observability",
+        "Engineering standards",
+        "AWS",
+      ],
+    },
+    {
+      title: "Chief Technology Officer (CTO)",
+      company: "Remittor AI",
+      location: "Surrey, BC",
+      period: "Dec 2023 to Nov 2025",
+      achievements: [
+        "Built and ran the technology function for a regulated cross-border fintech serving 10,000+ users across India, Canada, USA, and Australia",
+        "Owned architecture, delivery, hiring, and engineering standards as the company's senior technical decision maker",
+        "Directed multi-jurisdiction compliance and data residency strategy for international transfers and overseas property sales, including ICICI Bank and HDFC Bank integrations",
+        "Established CI/CD on Docker and Kubernetes plus the code review and deployment practices the team worked to; automation cut property-sale processing time by 60%",
+        "Shipped the full product suite: transaction engine, admin and client portals, real-time dashboards, and marketing site",
+      ],
+      skills: [
+        "Technology strategy",
+        "Team building",
+        "Architecture",
+        "Compliance",
+        "CI/CD",
+        "Kubernetes",
+      ],
+    },
+    {
+      title: "Senior Software Engineer",
+      company: "Unleashd Technologies",
+      location: "Vancouver, BC",
+      period: "Jan 2022 to Jul 2025",
+      achievements: [
+        "Led the monolith-to-microservices migration, setting service boundaries, data contracts, and cutover strategy, cutting data acquisition costs by 65%",
+        "Delivered the File Mapper and ETL ingestion platform, enabling multi-source integrations that helped double client acquisition",
+        "Drove modernization of the shared UI library, establishing component standards used across every product team",
+        "Owned the vehicle decoding services underpinning core platform workflows",
+      ],
+      skills: [
+        "Migration strategy",
+        "System design",
+        "React",
+        "Node.js",
+        "AWS",
+        "PostgreSQL",
+      ],
+    },
+    {
+      title: "Full-Stack Developer",
+      company: "Four Eyes Financial",
+      location: "Saint John, NB",
+      period: "Jul 2020 to Jan 2022",
+      achievements: [
+        "Built core workflows for a MERN CRM supporting financial advisors and their clients",
+        "Integrated WebRTC and AWS Chime for real-time advisor and client meetings inside the product",
+        "Delivered interactive portfolio analytics with D3.js and Recharts",
+      ],
+      skills: ["React", "Node.js", "Python", "AWS", "MongoDB"],
+    },
+  ],
+  skills: {
+    Leadership: [
+      "Technical strategy",
+      "Architecture",
+      "Engineering standards",
+      "Hiring",
+      "Code review",
+      "Cross-functional delivery",
+    ],
+    "Product and platform": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "NestJS",
+      "PostgreSQL",
+    ],
+    "Delivery and infrastructure": ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD"],
+    Domain: ["Regulated fintech", "Compliance", "Data residency", "Observability", "Geospatial"],
+  },
+};
+
+export const RESUME_VARIANTS: Record<ResumeVariantKey, ResumeVariant> = {
+  engineer: ENGINEER,
+  leader: LEADER,
 };

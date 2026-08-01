@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { CSSProperties, ComponentProps, MouseEvent, ReactNode } from "react";
+import type { ComponentProps, MouseEvent, ReactNode } from "react";
 import { useRef } from "react";
 import {
   motion,
@@ -16,45 +16,37 @@ import { Button } from "@/components/ui/button";
 import { PERSONAL, SOCIAL_ICONS } from "@/constants";
 import { DURATION, EASE_OUT, EASE_REVEAL } from "@/lib/motion";
 
-const STICKERS: {
+const PORTRAIT_MARKERS: {
   label: string;
   cat: string;
-  style: CSSProperties;
-  rotate: number;
-  duration: number;
+  side: "left" | "right";
+  position: string;
+  tempo: number;
   delay: number;
 }[] = [
   {
-    label: "0 TO 1",
+    label: "Leads the work",
     cat: "cat-frontend",
-    style: { top: "-3%", left: "-8%" },
-    rotate: -8,
-    duration: 6.2,
+    side: "left",
+    position: "top-[7%] -left-[30%]",
+    tempo: 7,
     delay: 0,
   },
   {
-    label: "FINTECH",
+    label: "Ships the code",
     cat: "cat-backend",
-    style: { top: "8%", right: "-9%" },
-    rotate: 7,
-    duration: 5.4,
-    delay: 0.7,
+    side: "right",
+    position: "top-[40%] -right-[32%] md:-right-[18%] xl:-right-[28%]",
+    tempo: 8,
+    delay: DURATION.slow,
   },
   {
-    label: "PLATFORMS",
+    label: "Untangles systems",
     cat: "cat-cloud",
-    style: { top: "44%", left: "-11%" },
-    rotate: -5,
-    duration: 6.8,
-    delay: 0.35,
-  },
-  {
-    label: "TEAMS",
-    cat: "cat-ai",
-    style: { bottom: "34%", right: "-10%" },
-    rotate: 4,
-    duration: 7,
-    delay: 1.1,
+    side: "left",
+    position: "bottom-[31%] -left-[34%]",
+    tempo: 9,
+    delay: DURATION.fast,
   },
 ];
 
@@ -258,41 +250,34 @@ const Hero = () => {
               </dl>
             </motion.div>
 
-            {STICKERS.map((sticker, i) => (
+            {PORTRAIT_MARKERS.map((marker, i) => (
               <motion.div
-                key={sticker.label}
-                className={`float-sticker ${sticker.cat} absolute z-20 rounded-md px-2 py-1 text-[9px] tracking-wider uppercase select-none sm:px-2.5 sm:py-1.5 sm:text-[10px] lg:px-3 lg:text-[11px]`}
-                style={sticker.style}
-                initial={{ opacity: 0, scale: 0.5 }}
+                key={marker.label}
+                className={`portrait-marker portrait-marker--${marker.side} ${marker.position} ${marker.cat} absolute z-20 select-none`}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={
                   reduceMotion
-                    ? { opacity: 1, scale: 1, rotate: sticker.rotate }
+                    ? { opacity: 1, scale: 1 }
                     : {
                         opacity: 1,
                         scale: 1,
-                        y: [0, -10, 0],
-                        rotate: [sticker.rotate, sticker.rotate + 2, sticker.rotate],
+                        y: [0, -4, 0],
                       }
                 }
                 transition={{
                   opacity: { duration: DURATION.fast, delay: 0.85 + i * 0.08 },
                   scale: { duration: DURATION.fast, delay: 0.85 + i * 0.08 },
                   y: {
-                    duration: sticker.duration,
+                    duration: DURATION.hero * marker.tempo,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: sticker.delay,
-                  },
-                  rotate: {
-                    duration: sticker.duration,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: sticker.delay,
+                    delay: marker.delay,
                   },
                 }}
-                whileHover={{ scale: 1.08, rotate: 0 }}
+                whileHover={{ scale: 1.04 }}
               >
-                {sticker.label}
+                <span className="portrait-marker__index">{String(i + 1).padStart(2, "0")}</span>
+                <span>{marker.label}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -321,10 +306,10 @@ const Hero = () => {
               transition={{ duration: DURATION.slow, delay: 0.6 }}
               className="text-muted-foreground mt-5 max-w-md text-base leading-relaxed sm:mt-7 sm:text-lg"
             >
-              I build <span className="text-foreground font-semibold">software that holds up</span>
-              , and <span className="text-emphasis">teams that keep it that way</span>.{" "}
-              {PERSONAL.yearsExperience} years across fintech and enterprise platforms, including
-              one I took from an empty repo to 10,000 people in four countries.
+              I build <span className="text-foreground font-semibold">technology</span> that keeps
+              pace with ambition, creating products, platforms, and{" "}
+              <span className="text-emphasis">engineering foundations</span> that help companies
+              grow.
             </motion.p>
 
             <motion.div

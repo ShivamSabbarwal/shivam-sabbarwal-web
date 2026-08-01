@@ -41,3 +41,15 @@
 - **Context**: A contrast check parsed `getComputedStyle(el).color` with a number regex. This repo defines colours in `oklch()`, which Chrome returns as `oklch(0.23 0.02 158)`, so the regex read the lightness/chroma/hue triple as RGB bytes and reported every badge at 1.0-1.5:1. The CSS was actually fine; the measurement was not. Real values were 18.3:1 light and 14.4:1 dark.
 - **Lesson**: To get real sRGB bytes from any CSS colour, paint it into a 1x1 canvas over a known backdrop and read `getImageData`. This handles `oklch`, `color()`, `lab`, and alpha compositing for free. Also: when a verification reports that *everything* fails uniformly, suspect the harness before rewriting the code.
 - **Action**: pending
+
+## 2026-08-01 — Website copy and resume copy have different conversion jobs
+- **Status**: pending
+- **Context**: A site-wide brevity pass improved the portfolio but stripped implementation detail, ownership scope, and technical context from the resume, making it less useful to recruiters and hiring managers.
+- **Lesson**: Optimize portfolio copy for attention and continued reading. Optimize resume copy for interview conversion with attributed scope, implementation detail, and measurable outcomes. Keep the positioning consistent, but never apply the website's compression target mechanically to resume bullets.
+- **Action**: captured as a convention in `CLAUDE.md` (Conventions → "Website vs. resume copy")
+
+## 2026-08-01 — Verify document accessibility by extracting, not by looking
+- **Status**: pending
+- **Context**: A resume looked correct on screen while its PDF extracted headings as `E X P E R I E N C E` and stranded every bullet marker at the end of the page. Both defects are invisible visually and both break ATS parsing. Diagnosis took three wrong guesses (letter-spacing, webfont, `text-transform`) before a DOM-level A/B test showed small all-caps was the trigger.
+- **Lesson**: For any document whose real consumer is a parser (resume PDFs, invoices, exported reports), verify by extracting the output and reading it back, and treat extraction order as a requirement. When several styling properties could explain a rendering artifact, run one controlled A/B in the live DOM instead of changing properties one at a time and re-rendering.
+- **Action**: captured as a convention in `CLAUDE.md` (Conventions → "Resume styling")

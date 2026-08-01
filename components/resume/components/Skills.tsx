@@ -1,13 +1,11 @@
-import { RESUME_SKILLS } from "@/constants";
-
-const Skills = () => {
+const Skills = ({ skills }: { skills: Record<string, string[]> }) => {
   return (
-    <section>
-      <h2 className="section-header text-lg font-bold">SKILLS</h2>
-      <ul className="space-y-1 text-sm leading-relaxed">
-        {Object.entries(RESUME_SKILLS).map(([category, skills]) => (
-          <li key={category} className="text-secondary">
-            <span className="font-bold text-primary">{category}:</span> {skills.join(", ")}
+    <section className="resume-section">
+      <h2 className="resume-section-title">Skills</h2>
+      <ul className="resume-skills">
+        {Object.entries(skills).map(([category, items]) => (
+          <li key={category}>
+            <span className="resume-skills-label">{category}:</span> {items.join(", ")}
           </li>
         ))}
       </ul>

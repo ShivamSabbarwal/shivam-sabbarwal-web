@@ -16,7 +16,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Shivam Sabbarwal",
   jobTitle: "Senior Software Engineer",
-  description: `Engineering leader with ${YEARS}+ years building production systems across fintech, SaaS, and enterprise platforms, including the architecture and delivery of a regulated cross-border payments platform used in four countries.`,
+  description: `Engineering leader with ${YEARS}+ years shipping and modernizing production software.`,
   url: BASE_URL,
   image: `${BASE_URL}/assets/profile-pic.jpg`,
   sameAs: ["https://www.github.com/shivamsabbarwal", "https://www.linkedin.com/in/shivamsabbarwal"],
@@ -28,13 +28,12 @@ const jsonLd = {
     "Node.js",
     "TypeScript",
     "System Design",
-    "Fintech",
+    "Engineering Management",
   ],
   hasOccupation: {
     "@type": "Occupation",
     name: "Senior Software Engineer",
-    description:
-      "Engineering leader focused on system architecture, technical strategy, and product delivery",
+    description: "Engineering leader who stays hands-on across architecture and product delivery",
   },
   worksFor: {
     "@type": "Organization",
@@ -44,7 +43,7 @@ const jsonLd = {
 
 export const metadata: Metadata = {
   title: "Shivam Sabbarwal | Engineering Leader",
-  description: `Engineering leader with ${YEARS}+ years building production systems across fintech, SaaS, and enterprise platforms. Former CTO at Remittor AI, now a Senior Software Engineer at Cardata.`,
+  description: `Engineering leader and former CTO with ${YEARS}+ years shipping products and modernizing production systems.`,
   keywords: [
     "engineering leader",
     "engineering manager",
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
     type: "website",
     url: BASE_URL,
     title: "Shivam Sabbarwal | Engineering Leader",
-    description: `Builds the systems companies run on and the teams that keep them running. ${YEARS}+ years across fintech, SaaS, and enterprise platforms.`,
+    description: `Engineering leader with ${YEARS}+ years shipping products and modernizing production systems.`,
   },
   alternates: {
     canonical: BASE_URL,

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     default: "Shivam Sabbarwal | Engineering Leader",
     template: "%s | Shivam Sabbarwal",
   },
-  description: `Engineering leader with ${new Date().getFullYear() - 2018}+ years building production systems across fintech, SaaS, and enterprise platforms. Open to Engineering Manager and VP of Engineering roles.`,
+  description: `Engineering leader with ${new Date().getFullYear() - 2018}+ years shipping products and modernizing production systems.`,
   keywords: [
     "engineering leader",
     "engineering manager",

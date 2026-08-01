@@ -1,50 +1,30 @@
-import { LuMail, LuPhone, LuGlobe, LuLinkedin } from "react-icons/lu";
+import { LuGlobe, LuLinkedin, LuMail, LuPhone } from "react-icons/lu";
 import { RESUME_HEADER } from "@/constants";
 
-const Header = () => {
-  return (
-    <header className="mb-4">
-      <div className="flex justify-between items-start mb-3">
-        <div>
-          <h1 className="text-3xl font-bold tracking-wide text-primary">{RESUME_HEADER.name}</h1>
-          <p className="text-base text-accent mt-1">{RESUME_HEADER.title}</p>
-        </div>
+const { contact } = RESUME_HEADER;
 
-        <div className="contact-info flex flex-col items-end gap-0.5 text-sm">
-          <a
-            href={`tel:${RESUME_HEADER.contact.phone}`}
-            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
-          >
-            <span className="text-secondary">{RESUME_HEADER.contact.phone}</span>
-            <LuPhone className="size-3.5 text-accent" />
+const CONTACT_LINKS = [
+  { label: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, "")}`, Icon: LuPhone },
+  { label: contact.email, href: `mailto:${contact.email}`, Icon: LuMail },
+  { label: contact.linkedin, href: `https://${contact.linkedin}`, Icon: LuLinkedin },
+  { label: contact.website, href: `https://${contact.website}`, Icon: LuGlobe },
+];
+
+/* Icons are decorative vectors and carry no text, so the contact details still
+   extract as a plain readable line. */
+const Header = ({ headline }: { headline: string }) => {
+  return (
+    <header className="resume-header">
+      <h1 className="resume-name">{RESUME_HEADER.name}</h1>
+      <p className="resume-role">{headline}</p>
+      <p className="resume-contact">
+        {CONTACT_LINKS.map(({ label, href, Icon }) => (
+          <a key={label} className="resume-contact-item" href={href} rel="noopener noreferrer">
+            <Icon className="resume-contact-icon" aria-hidden="true" />
+            <span>{label}</span>
           </a>
-          <a
-            href={`mailto:${RESUME_HEADER.contact.email}`}
-            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
-          >
-            <span className="text-secondary">{RESUME_HEADER.contact.email}</span>
-            <LuMail className="size-3.5 text-accent" />
-          </a>
-          <a
-            href={`https://${RESUME_HEADER.contact.linkedin}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
-          >
-            <span className="text-secondary">{RESUME_HEADER.contact.linkedin}</span>
-            <LuLinkedin className="size-3.5 text-accent" />
-          </a>
-          <a
-            href={`https://${RESUME_HEADER.contact.website}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 no-underline"
-          >
-            <span className="text-secondary">{RESUME_HEADER.contact.website}</span>
-            <LuGlobe className="size-3.5 text-accent" />
-          </a>
-        </div>
-      </div>
+        ))}
+      </p>
     </header>
   );
 };

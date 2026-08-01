@@ -478,19 +478,95 @@
     box-shadow: 3px 3px 0 oklch(from var(--cat) l c h / 0.35);
   }
 
-  /* Opaque card fill and --foreground text, so these read at full body-copy
-     contrast in both themes. The category colour lives in the border and the
-     hard shadow, never behind the letters. */
-  .float-sticker {
+  /* Portrait markers borrow the panel/HUD language: opaque card fill,
+     numbered mono type, a category edge, and a connector back to the frame. */
+  .portrait-marker {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 1.75rem;
+    padding: 0.35rem 0.55rem 0.35rem 0.45rem;
     background: var(--card);
     color: var(--foreground);
-    border: 2px solid var(--cat);
+    border: 1.5px solid oklch(from var(--foreground) l c h / 0.2);
+    border-left: 3px solid var(--cat);
+    border-radius: calc(var(--radius) - 2px);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.625rem;
     font-weight: 700;
-    box-shadow: 3px 3px 0 oklch(from var(--cat) l c h / 0.6);
+    letter-spacing: 0.11em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 3px 3px 0 oklch(from var(--cat) l c h / 0.48);
   }
 
-  .dark .float-sticker {
+  .portrait-marker::before,
+  .portrait-marker::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    pointer-events: none;
+  }
+
+  .portrait-marker::before {
+    width: 0.9rem;
+    height: 1px;
+    background: var(--cat);
+  }
+
+  .portrait-marker::after {
+    width: 4px;
+    height: 4px;
+    margin-top: -1.5px;
+    background: var(--cat);
+    transform: rotate(45deg);
+  }
+
+  .portrait-marker--left::before {
+    right: -0.9rem;
+  }
+
+  .portrait-marker--left::after {
+    right: -1.05rem;
+  }
+
+  .portrait-marker--right {
+    border-right: 3px solid var(--cat);
+    border-left-width: 1.5px;
+    padding-right: 0.45rem;
+    padding-left: 0.55rem;
+  }
+
+  .portrait-marker--right::before {
+    left: -0.9rem;
+  }
+
+  .portrait-marker--right::after {
+    left: -1.05rem;
+  }
+
+  .portrait-marker__index {
+    color: var(--cat-ink);
+    font-size: 0.55rem;
+    letter-spacing: 0.04em;
+  }
+
+  .dark .portrait-marker {
     background: oklch(from var(--card) calc(l + 0.03) c h);
+  }
+
+  @media (min-width: 640px) {
+    .portrait-marker {
+      min-height: 2rem;
+      padding: 0.42rem 0.7rem 0.42rem 0.55rem;
+      font-size: 0.6875rem;
+    }
+
+    .portrait-marker--right {
+      padding-right: 0.55rem;
+      padding-left: 0.7rem;
+    }
   }
 
   /* ─── Atmosphere & texture ─────────────────────────────────── */
@@ -626,7 +702,7 @@
 }
 
 /* CSS can only neutralise CSS. The scroll parallax, 3D tilt, magnetic buttons,
-   and floating stickers are driven by Motion in JS, so those components read
+   and portrait markers are driven by Motion in JS, so those components read
    `useReducedMotion()` and skip the transform entirely. This block covers the
    declarative half: keyframes, hover transitions, and smooth scrolling. */
 @media (prefers-reduced-motion: reduce) {

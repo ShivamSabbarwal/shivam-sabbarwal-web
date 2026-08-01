@@ -29,13 +29,13 @@ const Contact = () => {
     <section id="contact" className="section-tinted relative py-20 sm:py-28">
       <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
         <FadeIn className="mb-14 text-center">
-          <p className="eyebrow mb-3">Get in touch</p>
+          <p className="eyebrow mb-3">Start a conversation</p>
           <h2 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
-            Say <span className="text-pop italic">Hello</span>
+            Have Something in <span className="text-pop italic">Mind?</span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
-            I&apos;m open to Engineering Manager and VP of Engineering conversations, and to
-            anything else worth building.
+            Working through a difficult product or engineering problem? Tell me what&apos;s going
+            on.
           </p>
           <div className="accent-line mx-auto mt-6 w-24" />
         </FadeIn>
@@ -45,11 +45,11 @@ const Contact = () => {
             <div className="panel corner-ticks p-5">
               <div className="mb-3 flex items-center gap-2">
                 <span className="bg-primary h-2 w-2 animate-pulse rounded-full" />
-                <p className="hud-label text-primary-strong">Open to work</p>
+                <p className="hud-label text-primary-strong">Available to talk</p>
               </div>
               <p className="text-muted-foreground text-[15px] leading-relaxed">
-                Recruiters, founders, and fellow engineers: I read everything that lands here, and
-                I&apos;ll write back.
+                I&apos;m happy to hear from founders, recruiters, and fellow engineers. I read
+                every message.
               </p>
             </div>
 
@@ -88,7 +88,7 @@ const Contact = () => {
             <div className="panel h-full p-6 sm:p-8">
               <h3 className="font-heading mb-1 text-xl tracking-tight">Send me a message</h3>
               <p className="text-muted-foreground mb-6 text-[15px]">
-                Tell me what you&apos;re working on and I&apos;ll get back to you.
+                A little context is plenty.
               </p>
               <ContactForm />
             </div>

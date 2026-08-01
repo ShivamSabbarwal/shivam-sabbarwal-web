@@ -1,167 +1,257 @@
-/* Resume-specific styles - scoped to .resume-container */
+/*
+ * Resume styles, scoped to .resume-container.
+ *
+ * Optimized for applicant tracking systems first, human scanning second:
+ * single column, no tables or text boxes, standard section names, real
+ * heading and list semantics, ATS-safe font stack, and text that extracts
+ * from the PDF in reading order. Colour is limited to one accent used for
+ * structure so the document still reads correctly in grayscale.
+ */
 .resume-container {
-  --resume-primary: #1a202c;
-  --resume-secondary: #374151;
-  --resume-accent: #0d9488;
-  --resume-border: #e2e8f0;
-  --resume-highlight: #f0fdfa;
-  --resume-tag-bg: #f3f4f6;
-  --resume-tag-hover: #e5e7eb;
+  --resume-ink: #111827;
+  --resume-muted: #4b5563;
+  --resume-accent: #0f766e;
+  --resume-rule: #d1d5db;
+  --resume-tint: #f0fdfa;
 
   margin: 0;
   padding: 0;
   background-color: #ffffff;
-  color: var(--resume-primary);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--resume-ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 10.5pt;
+  line-height: 1.42;
 }
 
-/* ── Section Headers ── */
-.resume-container .section-header {
-  color: var(--resume-accent);
-  text-transform: uppercase;
-  border-bottom: 2px solid var(--resume-accent);
-  background-color: var(--resume-highlight);
-  padding: 8px 12px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  margin-bottom: 1.25rem;
-  display: inline-block;
-  font-size: 1.1rem;
+.resume-container a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* ── Category Headers ── */
-.resume-container .category-header {
-  color: #000;
-  text-transform: uppercase;
-  border-left: 4px solid var(--resume-accent);
-  padding-left: 10px;
-  letter-spacing: 0.3px;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-/* ── Job Titles & Company ── */
-.resume-container .job-title {
-  color: #000;
-}
-
-.resume-container .company-name {
-  color: #000;
-}
-
-/* ── Contact Info ── */
-.resume-container .contact-info {
-  color: #000;
-}
-
-/* ── Achievement List ── */
-.resume-container .achievement-list {
-  list-style: disc;
-  list-style-position: outside;
-  margin-left: 20px;
-}
-
-.resume-container .achievement-list li {
-  padding-left: 0;
-  color: #000;
-  margin-bottom: 4px;
-  line-height: 1.5;
-}
-
-.resume-container .achievement-list li strong {
-  color: var(--resume-accent);
-  font-weight: 700;
-}
-
-/* ── Tags / Skills ── */
-.resume-container .tag {
-  color: #374151;
-  background-color: var(--resume-tag-bg);
-  border: none;
-  display: inline-block;
-  border-radius: 20px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 500;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease;
-}
-
-.resume-container .tag:hover {
-  background-color: var(--resume-tag-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-}
-
-/* ── Typography ── */
+/* The site sets a display font and tight tracking on every h1-h6 in the global
+   base layer. Element selectors beat inherited container styles, so headings
+   here must opt out explicitly: a display webfont's metrics make PDF text
+   extraction split headings into single characters, which breaks ATS parsing. */
 .resume-container h1,
 .resume-container h2,
 .resume-container h3,
 .resume-container h4,
 .resume-container h5,
 .resume-container h6 {
-  font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: -0.01em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
 }
 
-/* ── Color overrides ── */
-.resume-container .text-primary {
-  color: var(--resume-primary) !important;
+/* ── Header ── */
+.resume-container .resume-header {
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--resume-accent);
+  margin-bottom: 14px;
 }
 
-.resume-container .text-secondary {
-  color: var(--resume-secondary) !important;
+.resume-container .resume-name {
+  font-size: 23pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: var(--resume-ink);
 }
 
-.resume-container .text-accent {
-  color: var(--resume-accent) !important;
+.resume-container .resume-role {
+  margin-top: 3px;
+  font-size: 11pt;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--resume-accent);
 }
 
-/* ── Print Styles ── */
+.resume-container .resume-contact {
+  margin-top: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 9.5pt;
+  color: var(--resume-muted);
+}
+
+.resume-container .resume-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.resume-container .resume-contact-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  color: var(--resume-accent);
+}
+
+.resume-container .resume-sep {
+  color: var(--resume-rule);
+}
+
+/* ── Sections ── */
+.resume-container .resume-section {
+  margin-top: 14px;
+}
+
+/* Headings stay title case on purpose. Small all-caps text is emitted as
+   individually positioned glyphs, so PDF extraction returns
+   "E X P E R I E N C E" and an ATS can no longer match the section headings it
+   uses to segment a resume. Verified by extracting both variants. */
+.resume-container .resume-section-title {
+  font-size: 10.5pt;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: var(--resume-accent);
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--resume-rule);
+  margin-bottom: 9px;
+}
+
+.resume-container .resume-summary {
+  color: var(--resume-ink);
+  text-align: left;
+}
+
+/* ── Roles ── */
+.resume-container .resume-job + .resume-job {
+  margin-top: 11px;
+}
+
+.resume-container .resume-job-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.resume-container .resume-job-title {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--resume-ink);
+}
+
+.resume-container .resume-job-dates {
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: var(--resume-muted);
+  white-space: nowrap;
+}
+
+.resume-container .resume-job-meta {
+  margin-top: 1px;
+  font-size: 10pt;
+  color: var(--resume-muted);
+}
+
+.resume-container .resume-company {
+  font-weight: 600;
+  color: var(--resume-accent);
+}
+
+/* Grid keeps the hanging indent while leaving the bullet in the text flow,
+   so PDF extraction preserves reading order instead of stranding markers. */
+.resume-container .resume-bullets {
+  list-style: none;
+  margin: 5px 0 0;
+  padding: 0;
+}
+
+.resume-container .resume-bullets li {
+  display: grid;
+  grid-template-columns: 0.8em 1fr;
+  column-gap: 0.35em;
+  margin-bottom: 2.5px;
+}
+
+.resume-container .resume-bullet {
+  color: var(--resume-accent);
+  font-size: 0.7em;
+  line-height: 1.9;
+}
+
+.resume-container .resume-bullets strong {
+  font-weight: 700;
+  color: var(--resume-ink);
+}
+
+/* Sits directly under the role so the stack reads before the achievements,
+   with an accent key so it registers as its own band rather than a footnote. */
+.resume-container .resume-tech {
+  margin-top: 5px;
+  padding: 3px 8px 3px 7px;
+  border-left: 2.5px solid var(--resume-accent);
+  background-color: var(--resume-tint);
+  font-size: 9.5pt;
+  color: var(--resume-ink);
+}
+
+.resume-container .resume-tech-label {
+  font-weight: 700;
+  color: var(--resume-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 8pt;
+  margin-right: 7px;
+}
+
+/* ── Skills ── */
+.resume-container .resume-skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resume-container .resume-skills li {
+  margin-bottom: 3px;
+}
+
+.resume-container .resume-skills-label {
+  font-weight: 700;
+  color: var(--resume-ink);
+}
+
+/* Screen-only affordance confirming which variant will print. */
+.resume-variant-badge {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 50;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background-color: #111827;
+  color: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Print ── */
 @media print {
   @page {
     size: letter;
-    margin-top: 0.5in;
-  }
-  @page :first {
-    margin-top: 0.25in;
-    margin-bottom: 0.5in;
+    margin: 0.45in 0.5in;
   }
 
   .resume-container {
-    display: block !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    display: block !important;
     margin: 0;
     padding: 0;
     background-color: #fff !important;
-    font-size: 13px !important;
-    line-height: 1.45 !important;
-    color: #000 !important;
+    font-size: 10pt;
   }
 
-  .resume-container .section-header {
-    font-size: 15px !important;
-    color: var(--resume-accent) !important;
-    background-color: var(--resume-highlight) !important;
-    border-bottom: 2px solid var(--resume-accent) !important;
-    padding: 6px 10px !important;
-  }
-
-  .resume-container .tag {
-    color: #374151 !important;
-    background-color: #f3f4f6 !important;
-    border: none !important;
-    font-size: 12px !important;
-    padding: 3px 8px !important;
-    display: inline-block !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
-    font-weight: 600 !important;
+  .resume-container .resume-page {
+    width: auto !important;
+    padding: 0 !important;
   }
 
   .resume-container .print\:hidden,
@@ -172,35 +262,26 @@
     display: none !important;
   }
 
-  .resume-container p,
-  .resume-container span,
-  .resume-container li {
-    font-size: 13px !important;
-    line-height: 1.5 !important;
-  }
-
-  .resume-container li strong {
-    color: var(--resume-accent) !important;
-    font-weight: 700 !important;
-  }
-
-  .resume-container section {
-    break-inside: auto;
-  }
-
-  .resume-container h2,
-  .resume-container h3 {
-    break-after: auto;
-    page-break-after: auto;
-    break-before: auto;
-  }
-
-  .resume-container .job-header {
+  /* Keep a role intact, and never leave a heading stranded at a page end. */
+  .resume-container .resume-job {
     break-inside: avoid;
     page-break-inside: avoid;
   }
 
-  .resume-container h2 + * {
-    break-before: avoid;
+  .resume-container .resume-section-title {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .resume-container .resume-job-head,
+  .resume-container .resume-job-meta {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .resume-container p,
+  .resume-container li {
+    orphans: 2;
+    widows: 2;
   }
 }

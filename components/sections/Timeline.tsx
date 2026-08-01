@@ -105,7 +105,7 @@ const TimelineCard = ({
             <div className="border-border border-t pt-3.5">
               <h4 className="hud-label text-primary-strong mb-2.5 flex items-center gap-1.5">
                 <LuListChecks className="h-3 w-3" />
-                {isEducation ? "Highlights" : "What I did"}
+                {isEducation ? "Highlights" : "Selected work"}
               </h4>
               <ul className="space-y-2">
                 {item.achievements.map((achievement, i) => (
@@ -184,12 +184,12 @@ const Timeline = () => {
           viewport={VIEWPORT}
           className="mb-14 text-center sm:mb-20"
         >
-          <p className="eyebrow mb-3">Career · {TIMELINE.length} stops</p>
+          <p className="eyebrow mb-3">Experience · 2016 to present</p>
           <h2 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
-            Where I&apos;ve <span className="text-pop italic">Been</span>
+            Where I&apos;ve <span className="text-pop italic">Worked</span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
-            Newest first, back to the very first co-op. Each role opens as you reach it.
+            A career spent shipping new products and untangling established systems.
           </p>
           <div className="accent-line mx-auto mt-6 w-24" />
         </motion.header>

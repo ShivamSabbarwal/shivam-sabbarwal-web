@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="relative mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="hud-label mb-3 text-primary">Thanks for scrolling</p>
+            <p className="hud-label mb-3 text-primary">Thanks for visiting</p>
             {/* A wordmark, not a heading: keeps the outline clean below Contact. */}
             <p className="font-heading text-[clamp(2.25rem,7vw,4rem)] leading-[0.9] font-bold tracking-tight">
               {PERSONAL.name.split(" ")[0]}
@@ -19,7 +19,7 @@ const Footer = () => {
               <span className="text-primary">{PERSONAL.name.split(" ")[1]}</span>
             </p>
             <p className="text-muted-foreground mt-4 max-w-xs text-[15px] leading-relaxed">
-              Engineering leadership that still opens the editor.
+              I lead engineering work without drifting away from the code.
             </p>
           </div>
 

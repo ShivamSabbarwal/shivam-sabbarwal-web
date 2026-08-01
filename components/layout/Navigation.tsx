@@ -131,7 +131,7 @@ const Navigation = () => {
             >
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <SheetDescription className="sr-only">
-                Jump to any section of the site
+                Explore Shivam&apos;s experience, capabilities, projects, and contact details
               </SheetDescription>
 
               <div className="flex h-full flex-col px-5 pt-5 pb-7">
@@ -139,7 +139,7 @@ const Navigation = () => {
                   <div>
                     <p className="hud-label mb-2 text-primary">Jump to</p>
                     <h2 className="font-heading text-[2rem] leading-[0.95] tracking-tight">
-                      Where to <span className="text-primary italic">next?</span>
+                      Explore the <span className="text-primary italic">work</span>
                     </h2>
                   </div>
                   <Button
@@ -203,7 +203,9 @@ const Navigation = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.36 }}
                 >
-                  <p className="hud-label mb-3">{PERSONAL.location} · Open to work</p>
+                  <p className="hud-label mb-3">
+                    {PERSONAL.location} · Open to conversations
+                  </p>
                   <div className="grid grid-cols-2 gap-2.5">
                     <Button
                       variant="outline"

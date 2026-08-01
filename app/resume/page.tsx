@@ -4,25 +4,25 @@ import Resume from "@/components/resume";
 import AutoPrint from "./AutoPrint";
 
 const RESUME_URL = "https://shivamsabbarwal.dev/resume";
+const YEARS = new Date().getFullYear() - 2018;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   name: "Shivam Sabbarwal Resume",
-  description: "Professional resume of Shivam Sabbarwal, Senior Software Engineer",
+  description: "Resume of Shivam Sabbarwal, an engineering leader and hands-on software engineer",
   url: RESUME_URL,
   mainEntity: {
     "@type": "Person",
     name: "Shivam Sabbarwal",
     jobTitle: "Senior Software Engineer",
-    description: "Full-stack software engineer with over 7 years of experience",
+    description: `Engineering leader with ${YEARS}+ years shipping products and modernizing production systems`,
   },
 };
 
 export const metadata: Metadata = {
   title: { absolute: "Shivam Sabbarwal Resume" },
-  description:
-    "Download Shivam Sabbarwal's resume. Senior Software Engineer with 7+ years of experience in full-stack development, React, Node.js, TypeScript, and modern web technologies.",
+  description: `Shivam Sabbarwal's resume. ${YEARS}+ years leading, shipping, and modernizing production software.`,
   keywords: [
     "resume",
     "CV",
@@ -35,8 +35,7 @@ export const metadata: Metadata = {
     type: "profile",
     url: RESUME_URL,
     title: "Shivam Sabbarwal Resume",
-    description:
-      "Download Shivam Sabbarwal's resume. Senior Software Engineer with 7+ years of experience.",
+    description: `Engineering leader and hands-on software engineer with ${YEARS}+ years of experience.`,
   },
   alternates: {
     canonical: RESUME_URL,
