@@ -75,7 +75,7 @@ Personal portfolio site: **Next.js 16 App Router** · **React 19** · **Tailwind
 | Motion tokens       | `lib/motion.ts`                    | `DURATION`, `EASE_OUT`, `STAGGER`, `VIEWPORT`, `revealUp()`. Pull timing from here; never hand-roll a duration.            |
 | SEO / AEO helpers   | `lib/seo.ts`                       | Canonical Person `@id`, FAQ copy, WebSite/WebPage/Person/FAQPage/ProfilePage JSON-LD builders. Keep facts in sync here.   |
 | Crawl surfaces      | `app/robots.ts`, `app/sitemap.ts`  | Dynamic robots (incl. AI bot Allows) and sitemap. Do not reintroduce static `public/robots.txt` / `public/sitemap.xml`.   |
-| Social cards        | `app/opengraph-image.tsx`          | 1200×630 branded OG/Twitter image via `next/og`. Re-exported as `twitter-image.tsx`.                                       |
+| Social cards        | `app/opengraph-image.tsx`          | 1200×630 branded OG/Twitter image via `next/og`. Shared paint lives in `lib/social-card.tsx`; both route files declare their own `runtime`/`alt`/`size`/`contentType` (Next rejects re-exporting those). |
 | Scroll hooks        | `hooks/useActiveSection.ts`        | `useActiveSection` drives nav highlighting. `useNearestSection` drives Timeline expansion; its target-line ratio is tuned. |
 | Footer / Navigation | `components/layout/`               | Footer is RSC (uses anchor links + `buttonVariants`). Navigation stays client for scroll tracking + sheet. Socials use `rel="me"`. |
 | Server actions      | `app/actions/contact.ts`           | Contact form email via nodemailer + react-email                                                                            |
