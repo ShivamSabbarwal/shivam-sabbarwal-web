@@ -178,6 +178,10 @@
   }
 
   html {
+    /* Motion's useScroll needs a non-static document offset parent when a
+       target is set (Hero / Timeline). Harmless for layout; quiets a false
+       positive that newer Motion releases suppress for the document element. */
+    position: relative;
     scroll-behavior: smooth;
     @apply font-sans;
   }
@@ -215,7 +219,9 @@
     --card-foreground: var(--bone);
     --secondary: oklch(from var(--ink) calc(l + 0.075) c h);
     --secondary-foreground: var(--bone);
-    --muted-foreground: oklch(from var(--bone) calc(l - 0.24) calc(c + 0.008) h);
+    --muted-foreground: oklch(
+      from var(--bone) calc(l - 0.24) calc(c + 0.008) h
+    );
     --border: oklch(from var(--bone) l c h / 0.16);
     --input: oklch(from var(--ink) calc(l + 0.06) c h);
     --primary-strong: var(--primary);
@@ -504,7 +510,12 @@
 
   .accent-line {
     height: 4px;
-    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 62%, transparent 100%);
+    background: linear-gradient(
+      90deg,
+      var(--primary) 0%,
+      var(--accent) 62%,
+      transparent 100%
+    );
     border-radius: 999px;
   }
 
@@ -666,8 +677,16 @@
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 50% 45% at 12% 18%, oklch(from var(--primary) l c h / 0.22), transparent 62%),
-      radial-gradient(ellipse 42% 40% at 88% 78%, oklch(from var(--accent) l c h / 0.14), transparent 58%);
+      radial-gradient(
+        ellipse 50% 45% at 12% 18%,
+        oklch(from var(--primary) l c h / 0.22),
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 42% 40% at 88% 78%,
+        oklch(from var(--accent) l c h / 0.14),
+        transparent 58%
+      );
   }
 
   .section-glow {
@@ -754,7 +773,11 @@
      choice. Apply to an absolutely-positioned layer, not ::before,
      so `.dot-field-fade` can mask it directly. */
   .dot-field {
-    background-image: radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      currentColor 1px,
+      transparent 0
+    );
     background-size: 22px 22px;
     opacity: 0.05;
   }
@@ -764,23 +787,51 @@
   }
 
   .dot-field-fade {
-    mask-image: linear-gradient(to bottom, transparent, black 14%, black 86%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 14%, black 86%, transparent);
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 14%,
+      black 86%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 14%,
+      black 86%,
+      transparent
+    );
   }
 
   /* Theme-aware on purpose: this used to sit on `.slab`, which pinned the sheet
      to ink in both themes and left light mode with no light menu. */
   .mobile-menu-mesh {
     background:
-      radial-gradient(ellipse 85% 45% at 8% 6%, oklch(from var(--primary) l c h / 0.34), transparent 60%),
-      radial-gradient(ellipse 70% 45% at 95% 88%, oklch(from var(--accent) l c h / 0.16), transparent 55%),
+      radial-gradient(
+        ellipse 85% 45% at 8% 6%,
+        oklch(from var(--primary) l c h / 0.34),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 45% at 95% 88%,
+        oklch(from var(--accent) l c h / 0.16),
+        transparent 55%
+      ),
       var(--background);
   }
 
   .dark .mobile-menu-mesh {
     background:
-      radial-gradient(ellipse 85% 45% at 8% 6%, oklch(from var(--primary) l c h / 0.3), transparent 60%),
-      radial-gradient(ellipse 70% 45% at 95% 88%, oklch(from var(--accent) l c h / 0.26), transparent 55%),
+      radial-gradient(
+        ellipse 85% 45% at 8% 6%,
+        oklch(from var(--primary) l c h / 0.3),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 45% at 95% 88%,
+        oklch(from var(--accent) l c h / 0.26),
+        transparent 55%
+      ),
       var(--ink);
   }
 

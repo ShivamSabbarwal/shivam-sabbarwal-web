@@ -1,17 +1,8 @@
-import {
-  SOCIAL_CARD_ALT,
-  SOCIAL_CARD_CONTENT_TYPE,
-  SOCIAL_CARD_SIZE,
-  createSocialCardImage,
-} from "@/lib/social-card";
+import { SocialCardImage } from "./social-card";
 
-// Segment config must be declared in this file. Next.js rejects re-exports of
-// `runtime` (and related fields) from another module.
 export const runtime = "edge";
-export const alt = SOCIAL_CARD_ALT;
-export const size = SOCIAL_CARD_SIZE;
-export const contentType = SOCIAL_CARD_CONTENT_TYPE;
+export const alt = "Shivam Sabbarwal, Engineering Leader";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
 
-export default function TwitterImage() {
-  return createSocialCardImage();
-}
+export default SocialCardImage;
