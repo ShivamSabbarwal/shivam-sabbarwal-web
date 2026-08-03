@@ -2,7 +2,14 @@
 
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { useState } from "react";
-import { LuArrowRight, LuFileText, LuMenu, LuMoon, LuSun, LuX } from "react-icons/lu";
+import {
+  LuArrowRight,
+  LuFileText,
+  LuMenu,
+  LuMoon,
+  LuSun,
+  LuX,
+} from "react-icons/lu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,30 +21,38 @@ import {
 } from "@/components/ui/sheet";
 import { NAV_ITEMS, PERSONAL } from "@/constants";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { scrollToSection } from "@/lib/scroll";
 
 const NAV_SECTION_IDS = NAV_ITEMS.map((item) => item.href.substring(1));
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, isHydrated, toggleTheme } = useTheme();
-  const activeSection = useActiveSection(NAV_SECTION_IDS, "-100px 0px -60% 0px");
+  const activeSection = useActiveSection(
+    NAV_SECTION_IDS,
+    "-100px 0px -60% 0px",
+  );
 
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 26, restDelta: 0.001 });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 26,
+    restDelta: 0.001,
+  });
 
   const handleNavClick = (href: string) => {
     const fromSheet = isMobileMenuOpen;
     setIsMobileMenuOpen(false);
     if (!href.startsWith("#")) return;
-    const target = document.getElementById(href.substring(1));
-    if (!target) return;
+    const id = href.substring(1);
+    if (!document.getElementById(id)) return;
 
     // The sheet locks body scroll while open, so a jump fired from inside it
     // has to wait for the close animation or it gets swallowed.
     if (fromSheet) {
-      setTimeout(() => target.scrollIntoView({ behavior: "smooth" }), 260);
+      setTimeout(() => scrollToSection(id), 260);
     } else {
-      target.scrollIntoView({ behavior: "smooth" });
+      scrollToSection(id);
     }
   };
 
@@ -70,7 +85,11 @@ const Navigation = () => {
                   {active && (
                     <motion.span
                       layoutId="nav-pill"
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 32,
+                      }}
                       className="absolute inset-0 rounded-md bg-primary"
                     />
                   )}
@@ -119,27 +138,39 @@ const Navigation = () => {
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger
-              render={<Button variant="ghost" size="icon" className="h-11 w-11 md:hidden" />}
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-11 w-11 md:hidden"
+                />
+              }
               aria-label="Open menu"
             >
-              {isMobileMenuOpen ? <LuX className="h-5 w-5" /> : <LuMenu className="h-5 w-5" />}
+              {isMobileMenuOpen ? (
+                <LuX className="h-5 w-5" />
+              ) : (
+                <LuMenu className="h-5 w-5" />
+              )}
             </SheetTrigger>
             <SheetContent
               side="bottom"
               showCloseButton={false}
-              className="mobile-menu-mesh slab inset-0 z-60 h-[100dvh] max-h-[100dvh] w-full max-w-none border-0 p-0 data-ending-style:translate-y-4 data-starting-style:translate-y-4"
+              className="mobile-menu-mesh inset-0 z-60 h-[100dvh] max-h-[100dvh] w-full max-w-none border-0 p-0 data-ending-style:translate-y-4 data-starting-style:translate-y-4"
             >
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <SheetDescription className="sr-only">
-                Explore Shivam&apos;s experience, capabilities, projects, and contact details
+                Explore Shivam&apos;s experience, capabilities, projects, and
+                contact details
               </SheetDescription>
 
               <div className="flex h-full flex-col px-5 pt-5 pb-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="hud-label mb-2 text-primary">Jump to</p>
+                    <p className="hud-label text-primary-strong mb-2">Jump to</p>
                     <h2 className="font-heading text-[2rem] leading-[0.95] tracking-tight">
-                      Explore the <span className="text-primary italic">work</span>
+                      Explore the{" "}
+                      <span className="text-primary-strong italic">work</span>
                     </h2>
                   </div>
                   <Button
@@ -174,12 +205,14 @@ const Navigation = () => {
                             className={`group flex min-h-[60px] items-center gap-4 rounded-lg border-[1.5px] px-4 py-3 text-left transition-colors ${
                               active
                                 ? "border-primary bg-primary text-primary-foreground"
-                                : "border-bone/15 bg-bone/[0.04] active:border-primary/60"
+                                : "border-border bg-card/70 active:border-primary/60"
                             }`}
                           >
                             <span
                               className={`font-mono text-xs font-bold tracking-[0.2em] ${
-                                active ? "text-primary-foreground/60" : "text-primary"
+                                active
+                                  ? "text-primary-foreground/60"
+                                  : "text-primary-strong"
                               }`}
                             >
                               {`0${index + 1}`}
@@ -217,7 +250,10 @@ const Navigation = () => {
                     >
                       Resume
                     </Button>
-                    <Button className="h-12" onClick={() => handleNavClick("#contact")}>
+                    <Button
+                      className="h-12"
+                      onClick={() => handleNavClick("#contact")}
+                    >
                       Contact
                     </Button>
                   </div>

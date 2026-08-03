@@ -9,8 +9,16 @@ export interface ContactFormData {
   lastName: string;
   email: string;
   phone?: string;
+  intent: string;
   message: string;
 }
+
+const INTENT_LABELS: Record<string, string> = {
+  "senior-engineering": "Senior engineering role",
+  "engineering-leadership": "Engineering leadership role",
+  "founder-product": "Founder / product conversation",
+  "something-else": "Something else",
+};
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -22,15 +30,22 @@ const transporter = nodemailer.createTransport({
 
 export async function sendContactEmail(data: ContactFormData) {
   const fullName = `${data.firstName} ${data.lastName}`;
+  const intentLabel = INTENT_LABELS[data.intent] ?? data.intent;
   const html = await render(
-    ContactEmail({ name: fullName, email: data.email, phone: data.phone, message: data.message }),
+    ContactEmail({
+      name: fullName,
+      email: data.email,
+      phone: data.phone,
+      intent: intentLabel,
+      message: data.message,
+    }),
   );
 
   await transporter.sendMail({
     from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
     to: process.env.GMAIL_USER,
     replyTo: data.email,
-    subject: `Portfolio inquiry from ${fullName}`,
+    subject: `${intentLabel}: ${fullName}`,
     html,
   });
 }

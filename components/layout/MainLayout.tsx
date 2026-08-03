@@ -10,7 +10,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Navigation />
-      {children}
+      <main>{children}</main>
       <Footer />
     </div>
   );

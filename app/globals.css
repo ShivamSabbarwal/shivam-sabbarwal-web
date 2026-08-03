@@ -317,6 +317,81 @@
     box-shadow: 6px 6px 0 oklch(from var(--primary) l c h / 0.35);
   }
 
+  /* FAQ accordion: answers stay in the DOM; open is presentation only. */
+  .faq-item {
+    padding: 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 0;
+  }
+
+  .faq-summary::-webkit-details-marker,
+  .faq-summary::marker {
+    display: none;
+    content: "";
+  }
+
+  .faq-summary:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .faq-item[open] .faq-summary {
+    color: var(--primary-strong);
+  }
+
+  .faq-chevron {
+    position: relative;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.55;
+  }
+
+  .faq-item[open] .faq-chevron {
+    opacity: 1;
+  }
+
+  .faq-chevron::before,
+  .faq-chevron::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: currentColor;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-chevron::before {
+    width: 0.65rem;
+    height: 1.5px;
+    transform: translate(-50%, -50%);
+  }
+
+  .faq-chevron::after {
+    width: 1.5px;
+    height: 0.65rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .faq-item[open] .faq-chevron::after {
+    transform: translate(-50%, -50%) scaleY(0);
+  }
+
+  .faq-answer {
+    margin: 0;
+    padding: 0 0 1.15rem;
+    max-width: 40rem;
+  }
+
   /* Registration ticks in two corners: HUD framing, no chrome. */
   .corner-ticks::before,
   .corner-ticks::after {
@@ -693,11 +768,27 @@
     -webkit-mask-image: linear-gradient(to bottom, transparent, black 14%, black 86%, transparent);
   }
 
+  /* Theme-aware on purpose: this used to sit on `.slab`, which pinned the sheet
+     to ink in both themes and left light mode with no light menu. */
   .mobile-menu-mesh {
+    background:
+      radial-gradient(ellipse 85% 45% at 8% 6%, oklch(from var(--primary) l c h / 0.34), transparent 60%),
+      radial-gradient(ellipse 70% 45% at 95% 88%, oklch(from var(--accent) l c h / 0.16), transparent 55%),
+      var(--background);
+  }
+
+  .dark .mobile-menu-mesh {
     background:
       radial-gradient(ellipse 85% 45% at 8% 6%, oklch(from var(--primary) l c h / 0.3), transparent 60%),
       radial-gradient(ellipse 70% 45% at 95% 88%, oklch(from var(--accent) l c h / 0.26), transparent 55%),
       var(--ink);
+  }
+
+  /* The nearest career card expands while the page is still moving. Letting the
+     browser pick an anchor in here makes it correct the scroll offset, which
+     aborts an in-flight programmatic scroll and strands the jump mid-section. */
+  .timeline-rail {
+    overflow-anchor: none;
   }
 }
 

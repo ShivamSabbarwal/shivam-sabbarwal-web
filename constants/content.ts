@@ -26,7 +26,16 @@ import {
   SiFigma,
 } from "react-icons/si";
 import PlaywrightIcon from "@/components/PlaywrightIcon";
-import { LuCode, LuServer, LuCloud, LuCpu, LuShield, LuLayers } from "react-icons/lu";
+import {
+  LuCode,
+  LuServer,
+  LuCloud,
+  LuCpu,
+  LuBoxes,
+  LuGitPullRequest,
+  LuUsers,
+  LuChartLine,
+} from "react-icons/lu";
 
 // ─── Personal Info ───────────────────────────────────────────
 export const PERSONAL = {
@@ -39,6 +48,7 @@ export const PERSONAL = {
     return new Date().getFullYear() - 2018;
   },
   website: "shivamsabbarwal.dev",
+  portrait: "/assets/profile-pic.jpg",
   socials: [
     { name: "GitHub", url: "https://github.com/ShivamSabbarwal" },
     { name: "LinkedIn", url: "https://linkedin.com/in/shivamsabbarwal" },
@@ -204,7 +214,37 @@ export const TIMELINE = [
   },
 ];
 
-// ─── Tech Stack ──────────────────────────────────────────────
+// ─── Capabilities ────────────────────────────────────────────
+// Leadership practices first (what he owns), then tech categories as evidence.
+// Keep facts aligned with TIMELINE / resume; do not invent metrics here.
+
+export const CAPABILITY_PRACTICES = [
+  {
+    title: "Architecture ownership",
+    description:
+      "Shape platforms end to end: service boundaries, data contracts, privacy architecture, and the cutovers that stick.",
+    icon: LuBoxes,
+  },
+  {
+    title: "Delivery systems",
+    description:
+      "Stand up CI/CD, containers, and deployment practice so shipping stays repeatable under production pressure.",
+    icon: LuGitPullRequest,
+  },
+  {
+    title: "Team standards",
+    description:
+      "Set hiring, code review, and TypeScript-first conventions that tighten feedback without slowing the product.",
+    icon: LuUsers,
+  },
+  {
+    title: "Tech to outcomes",
+    description:
+      "Connect engineering work to cost, compliance, and growth: clearer product behavior and measurable operating results.",
+    icon: LuChartLine,
+  },
+] as const;
+
 export interface TechCategory {
   title: string;
   description: string;
@@ -216,7 +256,8 @@ export interface TechCategory {
 export const TECH_CATEGORIES: TechCategory[] = [
   {
     title: "Product interfaces",
-    description: "Keep complex interfaces clear and maintainable as requirements change.",
+    description:
+      "Own shared UI foundations and modernization so complex products stay clear as teams and requirements grow.",
     sectionIcon: LuCode,
     colorClass: "cat-frontend",
     technologies: [
@@ -231,7 +272,8 @@ export const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     title: "Services and data",
-    description: "Turn business rules into reliable APIs, services, and data flows.",
+    description:
+      "Lead APIs, data flows, and migrations that turn business rules into reliable systems teams can build on.",
     sectionIcon: LuServer,
     colorClass: "cat-backend",
     technologies: [
@@ -246,7 +288,8 @@ export const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     title: "Delivery and infrastructure",
-    description: "Make deployments repeatable and production systems easier to operate.",
+    description:
+      "Build the delivery systems teams rely on: repeatable deploys, operable production, and clear ownership of the path to ship.",
     sectionIcon: LuCloud,
     colorClass: "cat-cloud",
     technologies: [
@@ -261,7 +304,8 @@ export const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     title: "Engineering practice",
-    description: "Shorten feedback loops with testing, tooling, and practical AI integrations.",
+    description:
+      "Raise the bar with testing, observability, tooling, and practical AI so feedback stays fast and standards hold.",
     sectionIcon: LuCpu,
     colorClass: "cat-ai",
     technologies: [
@@ -275,14 +319,7 @@ export const TECH_CATEGORIES: TechCategory[] = [
   },
 ];
 
-export const TECH_STATS = [
-  { icon: LuCode, label: "Languages", value: 4 },
-  { icon: LuLayers, label: "Frameworks", value: 15 },
-  { icon: LuCloud, label: "Cloud services", value: 10 },
-  { icon: LuShield, label: "Years building", value: new Date().getFullYear() - 2018 },
-];
-
-// ─── Projects ────────────────────────────────────────────────
+// ─── Independent projects (craft signal, not the hiring centerpiece) ──
 export const PROJECTS = [
   {
     id: 1,
@@ -290,18 +327,18 @@ export const PROJECTS = [
     image: "/assets/projects/regent-motel.png",
     description:
       "A production website for a working motel. Room details and direct reservations stay clear across devices, backed by a typed React component system.",
-    tags: ["React", "TypeScript", "Vite", "Responsive UI", "Motel Website"],
+    tags: ["React", "TypeScript", "Vite", "Responsive UI"],
     liveUrl: "https://regentmotel.ca",
     githubUrl: "https://github.com/ShivamSabbarwal/regent-motel",
   },
   {
     id: 2,
     title: "Personal Portfolio",
-    image: "/assets/projects/portfolio-light.png",
-    imageDark: "/assets/projects/portfolio-dark.png",
+    image: "/assets/projects/portfolio-site-light.png",
+    imageDark: "/assets/projects/portfolio-site-dark.png",
     description:
-      "A server-first Next.js portfolio with focused client boundaries and shared motion tokens. Its layout and interactions adapt across devices.",
-    tags: ["Next.js", "TypeScript", "Motion", "Tailwind CSS", "Portfolio"],
+      "This site: a server-first Next.js portfolio with focused client boundaries, shared motion tokens, and a layout that holds up from phone to desktop.",
+    tags: ["Next.js", "TypeScript", "Motion", "Tailwind CSS"],
     liveUrl: "https://shivamsabbarwal.dev",
     githubUrl: "https://github.com/ShivamSabbarwal/shivam-sabbarwal-web",
   },

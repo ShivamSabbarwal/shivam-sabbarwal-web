@@ -2,27 +2,19 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Resume from "@/components/resume";
 import AutoPrint from "./AutoPrint";
+import {
+  BASE_URL,
+  buildResumeJsonLd,
+  jsonLdScript,
+  personDescription,
+  yearsExperience,
+} from "@/lib/seo";
 
-const RESUME_URL = "https://shivamsabbarwal.dev/resume";
-const YEARS = new Date().getFullYear() - 2018;
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  name: "Shivam Sabbarwal Resume",
-  description: "Resume of Shivam Sabbarwal, an engineering leader and hands-on software engineer",
-  url: RESUME_URL,
-  mainEntity: {
-    "@type": "Person",
-    name: "Shivam Sabbarwal",
-    jobTitle: "Senior Software Engineer",
-    description: `Engineering leader with ${YEARS}+ years shipping products and modernizing production systems`,
-  },
-};
+const RESUME_URL = `${BASE_URL}/resume`;
 
 export const metadata: Metadata = {
   title: { absolute: "Shivam Sabbarwal Resume" },
-  description: `Shivam Sabbarwal's resume. ${YEARS}+ years leading, shipping, and modernizing production software.`,
+  description: `Shivam Sabbarwal's resume. ${yearsExperience()}+ years leading, shipping, and modernizing production software.`,
   keywords: [
     "resume",
     "CV",
@@ -35,7 +27,12 @@ export const metadata: Metadata = {
     type: "profile",
     url: RESUME_URL,
     title: "Shivam Sabbarwal Resume",
-    description: `Engineering leader and hands-on software engineer with ${YEARS}+ years of experience.`,
+    description: `Engineering leader and hands-on software engineer with ${yearsExperience()}+ years of experience.`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shivam Sabbarwal Resume",
+    description: personDescription(),
   },
   alternates: {
     canonical: RESUME_URL,
@@ -47,7 +44,7 @@ export default function ResumePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(buildResumeJsonLd()) }}
       />
       <Suspense fallback={null}>
         <AutoPrint />

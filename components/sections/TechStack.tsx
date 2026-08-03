@@ -1,37 +1,9 @@
 "use client";
 
-import { animate, motion, useInView, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { TECH_CATEGORIES, TECH_STATS } from "@/constants";
+import { motion } from "motion/react";
+import { useState, type CSSProperties } from "react";
+import { CAPABILITY_PRACTICES, TECH_CATEGORIES } from "@/constants";
 import { DURATION, EASE_OUT, STAGGER, VIEWPORT } from "@/lib/motion";
-
-function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const reduceMotion = useReducedMotion();
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    if (reduceMotion) {
-      setDisplay(value);
-      return;
-    }
-    const controls = animate(0, value, {
-      duration: 1.4,
-      ease: EASE_OUT,
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [isInView, value, reduceMotion]);
-
-  return (
-    <span ref={ref} className="font-heading text-primary-strong text-3xl tabular-nums">
-      {String(display).padStart(2, "0")}
-      {suffix}
-    </span>
-  );
-}
 
 function SkillGroup({
   category,
@@ -71,9 +43,7 @@ function SkillGroup({
           <div className="min-w-0 flex-1">
             <h3 className="font-heading text-lg leading-tight tracking-tight">{category.title}</h3>
           </div>
-          <p className="hud-label shrink-0 text-right">
-            {category.technologies.length} tools
-          </p>
+          <p className="hud-label shrink-0 text-right">{category.technologies.length} tools</p>
         </div>
 
         <p className="text-muted-foreground mb-4 text-[15px] leading-relaxed">
@@ -114,15 +84,46 @@ const TechStack = () => {
           viewport={VIEWPORT}
           className="mb-14 text-center"
         >
-          <p className="eyebrow mb-3">Capabilities · {TECH_CATEGORIES.length} areas</p>
+          <p className="eyebrow mb-3">Capabilities · leadership and craft</p>
           <h2 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
-            What I Work <span className="text-pop italic">On</span>
+            What I <span className="text-pop italic">Own</span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
-            Four recurring engineering problems, with tools chosen for the work.
+            Engineering leadership across architecture, delivery, and team practice. Tools below are
+            the evidence.
           </p>
           <div className="accent-line mx-auto mt-6 w-24" />
         </motion.div>
+
+        <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {CAPABILITY_PRACTICES.map((practice, index) => {
+            const PracticeIcon = practice.icon;
+            return (
+              <motion.div
+                key={practice.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: DURATION.slow, delay: index * STAGGER, ease: EASE_OUT }}
+                viewport={VIEWPORT}
+                className="panel h-full p-4 sm:p-5"
+              >
+                <div className="mb-3 flex items-center gap-2.5">
+                  <div className="bg-primary/12 text-primary-strong flex h-9 w-9 shrink-0 items-center justify-center rounded-md">
+                    <PracticeIcon className="h-4 w-4" />
+                  </div>
+                  <h3 className="font-heading text-base leading-tight tracking-tight">
+                    {practice.title}
+                  </h3>
+                </div>
+                <p className="text-muted-foreground text-[14px] leading-relaxed">
+                  {practice.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <p className="hud-label mb-4">Tools as evidence · {TECH_CATEGORIES.length} areas</p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {TECH_CATEGORIES.map((category, index) => (
@@ -136,34 +137,6 @@ const TechStack = () => {
             />
           ))}
         </div>
-
-        <motion.dl
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: DURATION.slow, ease: EASE_OUT }}
-          viewport={VIEWPORT}
-          className="border-border mt-12 grid grid-cols-2 gap-6 border-t pt-8 sm:grid-cols-4 sm:gap-8"
-        >
-          {TECH_STATS.map((stat, index) => {
-            const StatIcon = stat.icon;
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * STAGGER, duration: DURATION.base, ease: EASE_OUT }}
-                viewport={VIEWPORT}
-                className="flex flex-col-reverse items-center text-center"
-              >
-                <dt className="hud-label mt-1.5">{stat.label}</dt>
-                <dd className="flex items-center gap-2">
-                  <StatIcon className="text-muted-foreground h-4 w-4" />
-                  <AnimatedCounter value={stat.value} />
-                </dd>
-              </motion.div>
-            );
-          })}
-        </motion.dl>
       </div>
     </section>
   );

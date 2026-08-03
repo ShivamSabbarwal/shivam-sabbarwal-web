@@ -45,11 +45,10 @@ const Contact = () => {
             <div className="panel corner-ticks p-5">
               <div className="mb-3 flex items-center gap-2">
                 <span className="bg-primary h-2 w-2 animate-pulse rounded-full" />
-                <p className="hud-label text-primary-strong">Available to talk</p>
+                <p className="hud-label text-primary-strong">Open to conversations</p>
               </div>
               <p className="text-muted-foreground text-[15px] leading-relaxed">
-                I&apos;m happy to hear from founders, recruiters, and fellow engineers. I read
-                every message.
+                Recruiters, founders, and fellow engineers all end up here. I read every message.
               </p>
             </div>
 

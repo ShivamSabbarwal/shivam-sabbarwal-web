@@ -4,6 +4,12 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 
 type Theme = "light" | "dark";
 
+const STORAGE_KEY = "shivam-sabbarwal-theme";
+const DARK_QUERY = "(prefers-color-scheme: dark)";
+
+const isTheme = (value: string | null): value is Theme => value === "light" || value === "dark";
+const systemTheme = (): Theme => (window.matchMedia(DARK_QUERY).matches ? "dark" : "light");
+
 interface ThemeContextType {
   theme: Theme;
   isHydrated: boolean;
@@ -26,28 +32,32 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     setIsHydrated(true);
-    const savedTheme = localStorage.getItem("shivam-sabbarwal-theme") as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
+    const stored = localStorage.getItem(STORAGE_KEY);
+    setThemeState(isTheme(stored) ? stored : systemTheme());
+  }, []);
+
+  // Keep following the system while the visitor has not chosen a theme here.
+  useEffect(() => {
+    const media = window.matchMedia(DARK_QUERY);
+    const onChange = (event: MediaQueryListEvent) => {
+      if (isTheme(localStorage.getItem(STORAGE_KEY))) return;
+      setThemeState(event.matches ? "dark" : "light");
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
   }, []);
 
   useEffect(() => {
     if (!isHydrated) return;
 
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-
-    localStorage.setItem("shivam-sabbarwal-theme", theme);
+    root.classList.toggle("dark", theme === "dark");
+    root.style.colorScheme = theme;
 
     const faviconHref = theme === "dark" ? "/icon-dark.svg" : "/icon-light.svg";
     let link = document.querySelector<HTMLLinkElement>("link[rel='icon'][data-theme-managed]");
@@ -65,8 +75,17 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     link.href = faviconHref;
   }, [theme, isHydrated]);
 
+  /**
+   * Only a deliberate choice is stored. Persisting on every render would pin the
+   * system value on a first visit and stop the site following it afterwards.
+   */
+  const setTheme = (next: Theme) => {
+    localStorage.setItem(STORAGE_KEY, next);
+    setThemeState(next);
+  };
+
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (

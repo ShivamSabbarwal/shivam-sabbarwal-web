@@ -15,14 +15,17 @@ interface ContactEmailProps {
   name: string;
   email: string;
   phone?: string;
+  intent: string;
   message: string;
 }
 
-export function ContactEmail({ name, email, phone, message }: ContactEmailProps) {
+export function ContactEmail({ name, email, phone, intent, message }: ContactEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>New portfolio inquiry from {name}</Preview>
+      <Preview>
+        {intent}: {name}
+      </Preview>
       <Body style={body}>
         <Container style={container}>
           <Heading style={heading}>New Contact Form Submission</Heading>
@@ -48,6 +51,11 @@ export function ContactEmail({ name, email, phone, message }: ContactEmailProps)
               </Link>
             </Section>
           )}
+
+          <Section style={section}>
+            <Text style={label}>About</Text>
+            <Text style={value}>{intent}</Text>
+          </Section>
 
           <Hr style={hr} />
 

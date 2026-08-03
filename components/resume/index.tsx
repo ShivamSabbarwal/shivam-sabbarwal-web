@@ -14,9 +14,9 @@ import { useResumeVariant } from "./useResumeVariant";
 
 /**
  * Renders the software engineering resume by default. The leadership version is
- * reachable without exposing a control: press and hold the page (works on
- * touch), double-click it, press V/E/L on a keyboard, or load `?variant=leader`.
- * Whichever version is on screen is the one that prints.
+ * reachable without exposing a control: press and hold (~1500ms, works on
+ * touch), double-click, or load `?variant=leader`. Whichever version is on
+ * screen is the one that prints.
  */
 const Resume = () => {
   const { variant, showBadge, toggle, longPressHandlers } = useResumeVariant();
@@ -43,7 +43,9 @@ const Resume = () => {
           </div>
           <MobilePrintButton />
           <p className="text-xs text-muted-foreground">
-            Printing the <span className="text-foreground font-medium">{data.label}</span> version
+            Printing the{" "}
+            <span className="text-foreground font-medium">{data.label}</span>{" "}
+            version
           </p>
         </div>
       </div>
@@ -67,7 +69,11 @@ const Resume = () => {
       </div>
 
       {showBadge && (
-        <div className="resume-variant-badge print:hidden" role="status" aria-live="polite">
+        <div
+          className="resume-variant-badge print:hidden"
+          role="status"
+          aria-live="polite"
+        >
           {data.label}
         </div>
       )}

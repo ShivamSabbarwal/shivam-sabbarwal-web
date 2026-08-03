@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import type { ResumeVariantKey } from "@/constants";
 
-const LONG_PRESS_MS = 600;
+const LONG_PRESS_MS = 1500;
 /** Cancel the hold if the finger drifts; that gesture is a scroll, not a press. */
 const DRIFT_TOLERANCE_PX = 12;
 
@@ -14,9 +14,8 @@ const isVariantKey = (value: string | null): value is ResumeVariantKey =>
 /**
  * Variant selection for the resume page.
  *
- * Every input works without a keyboard, so the leadership version is reachable
- * on a phone: press and hold, or load `?variant=leader`. Keyboard shortcuts stay
- * available on desktop as a faster path.
+ * Press and hold (~1500ms, pointer-based so it works on touch), double-click,
+ * or load `?variant=leader`. No keyboard hotkeys.
  */
 export function useResumeVariant() {
   const [variant, setVariant] = useState<ResumeVariantKey>("engineer");
@@ -30,26 +29,13 @@ export function useResumeVariant() {
   };
 
   useEffect(() => {
-    const requested = new URLSearchParams(window.location.search).get("variant");
+    const requested = new URLSearchParams(window.location.search).get(
+      "variant",
+    );
     if (isVariantKey(requested)) {
       setVariant(requested);
       setShowBadge(true);
     }
-  }, []);
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.metaKey || event.ctrlKey || event.altKey) return;
-      const key = event.key.toLowerCase();
-      if (key === "v") setVariant((c) => (c === "engineer" ? "leader" : "engineer"));
-      else if (key === "e") setVariant("engineer");
-      else if (key === "l") setVariant("leader");
-      else return;
-      setShowBadge(true);
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   useEffect(() => {
@@ -83,7 +69,10 @@ export function useResumeVariant() {
     onPointerMove: (event: ReactPointerEvent) => {
       const origin = pressOrigin.current;
       if (!origin) return;
-      const drift = Math.hypot(event.clientX - origin.x, event.clientY - origin.y);
+      const drift = Math.hypot(
+        event.clientX - origin.x,
+        event.clientY - origin.y,
+      );
       if (drift > DRIFT_TOLERANCE_PX) cancelPress();
     },
     onPointerUp: cancelPress,

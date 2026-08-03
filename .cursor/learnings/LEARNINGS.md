@@ -53,3 +53,15 @@
 - **Context**: A resume looked correct on screen while its PDF extracted headings as `E X P E R I E N C E` and stranded every bullet marker at the end of the page. Both defects are invisible visually and both break ATS parsing. Diagnosis took three wrong guesses (letter-spacing, webfont, `text-transform`) before a DOM-level A/B test showed small all-caps was the trigger.
 - **Lesson**: For any document whose real consumer is a parser (resume PDFs, invoices, exported reports), verify by extracting the output and reading it back, and treat extraction order as a requirement. When several styling properties could explain a rendering artifact, run one controlled A/B in the live DOM instead of changing properties one at a time and re-rendering.
 - **Action**: captured as a convention in `CLAUDE.md` (Conventions → "Resume styling")
+
+## 2026-08-02 — Light/dark “profile” assets usually mean project screenshots
+- **Status**: pending
+- **Context**: User asked to update outdated light/dark profile images for the new site. An agent treated the Hero `profile-pic` with theme frames. The user meant the Personal Portfolio project card screenshots under `public/assets/projects/`.
+- **Lesson**: On this site, “light and dark mode images” next to project talk almost always means theme-aware project screenshots under `public/assets/projects/`, not the Hero portrait. Confirm which asset path before generating or swapping portraits. Two follow-on traps: a Motion-animated page screenshots as near-empty unless entrance animations are neutralised (`scripts/capture.mjs --settle`), and overwriting an image in place leaves the old one cached in the browser, so rename the file when the design changes.
+- **Action**: pending
+
+## 2026-08-02 — Implement a recommendation by sharpening a surface, not adding one
+- **Status**: pending
+- **Context**: A research backlog said “surface outcomes earlier” and “lead with career case studies.” I implemented both as new blocks: an outcomes bullet list in the Timeline header and a three-card Problem/Approach/Result grid in Projects. Both restated metrics the Timeline entries already carried, so the page grew while saying the same thing three times. The user read it as clutter.
+- **Lesson**: When a recommendation says a page should communicate something better, first find the surface that already owns that fact and make it carry the weight. Adding a section is the last resort, not the default. Before shipping any new block, check what it repeats: if the same number or claim already appears elsewhere, edit the existing surface instead. Prefer replacing generic copy with specific copy, which costs zero extra height.
+- **Action**: captured as a convention in `CLAUDE.md` (Conventions → "Do not restate a metric across sections")

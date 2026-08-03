@@ -189,12 +189,14 @@ const Timeline = () => {
             Where I&apos;ve <span className="text-pop italic">Worked</span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base sm:text-lg">
-            A career spent shipping new products and untangling established systems.
+            Shipping new products and untangling established systems: 10,000+ users on Remittor
+            AI&apos;s payments platform, 65% lower data acquisition costs at Unleashd, and a 120+
+            component TypeScript migration at 3vGeomatics.
           </p>
           <div className="accent-line mx-auto mt-6 w-24" />
         </motion.header>
 
-        <div ref={railRef} className="relative">
+        <div ref={railRef} className="timeline-rail relative">
           <div className="absolute top-0 bottom-0 left-6 w-[2px] sm:left-8 lg:left-1/2 lg:-translate-x-[1px]">
             <div className="timeline-line h-full w-full" />
             <motion.div

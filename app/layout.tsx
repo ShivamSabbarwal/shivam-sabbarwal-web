@@ -4,6 +4,12 @@ import { Bricolage_Grotesque, Schibsted_Grotesk, Geist_Mono } from "next/font/go
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/lib/utils";
+import {
+  BASE_URL,
+  DEFAULT_TITLE,
+  SITE_NAME,
+  siteDescription,
+} from "@/lib/seo";
 import { Providers } from "./providers";
 import "./globals.css";
 
@@ -19,8 +25,6 @@ const bricolage = Bricolage_Grotesque({
 });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
-const BASE_URL = "https://shivamsabbarwal.dev";
-
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f1f5ec" },
@@ -31,10 +35,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Shivam Sabbarwal | Engineering Leader",
-    template: "%s | Shivam Sabbarwal",
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: `Engineering leader with ${new Date().getFullYear() - 2018}+ years shipping products and modernizing production systems.`,
+  description: siteDescription(),
   keywords: [
     "engineering leader",
     "engineering manager",
@@ -45,29 +49,28 @@ export const metadata: Metadata = {
     "TypeScript",
     "Shivam Sabbarwal",
   ],
-  authors: [{ name: "Shivam Sabbarwal" }],
+  authors: [{ name: SITE_NAME, url: BASE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    siteName: "Shivam Sabbarwal",
+    siteName: SITE_NAME,
     locale: "en_US",
-    images: [
-      {
-        url: "/assets/profile-pic.jpg",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    title: DEFAULT_TITLE,
+    description: siteDescription(),
+    url: BASE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/assets/profile-pic.jpg"],
+    title: DEFAULT_TITLE,
+    description: siteDescription(),
   },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Shivam Sabbarwal",
+    title: SITE_NAME,
   },
 };
 

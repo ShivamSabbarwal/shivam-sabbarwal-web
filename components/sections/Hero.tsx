@@ -15,6 +15,7 @@ import { LuArrowDown } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { PERSONAL, SOCIAL_ICONS } from "@/constants";
 import { DURATION, EASE_OUT, EASE_REVEAL } from "@/lib/motion";
+import { scrollToSection } from "@/lib/scroll";
 
 const PORTRAIT_MARKERS: {
   label: string;
@@ -134,10 +135,6 @@ const Hero = () => {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 55]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.78], [1, 0.12]);
 
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const handleSpotlightMove = (e: MouseEvent) => {
     spotlightCoords.current = { x: e.clientX, y: e.clientY };
     if (spotlightFrame.current) return;
@@ -214,14 +211,13 @@ const Hero = () => {
             >
               <div className="relative aspect-[3/2] w-full overflow-hidden sm:aspect-square">
                 <Image
-                  src="/assets/profile-pic.jpg"
+                  src={PERSONAL.portrait}
                   alt={`Portrait of ${PERSONAL.name}`}
                   fill
                   sizes="(max-width: 640px) 208px, (max-width: 768px) 240px, (max-width: 1024px) 272px, (max-width: 1280px) 304px, 336px"
                   className="scale-105 object-cover transition-transform duration-700 hover:scale-110"
                   priority
                 />
-                <div className="from-primary/25 pointer-events-none absolute inset-0 bg-linear-to-tr to-transparent mix-blend-multiply dark:mix-blend-screen" />
               </div>
 
               {/* Same three facts at every width: only the type scale moves. */}
@@ -290,7 +286,7 @@ const Hero = () => {
               transition={{ duration: DURATION.slow, delay: 0.1 }}
               className="eyebrow mb-3 sm:mb-4"
             >
-              {PERSONAL.title}
+              {PERSONAL.title} · platform modernization
             </motion.p>
 
             <h1 className="font-heading text-[clamp(2.75rem,8.5vw,6rem)] leading-[0.88] tracking-[-0.045em]">
@@ -350,7 +346,7 @@ const Hero = () => {
                     key={social.name}
                     href={social.url}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="me noopener noreferrer"
                     aria-label={social.name}
                     className="text-muted-foreground hover:bg-primary/15 hover:text-foreground flex h-11 w-11 items-center justify-center rounded-lg transition-colors"
                   >
