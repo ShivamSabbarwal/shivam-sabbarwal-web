@@ -8,9 +8,9 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden bg-background">
       <Navigation />
-      <main>{children}</main>
+      <main className="relative">{children}</main>
       <Footer />
     </div>
   );
